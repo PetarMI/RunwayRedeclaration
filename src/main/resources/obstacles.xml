@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ObstacleList>
+<Obstacle>
+<Name>rock</Name>
+<Length>2</Length>
+<Width>4</Width>
+<Height>7</Height>
+<Description>irregular shape</Description>
+</Obstacle>
+<Obstacle>
+<Name>car</Name>
+<Length>5</Length>
+<Width>5</Width>
+<Height>3</Height>
+<Description>used for maintenance</Description>
+</Obstacle>
+</ObstacleList>
