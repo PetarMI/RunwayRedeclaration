@@ -4,48 +4,45 @@ public class Runway {
 
 
     private String runwayId;
-    private int tora;
-    private int asda;
-    private int toda;
-    private int lda;
-    private String orientation;
-    private int position;
+    // Unsure whether we need to store these in runway, could be held in the lower strip and called from there
+    private int degree;
+    private String position;
+    private Strip lower; // Maybe rename these
+    private Strip higher;
 
-    public Runway(String runwayId, int tora, int asda, int toda, int lda, String orientation, int position) {
+    // Any way to give this less paramters? Maybe Include a strip as a parameter?
+    public Runway(String runwayId, int degree, String position, int ltora, int lasda, int ltoda, int llda, int rtora, int rasda, int rtoda, int rlda) {
         this.runwayId = runwayId;
-        this.tora = tora;
-        this.asda = asda;
-        this.toda = toda;
-        this.lda = lda;
-        this.orientation = orientation;
+        this.degree = degree;
         this.position = position;
+        this.lower = new Strip(Integer.toString(degree).concat(position), ltora, lasda, ltoda, llda);
+        String altPosition = position;
+        if(position.equals("L"))
+            altPosition = "R";
+        this.higher = new Strip(Integer.toString(degree+18).concat(altPosition), rtora, rasda, rtoda, rlda);
+    }
+
+    // Constructor that does not need a position
+    public Runway(String runwayId, int degree, int ltora, int lasda, int ltoda, int llda, int rtora, int rasda, int rtoda, int rlda) {
+        this.runwayId = runwayId;
+        this.degree = degree;
+        this.lower = new Strip(Integer.toString(degree), ltora, lasda, ltoda, llda);
+        this.higher = new Strip(Integer.toString(degree+18), rtora, rasda, rtoda, rlda);
     }
 
     public String getRunwayId() {
         return runwayId;
     }
 
-    public int getTora() {
-        return tora;
+    public Strip getLower() { return lower; }
+
+    public Strip getHigher() { return higher; }
+
+    public int getOrientation() {
+        return degree;
     }
 
-    public int getAsda() {
-        return asda;
-    }
-
-    public int getToda() {
-        return toda;
-    }
-
-    public int getLda() {
-        return lda;
-    }
-
-    public String getOrientation() {
-        return orientation;
-    }
-
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 }
