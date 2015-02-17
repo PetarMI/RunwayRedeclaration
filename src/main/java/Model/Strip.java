@@ -57,6 +57,7 @@ public class Strip {
         return reclda;
     }
 
+    //changing values based on array returned by the maths module
     public void recalculateValues(Integer[] newValues){
         this.rectora = newValues[0];
         this.recasda = newValues[1];
