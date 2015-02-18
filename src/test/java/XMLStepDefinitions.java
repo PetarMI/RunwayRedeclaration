@@ -1,4 +1,4 @@
-import Controller.XMLHelper;
+import Model.XMLHelper;
 import Model.Obstacle;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
