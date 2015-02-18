@@ -3,7 +3,6 @@ import java.awt.geom.Point2D;
 
 public class Runway {
 
-
     private String runwayId;
     // Unsure whether we need to store these in runway, could be held in the lower strip and called from there
     private int degree;
