@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import Controller.Controller;
 
 /**
  * Created by PetarMI 17.02.2015
@@ -11,6 +12,8 @@ import java.awt.*;
  */
 public class AppTempPage extends JFrame
 {
+    //reference to controller -IMPORTANT PART
+    private Controller controller;
     //choose the available airports and runways
     private JComboBox<String> airports;
     private JComboBox<String> runways;
@@ -30,7 +33,7 @@ public class AppTempPage extends JFrame
     private JTextField updatedAsda;
     private JTextField updatedLda;
 
-    public AppTempPage() 
+    public AppTempPage()
     {
         this.airports = new JComboBox<String>();
         this.runways = new JComboBox<String>();
@@ -137,5 +140,10 @@ public class AppTempPage extends JFrame
 
         this.pack();
         this.setVisible(true);
+    }
+
+    public void setController(Controller contr)
+    {
+        this.controller = contr;
     }
 }

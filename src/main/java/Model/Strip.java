@@ -1,8 +1,7 @@
 package Model;
 
-public class Strip {
-
-
+public class Strip
+{
     private String designator;
     private int tora;
     private int asda;
