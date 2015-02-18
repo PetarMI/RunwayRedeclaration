@@ -1,20 +1,21 @@
 package Model;
 
+
 public class Obstacle {
 
+    private String name, description;
+    private int height, width, length;
 
-    private String name;
-    private int width;
-    private int height;
-    private int length;
-    private String description;
 
+    /**
+    * Default constructor for an obstacle
+     */
     public Obstacle(String name, int width, int height, int length, String description) {
-        this.name = name;
+        this.name = (name == null? "Temporary Obstacle" : name);
         this.width = width;
         this.height = height;
         this.length = length;
-        this.description = description;
+        this.description = (description == null? "Temporary Description" : description);
     }
 
     public String getName() {

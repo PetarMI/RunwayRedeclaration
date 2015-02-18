@@ -1,5 +1,10 @@
 package Model;
 
+/**
+ * Represents an obstacle that can be placed on a runway
+ * @author Thomas, Metin
+ */
+
 import java.util.ArrayList;
 
 public class Airport {
@@ -12,11 +17,19 @@ public class Airport {
         this.name = name;
     }
 
+    public void addRunway (Runway runway) {
+        runways.add(runway);
+    }
+
+    public void removeRunway (Runway runway) {
+        runways.remove(runway);
+    }
+
     public ArrayList<Runway> getRunways() {
-        return runways;
+        return this.runways;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }

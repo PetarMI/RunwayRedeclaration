@@ -11,13 +11,15 @@ public class Strip
     private int recasda;
     private int rectoda;
     private int reclda;
+    private int displacedThreshold;     //The displaced portion can be used for take-off but not for landing
 
-    public Strip(String designator, int tora, int asda, int toda, int lda){
+    public Strip(String designator, int tora, int asda, int toda, int lda, int displacedThreshold){
         this.designator = designator;
         this.tora = tora;
         this.asda = asda;
         this.toda = toda;
         this.lda = lda;
+        this.displacedThreshold = displacedThreshold;
     }
 
     public String getDesignator() {
@@ -55,6 +57,8 @@ public class Strip
     public int getReclda() {
         return reclda;
     }
+
+    public int getDisplacedThreshold() {return displacedThreshold; }
 
     //changing values based on array returned by the maths module
     public void recalculateValues(Integer[] newValues){
