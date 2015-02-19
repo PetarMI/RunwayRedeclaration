@@ -6,8 +6,12 @@
         <ASDA>2</ASDA>
         <TODA>12</TODA>
         <LDA>32</LDA>
-        <Orientation>09/27</Orientation>
-        <Position>45</Position>
+        <TORA>10</TORA> // Added second set for the other strip
+        <ASDA>2</ASDA>
+        <TODA>12</TODA>
+        <LDA>32</LDA>
+        <Orientation>09</Orientation>
+        <Position>L</Position>
     </Runway>
 
     <Runway id="2">
