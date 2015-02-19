@@ -20,7 +20,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+//TODO: On import create two strips, then create runway using these two strips
 public class XMLHelper {
 
     public final static String OBSTACLE_FILE_NAME = "src/main/resources/obstacles.xml";

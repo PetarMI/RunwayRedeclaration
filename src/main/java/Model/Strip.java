@@ -2,7 +2,8 @@ package Model;
 
 public class Strip
 {
-    private String designator;
+    private int orientation;
+    private String position;
     private int tora;
     private int asda;
     private int toda;
@@ -11,19 +12,31 @@ public class Strip
     private int recasda;
     private int rectoda;
     private int reclda;
-    private int displacedThreshold;     //The displaced portion can be used for take-off but not for landing
 
-    public Strip(String designator, int tora, int asda, int toda, int lda, int displacedThreshold){
-        this.designator = designator;
+    public Strip(int orientation, int tora, int asda, int toda, int lda){
+        this.orientation = orientation;
+        this.position = ""; // Position is empty
         this.tora = tora;
         this.asda = asda;
         this.toda = toda;
         this.lda = lda;
-        this.displacedThreshold = displacedThreshold;
     }
 
-    public String getDesignator() {
-        return designator;
+    public Strip(int orientation, String position, int tora, int asda, int toda, int lda){
+        this(orientation, tora, toda, asda, lda);
+        this.position = position;
+    }
+
+    public int getOrientation(){
+        return orientation;
+    }
+
+    public String getPosition(){
+        return position;
+    }
+
+    public String getDesignator(){
+        return Integer.toString(orientation) + position;
     }
 
     public int getTora() {
@@ -58,10 +71,8 @@ public class Strip
         return reclda;
     }
 
-    public int getDisplacedThreshold() {return displacedThreshold; }
-
-    //changing values based on array returned by the maths module
-    public void recalculateValues(Integer[] newValues){
+    //TODO: Maths module inside of this? Rather than pass values into it to assign
+    public void recalculateValues(int[] newValues){
         this.rectora = newValues[0];
         this.recasda = newValues[1];
         this.rectoda = newValues[2];
