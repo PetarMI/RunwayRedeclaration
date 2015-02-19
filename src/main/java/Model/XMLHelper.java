@@ -131,7 +131,8 @@ public class XMLHelper {
         }
         return null;
     }
-
+    //TODO change ArrayList to just a List. Because we don't need to specify its an ArrayList.
+    //TODO read only the Airport names and thus return a List of Strings
     public ArrayList<Airport> readAllAirports() throws IOException, SAXException, ParserConfigurationException {
         ArrayList<Airport> airports = new ArrayList<Airport>();
         File airportDirectory = new File(AIRPORTS_DIRECTORY);
@@ -156,6 +157,7 @@ public class XMLHelper {
         }
     }
 
+    //TODO take an airport name as a string an return an airport  object - SORRY ANDREI
     public Airport readAirport(String fileName) throws ParserConfigurationException, IOException, SAXException {
 
         File file = new File(AIRPORTS_DIRECTORY + File.separator + fileName);

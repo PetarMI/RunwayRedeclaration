@@ -6,6 +6,7 @@ package Model;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Airport {
 
@@ -25,11 +26,33 @@ public class Airport {
         runways.remove(runway);
     }
 
+    //TODO review necessity of method
     public ArrayList<Runway> getRunways() {
         return this.runways;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public List<String> getRunwayIds() {
+        List<String> runways = new ArrayList<String>();
+        for (Runway r : this.runways){
+            runways.add(r.getRunwayId());
+        }
+
+        return runways;
+    }
+
+    //not possible to pass an inexistent runway ID
+    //user picks from combobox populated with getRunwayIds()
+    public Runway getRunway(String runwayId){
+        for (Runway r : this.runways) {
+            if (r.getRunwayId().equals(runwayId)) {
+                return r;
+            }
+        }
+
+        return null;
     }
 }
