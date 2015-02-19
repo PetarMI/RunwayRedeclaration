@@ -15,7 +15,7 @@ public class Strip
 
     public Strip(int orientation, int tora, int asda, int toda, int lda){
         this.orientation = orientation;
-        this.position = ""; // Position is empty
+        this.position = ""; // Position is empty?
         this.tora = tora;
         this.asda = asda;
         this.toda = toda;
