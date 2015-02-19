@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Model;
 
 /**
  * Created by PetarMI on 17.02.2015
@@ -8,7 +7,6 @@ import Model.Model;
  */
 public class Controller
 {
-    private Model model;
 
     public Controller() { };
 }
