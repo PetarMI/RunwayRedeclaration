@@ -20,7 +20,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//TODO: On import create two strips, then create runway using these two strips
 public class XMLHelper {
 
     public final static String OBSTACLE_FILE_NAME = "src/main/resources/obstacles.xml";
@@ -183,7 +182,8 @@ public class XMLHelper {
                 int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
                 String orientation = element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent();
                 int position = Integer.valueOf(element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent());
-                runways.add(new Runway(runwayId, tora, asda, toda, lda, orientation, position));
+                //TODO: On import create two strips, then create runway using these two strips
+                //runways.add(new Runway(runwayId, tora, asda, toda, lda, orientation, position));
             }
         }
 
