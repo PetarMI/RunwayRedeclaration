@@ -13,18 +13,14 @@ public class Strip
     private int rectoda;
     private int reclda;
 
-    public Strip(int orientation, int tora, int asda, int toda, int lda){
+
+    public Strip(int orientation, String position, int tora, int asda, int toda, int lda) {
+        this.position = position;
         this.orientation = orientation;
-        this.position = ""; // Position is empty?
         this.tora = tora;
         this.asda = asda;
         this.toda = toda;
         this.lda = lda;
-    }
-
-    public Strip(int orientation, String position, int tora, int asda, int toda, int lda){
-        this(orientation, tora, toda, asda, lda);
-        this.position = position;
     }
 
     public int getOrientation(){

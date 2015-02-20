@@ -45,11 +45,12 @@ public class XMLHelper {
     public final static String RUNWAY_POSITION = "Position";
 
 
+    public XMLHelper() {
+    }
+
     public static void main (String []args){
         new XMLHelper();
     }
-
-    public XMLHelper(){}
 
     public boolean createObstacleXML(ArrayList<Obstacle> obs) {
 
@@ -133,8 +134,8 @@ public class XMLHelper {
     }
     //TODO change ArrayList to just a List. Because we don't need to specify its an ArrayList.
     //TODO read only the Airport names and thus return a List of Strings
-    public ArrayList<Airport> readAllAirports() throws IOException, SAXException, ParserConfigurationException {
-        ArrayList<Airport> airports = new ArrayList<Airport>();
+    public ArrayList<String> readAllAirports() throws IOException, SAXException, ParserConfigurationException {
+        ArrayList<String> airportsNames = new ArrayList<String>();
         File airportDirectory = new File(AIRPORTS_DIRECTORY);
 
         if(airportDirectory.exists() && airportDirectory.isDirectory()){
@@ -146,10 +147,10 @@ public class XMLHelper {
                 }});
 
             for(File f : xmlFiles){
-                airports.add(readAirport(f.getName()));
+                airportsNames.add(f.getName().split(".xml")[0]);
             }
 
-            return airports;
+            return airportsNames;
         }
         else {
             airportDirectory.mkdirs();
@@ -178,14 +179,26 @@ public class XMLHelper {
 
                 Element element = (Element) currentNode;
                 String runwayId = element.getAttribute(RUNWAY_ID);
-                int tora = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
-                int asda = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
-                int toda = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
-                int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
-                String orientation = element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent();
-                int position = Integer.valueOf(element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent());
+                int tora1 = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
+                int tora2 = Integer.valueOf(element.getElementsByTagName(TORA).item(1).getTextContent());
+                int asda1 = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
+                int asda2 = Integer.valueOf(element.getElementsByTagName(ASDA).item(1).getTextContent());
+                int toda1 = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
+                int toda2 = Integer.valueOf(element.getElementsByTagName(TODA).item(1).getTextContent());
+                int lda1 = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
+                int lda2 = Integer.valueOf(element.getElementsByTagName(LDA).item(1).getTextContent());
+                String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
+                int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
                 //TODO: On import create two strips, then create runway using these two strips
                 //runways.add(new Runway(runwayId, tora, asda, toda, lda, orientation, position));
+                Strip strip1 = new Strip(orientation, position, tora1, asda1, toda1, lda1);
+                if (position.equals("L")) {
+                    position = "R";
+                } else {
+                    position = "L";
+                }
+                Strip strip2 = new Strip(orientation + 18, position, tora2, asda2, toda2, lda2);
+                runways.add(new Runway(strip1, strip2));
             }
         }
 
