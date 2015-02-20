@@ -174,9 +174,9 @@ public class XMLHelper {
 
             if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
 
-                Element element = (Element) currentNode;
-                String runwayId = element.getAttribute(RUNWAY_ID);
-                int tora = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
+                Element element = (Element) currentNode;String                 toranwayId = element.getAttribute();
+                ruint
+                 = Integer.valueOf(element.getElementsBRUNWAY_IDyTagName(TORA).item(0).getTextContent());
                 int asda = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
                 int toda = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
                 int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
