@@ -132,8 +132,7 @@ public class XMLHelper {
         }
         return null;
     }
-    //TODO change ArrayList to just a List. Because we don't need to specify its an ArrayList.
-    //TODO read only the Airport names and thus return a List of Strings
+
     public ArrayList<String> readAllAirports() throws IOException, SAXException, ParserConfigurationException {
         ArrayList<String> airportsNames = new ArrayList<String>();
         File airportDirectory = new File(AIRPORTS_DIRECTORY);
@@ -158,7 +157,6 @@ public class XMLHelper {
         }
     }
 
-    //TODO take an airport name as a string an return an airport  object - SORRY ANDREI
     public Airport readAirport(String fileName) throws ParserConfigurationException, IOException, SAXException {
 
         File file = new File(AIRPORTS_DIRECTORY + File.separator + fileName);
@@ -189,8 +187,6 @@ public class XMLHelper {
                 int lda2 = Integer.valueOf(element.getElementsByTagName(LDA).item(1).getTextContent());
                 String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
                 int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
-                //TODO: On import create two strips, then create runway using these two strips
-                //runways.add(new Runway(runwayId, tora, asda, toda, lda, orientation, position));
                 Strip strip1 = new Strip(orientation, position, tora1, asda1, toda1, lda1);
                 if (position.equals("L")) {
                     position = "R";
