@@ -15,11 +15,16 @@
     </Runway>
 
     <Runway id="2">
-        <TORA>12</TORA>
-        <ASDA>22</ASDA>
+        <TORA>10</TORA>
+        <ASDA>2</ASDA>
         <TODA>12</TODA>
         <LDA>32</LDA>
-        <Orientation>0921</Orientation>
-        <Position>233</Position>
+        <TORA>10</TORA>
+        // Added second set for the other strip
+        <ASDA>2</ASDA>
+        <TODA>12</TODA>
+        <LDA>32</LDA>
+        <Orientation>09</Orientation>
+        <Position>L</Position>
     </Runway>
 </Airport>
