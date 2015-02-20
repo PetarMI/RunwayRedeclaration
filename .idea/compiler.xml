@@ -24,7 +24,9 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="cucumber-itake-unconference-2014" />
+        <module name="SEG" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.7" />
   </component>
 </project>

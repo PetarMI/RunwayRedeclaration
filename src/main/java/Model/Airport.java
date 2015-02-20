@@ -55,4 +55,12 @@ public class Airport {
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "runways=" + runways +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

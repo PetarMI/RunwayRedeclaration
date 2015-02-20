@@ -12,9 +12,10 @@ public class Strip
     private int recasda;
     private int rectoda;
     private int reclda;
+    private String stripId;
 
-
-    public Strip(int orientation, String position, int tora, int asda, int toda, int lda) {
+    public Strip(String stripId, int orientation, String position, int tora, int asda, int toda, int lda) {
+        this.stripId = stripId;
         this.position = position;
         this.orientation = orientation;
         this.tora = tora;
@@ -73,5 +74,18 @@ public class Strip
         this.recasda = newValues[1];
         this.rectoda = newValues[2];
         this.reclda = newValues[3];
+    }
+
+    @Override
+    public String toString() {
+        return "Strip{" +
+                "orientation=" + orientation +
+                ", position='" + position + '\'' +
+                ", tora=" + tora +
+                ", asda=" + asda +
+                ", toda=" + toda +
+                ", lda=" + lda +
+                ", stripId='" + stripId + '\'' +
+                '}';
     }
 }

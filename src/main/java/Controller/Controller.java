@@ -25,7 +25,7 @@ public class Controller {
         loadAirports();
     }
 
-    ;
+
 
 
     public void setAirport(String airportName){

@@ -31,12 +31,12 @@ public class XMLHelper {
     public final static String OBSTACLE_LIST = "ObstacleList";
     public final static String OBSTACLE_ELEMENT = "Obstacle";
 
-
+    public static final String STRIP = "Strip";
     public final static String AIRPORTS_DIRECTORY = "src/main/resources/Airports";
     public final static String AIRPORT = "Airport";
     public final static String AIRPORT_ATTR_NAME = "name";
     public final static String RUNWAY = "Runway";
-    public final static String RUNWAY_ID = "id";
+    public final static String ID = "id";
     public final static String TORA = "TORA";
     public final static String ASDA ="ASDA";
     public final static String TODA = "TODA";
@@ -46,10 +46,22 @@ public class XMLHelper {
 
 
     public XMLHelper() {
+        try {
+            Airport a = this.readAirport("airport1.xml");
+            System.out.println(a.toString());
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main (String []args){
         new XMLHelper();
+        System.out.print("dute-n plm");
     }
 
     public boolean createObstacleXML(ArrayList<Obstacle> obs) {
@@ -169,36 +181,35 @@ public class XMLHelper {
         String airportName = ((Element) doc.getElementsByTagName(AIRPORT).item(0)).getAttribute(AIRPORT_ATTR_NAME);
         NodeList nodeList = doc.getElementsByTagName(RUNWAY);
 
-
         for (int s = 0; s < nodeList.getLength(); s++) {
             Node currentNode = nodeList.item(s);
 
             if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
 
-                Element element = (Element) currentNode;
-                String runwayId = element.getAttribute(RUNWAY_ID);
-                int tora1 = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
-                int tora2 = Integer.valueOf(element.getElementsByTagName(TORA).item(1).getTextContent());
-                int asda1 = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
-                int asda2 = Integer.valueOf(element.getElementsByTagName(ASDA).item(1).getTextContent());
-                int toda1 = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
-                int toda2 = Integer.valueOf(element.getElementsByTagName(TODA).item(1).getTextContent());
-                int lda1 = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
-                int lda2 = Integer.valueOf(element.getElementsByTagName(LDA).item(1).getTextContent());
-                String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
-                int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
-                Strip strip1 = new Strip(orientation, position, tora1, asda1, toda1, lda1);
-                if (position.equals("L")) {
-                    position = "R";
-                } else {
-                    position = "L";
-                }
-                Strip strip2 = new Strip(orientation + 18, position, tora2, asda2, toda2, lda2);
-                runways.add(new Runway(strip1, strip2));
+                Element element = ((Element) currentNode);
+                String runwayId = element.getAttribute(ID);
+                NodeList stripList = element.getElementsByTagName(STRIP);
+                //Two strips for each runway in XML
+                runways.add(new Runway(runwayId, this.getStrip(stripList.item(0)), this.getStrip(stripList.item(1))));
             }
         }
-
         return new Airport(runways, airportName);
+    }
 
+    private Strip getStrip(Node stripNode){
+
+        if (stripNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) stripNode;
+                String stripId = element.getAttribute(ID);
+                int tora = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
+                int asda = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
+                int toda = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
+                int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
+                String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
+                int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
+                Strip strip = new Strip(stripId, orientation, position, tora, asda, toda, lda);
+            return strip;
+            }
+        else return null;
     }
 }
