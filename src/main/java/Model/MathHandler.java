@@ -13,20 +13,22 @@ public class MathHandler
 
     private Runway runway;
     private Integer obstacleHeight;
-    private Values recalculatedValues;
+    private Values recalculatedValuesStrip1;
+    private Values recalculatedValuesStrip2;
 
     public MathHandler(Runway runway) {
         this.runway = runway;
         this.obstacleHeight = null;
-        this.recalculatedValues = null;
+        this.recalculatedValuesStrip1 = null;
+        this.recalculatedValuesStrip2 = null;
     };
 
     //TODO consider if no exception
-    public void recalculateValues(int obstHeight){
+    public Pair<Values, Values> recalculateValues(int obstHeight){
         if (runway.getObstacleDistanceFromCentreline() > CENTRELINE_THRESHOLD &&
                 runway.getObstaclePosition() > STRIPEND_THRESHOLD){
             //TODO maybe throw custom exception saying we don't have an obstacle and values are the same
-            return;
+            return null;
         }
 
         this.obstacleHeight = obstHeight;
@@ -35,16 +37,16 @@ public class MathHandler
         int position = runway.getObstaclePosition();
 
         //recalculate values for strip 1
-        recalculatedValues = calculateTakeOff(originalValues, position);
-        recalculatedValues.setLda(calculateLanding(originalValues, position));
-        runway.getStrip1().setRecVal(recalculatedValues);
+        recalculatedValuesStrip1 = calculateTakeOff(originalValues, position);
+        recalculatedValuesStrip2.setLda(calculateLanding(originalValues, position));
 
         originalValues = this.runway.getStrip2().getOrigVal();
         position = originalValues.getTora() - runway.getObstaclePosition();
 
-        recalculatedValues = calculateTakeOff(originalValues, position);
-        recalculatedValues.setLda(calculateLanding(originalValues, position));
-        runway.getStrip2().setRecVal(recalculatedValues);
+        recalculatedValuesStrip2 = calculateTakeOff(originalValues, position);
+        recalculatedValuesStrip2.setLda(calculateLanding(originalValues, position));
+
+        return new Pair<Values, Values>(recalculatedValuesStrip1, recalculatedValuesStrip2);
     }
 
     private Values calculateTakeOff(Values stripValues, int position){
