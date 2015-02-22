@@ -199,17 +199,18 @@ public class XMLHelper {
     private Strip getStrip(Node stripNode){
 
         if (stripNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) stripNode;
-                String stripId = element.getAttribute(ID);
-                int tora = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
-                int asda = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
-                int toda = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
-                int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
-                String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
-                int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
-                Strip strip = new Strip(stripId, orientation, position, tora, asda, toda, lda);
+            Element element = (Element) stripNode;
+            String stripId = element.getAttribute(ID);
+            int tora = Integer.valueOf(element.getElementsByTagName(TORA).item(0).getTextContent());
+            int asda = Integer.valueOf(element.getElementsByTagName(ASDA).item(0).getTextContent());
+            int toda = Integer.valueOf(element.getElementsByTagName(TODA).item(0).getTextContent());
+            int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
+            Values values = new Values(tora, asda, toda, lda);
+            String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
+            int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
+            Strip strip = new Strip(stripId, orientation, position, values);
             return strip;
-            }
+        }
         else return null;
     }
 }
