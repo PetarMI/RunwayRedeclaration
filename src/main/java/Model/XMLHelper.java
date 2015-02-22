@@ -46,17 +46,6 @@ public class XMLHelper {
 
 
     public XMLHelper() {
-        try {
-            Airport a = this.readAirport("airport1.xml");
-            System.out.println(a.toString());
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void main (String []args){
