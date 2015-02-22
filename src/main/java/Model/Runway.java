@@ -8,6 +8,7 @@ public class Runway
     private Strip strip2;
 
     public Runway(String runwayId, Strip strip1, Strip strip2) {
+        this.runwayId = runwayId;
         this.strip1 = strip1;
         this.strip2 = strip2;
     }
