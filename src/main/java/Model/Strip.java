@@ -31,7 +31,6 @@ public class Strip
     }
 
     public Values getOrigVal() {
-
         return origVal;
     }
 

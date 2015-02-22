@@ -7,13 +7,18 @@ public class Runway
     private Strip strip1;
     private Strip strip2;
     private Obstacle obstacle;
-    private int obstaclePosition;
+    private Integer obstaclePosition;
+    private Integer distanceFromCentreline;
+    private MathHandler mathHandler;
 
     public Runway(String runwayId, Strip strip1, Strip strip2) {
         this.runwayId = runwayId;
         this.strip1 = strip1;
         this.strip2 = strip2;
         this.obstacle = null;
+        this.obstaclePosition = null;
+        this.distanceFromCentreline = null;
+        this.mathHandler = new MathHandler(this);
     }
 
     public String getRunwayId() {
@@ -24,9 +29,23 @@ public class Runway
 
     public Strip getStrip2() { return strip2; }
 
-    public void addObstacle(Obstacle obst, int pos){
-        this.obstacle = obst;
-        this.obstaclePosition = pos;
+    public void addObstacle(Obstacle obstacle, int obstaclePosition, int distanceFromCentreline){
+        this.obstacle = obstacle;
+        this.obstaclePosition = obstaclePosition;
+        this.distanceFromCentreline = distanceFromCentreline;
+    }
+
+    //TODO pass blast allowance
+    public void recalculateValues() {
+        this.mathHandler.recalculateValues(this.obstacle.getHeight());
+    }
+
+    public int getObstaclePosition(){
+        return this.obstaclePosition;
+    }
+
+    public int getObstacleDistanceFromCentreline(){
+        return this.distanceFromCentreline;
     }
 
     @Override
