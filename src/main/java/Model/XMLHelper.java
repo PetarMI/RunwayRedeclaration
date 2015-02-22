@@ -61,7 +61,6 @@ public class XMLHelper {
 
     public static void main (String []args){
         new XMLHelper();
-        System.out.print("dute-n plm");
     }
 
     public boolean createObstacleXML(ArrayList<Obstacle> obs) {

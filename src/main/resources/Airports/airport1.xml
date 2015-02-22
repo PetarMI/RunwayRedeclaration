@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Airport name="Heathrow">
 
-    <Runway id="09/27">
+    <Runway id="09L/27R">
         <Strip id="09L">
             <TORA>10</TORA>
             <ASDA>2</ASDA>
