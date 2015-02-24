@@ -38,7 +38,7 @@ public class MathHandler
 
         //recalculate values for strip 1
         recalculatedValuesStrip1 = calculateTakeOff(originalValues, position);
-        recalculatedValuesStrip2.setLda(calculateLanding(originalValues, position));
+        recalculatedValuesStrip1.setLda(calculateLanding(originalValues, position));
 
         originalValues = this.runway.getStrip2().getOrigVal();
         position = originalValues.getTora() - runway.getObstaclePosition();
