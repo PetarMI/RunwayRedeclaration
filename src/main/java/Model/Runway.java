@@ -38,8 +38,8 @@ public class Runway
     //TODO pass blast allowance
     public void recalculateValues() {
         Pair<Values, Values> recVals = this.mathHandler.recalculateValues(this.obstacle.getHeight());
-        this.strip1.setRecVal(recVals.getStrip1());
-        this.strip2.setRecVal(recVals.getStrip2());
+        this.strip1.setRecVal(recVals.getValue1());
+        this.strip2.setRecVal(recVals.getValue2());
     }
 
     public int getObstaclePosition(){

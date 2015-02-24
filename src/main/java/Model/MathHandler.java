@@ -11,6 +11,11 @@ public class MathHandler
     private final static int BLAST_PROTECTION_VALUE = 300;
     private final static int RESA = 240;
 
+    private static final String LAND_OVER = "Land over";
+    private static final String LAND_TOWARDS = "Land towards";
+    private static final String TAKEOFF_AWAY = "TakeOff Away";
+    private static final String TAKEOFF_TOWARDS = "TakeOff Towards";
+
     private Runway runway;
     private Integer obstacleHeight;
     private Values recalculatedValuesStrip1;
@@ -36,15 +41,22 @@ public class MathHandler
         Values originalValues = this.runway.getStrip1().getOrigVal();
         int position = runway.getObstaclePosition();
 
-        //recalculate values for strip 1
+        //recalculate TORA, TODA, ASDA for strip 1
         recalculatedValuesStrip1 = calculateTakeOff(originalValues, position);
-        recalculatedValuesStrip1.setLda(calculateLanding(originalValues, position));
+        //get the LDA and way of landing
+        Pair<Integer, String> landing = calculateLanding(originalValues, position);
+        recalculatedValuesStrip1.setLda(landing.getValue1());
+        recalculatedValuesStrip1.setLanding(landing.getValue2());
 
         originalValues = this.runway.getStrip2().getOrigVal();
         position = originalValues.getTora() - runway.getObstaclePosition();
 
+        //recalculate TORA, TODA, ASDA for strip 12
         recalculatedValuesStrip2 = calculateTakeOff(originalValues, position);
-        recalculatedValuesStrip2.setLda(calculateLanding(originalValues, position));
+        //get new LDA and way of landing
+        landing = calculateLanding(originalValues, position);
+        recalculatedValuesStrip2.setLda(landing.getValue1());
+        recalculatedValuesStrip2.setLanding(landing.getValue2());
 
         return new Pair<Values, Values>(recalculatedValuesStrip1, recalculatedValuesStrip2);
     }
@@ -53,9 +65,11 @@ public class MathHandler
         Values takeOffAway = this.takeOffAway(stripValues, position);
         Values takeOffTowards = this.takeOffTowards(stripValues, position);
         if (takeOffAway.getTora() > takeOffTowards.getTora()){
+            takeOffAway.setTakeoff(TAKEOFF_AWAY);
             return takeOffAway;
         }
         else {
+            takeOffTowards.setTakeoff(TAKEOFF_TOWARDS);
             return takeOffTowards;
         }
     }
@@ -76,8 +90,16 @@ public class MathHandler
         return new Values(tempTora, tempTora, tempTora, 0);
     }
 
-    private int calculateLanding(Values stripValues, int position) {
-        return Math.max(landOver(stripValues, position), landTowards(stripValues, position));
+    private Pair<Integer, String> calculateLanding(Values stripValues, int position) {
+        int landOver = landOver(stripValues, position);
+        int landTowards = landTowards(stripValues, position);
+
+        if (landOver >= landTowards){
+           return new Pair<Integer, String>(landOver, LAND_OVER);
+        }
+        else {
+            return new Pair<Integer, String>(landTowards, LAND_TOWARDS);
+        }
     }
 
     private int landOver(Values stripValues, int position) {

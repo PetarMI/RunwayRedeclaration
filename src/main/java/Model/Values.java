@@ -6,6 +6,8 @@ public class Values {
     private int toda;
     private int lda;
     private int threshold;
+    private String landing;
+    private String takeoff;
 
     public Values(int tora, int asda, int toda, int lda) {
         this.tora = tora;
@@ -32,6 +34,18 @@ public class Values {
     }
 
     public void setLda (int lda) { this.lda = lda; }
+
+    public String getLanding() { return this.landing; }
+
+    public String getTakeoff() { return this.takeoff; }
+
+    public void setLanding(String landing){
+        this.landing = landing;
+    }
+
+    public void setTakeoff(String takeoff){
+        this.takeoff = takeoff;
+    }
 
     public int getThreshold() { return this.threshold; }
 
