@@ -25,9 +25,6 @@ public class Controller {
         loadAirports();
     }
 
-
-
-
     public void setAirport(String airportName){
         try {
             this.airport = this.xmlHelper.readAirport(airportName);
