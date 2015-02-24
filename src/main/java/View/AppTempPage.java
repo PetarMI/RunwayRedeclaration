@@ -3,6 +3,10 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import Controller.Controller;
+import Model.Obstacle;
+import Model.Runway;
+import Model.Strip;
+import Model.Values;
 
 /**
  * Created by PetarMI 17.02.2015
@@ -68,8 +72,28 @@ public class AppTempPage extends JFrame
 
     public static void main(String[] args)
     {
-        AppTempPage atp = new AppTempPage();
-        atp.init();
+        /*AppTempPage atp = new AppTempPage();
+        atp.init();*/
+
+        /*Values str1Vals = new Values(3902, 3902, 3902, 3595);
+        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals);
+
+        Values str2Vals = new Values(3884, 3962, 3884, 3884);
+        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);*/
+
+        Values str1Vals = new Values(3660, 3660, 3660, 3353);
+        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals);
+
+        Values str2Vals = new Values(3660, 3660, 3660, 3660);
+        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);
+
+        Runway runway = new Runway("09L/27R", str1, str2);
+        runway.addObstacle(new Obstacle("b", 1, 15, 1, "b"), 456, 60);
+        runway.recalculateValues();
+        System.out.println(str1.getOrigVal().toString());
+        System.out.println(str1.getRecVal().toString());
+        System.out.println(str2.getOrigVal().toString());
+        System.out.println(str2.getRecVal().toString());
     }
 
     public void init()

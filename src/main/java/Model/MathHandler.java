@@ -75,10 +75,9 @@ public class MathHandler
     }
 
     private Values takeOffAway(Values stripValues, int position){
-        int tempTora = stripValues.getTora() - Math.max(BLAST_PROTECTION_VALUE, RESA + STRIPEND_THRESHOLD)
-                - (stripValues.getThreshold() - position );
-        int tempAsda = stripValues.getTora() + stripValues.getAsda() - stripValues.getTora();
-        int tempToda = stripValues.getTora() + stripValues.getToda() - stripValues.getTora();
+        int tempTora = stripValues.getTora() - Math.max(BLAST_PROTECTION_VALUE, RESA + STRIPEND_THRESHOLD) - position;
+        int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
+        int tempToda = tempTora + stripValues.getToda() - stripValues.getTora();
 
         return new Values(tempTora, tempAsda, tempToda, 0);
     }
@@ -102,12 +101,13 @@ public class MathHandler
         }
     }
 
-    private int landOver(Values stripValues, int position) {
-        return (stripValues.getLda() - position - STRIPEND_THRESHOLD -
+    private int landOver(Values originalStripValues, int position) {
+        int lda = (originalStripValues.getTora() - position - STRIPEND_THRESHOLD -
                 Math.max(Math.max(RESA, BLAST_PROTECTION_VALUE), this.obstacleHeight*50));
+        return Math.min(originalStripValues.getLda(), lda);
     }
 
-    private int landTowards(Values stripValues, int position) {
-        return (stripValues.getLda() - position - STRIPEND_THRESHOLD - RESA);
+    private int landTowards(Values originalStripValues, int position) {
+        return (position - STRIPEND_THRESHOLD - RESA - originalStripValues.getThreshold());
     }
 }
