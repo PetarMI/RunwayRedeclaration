@@ -44,4 +44,19 @@ public class Values {
                 ", lda=" + lda +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Values values = (Values) o;
+
+        if (asda != values.asda) return false;
+        if (lda != values.lda) return false;
+        if (toda != values.toda) return false;
+        if (tora != values.tora) return false;
+
+        return true;
+    }
 }
