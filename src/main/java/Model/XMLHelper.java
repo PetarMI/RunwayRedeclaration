@@ -127,7 +127,6 @@ public class XMLHelper {
                     int obsHeight = Integer.valueOf(element.getElementsByTagName(OBSTACLE_HEIGHT).item(0).getTextContent());
                     int obsLength =  Integer.valueOf(element.getElementsByTagName(OBSTACLE_LENGTH).item(0).getTextContent());
                     String obsDescr = element.getElementsByTagName(OBSTACLE_DESCRIPTION).item(0).getTextContent();
-                    //TODO: add threshold
                     obsList.add(new Obstacle(obsName, obsWidth, obsHeight, obsLength, obsDescr));
                 }
             }
