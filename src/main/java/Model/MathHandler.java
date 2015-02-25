@@ -28,34 +28,36 @@ public class MathHandler
         this.recalculatedValuesStrip2 = null;
     };
 
-    //TODO consider if no exception
+    //TODO for now return original values if there is no obstacle
     public Pair<Values, Values> recalculateValues(int obstHeight, int blastProtection){
+
         if (runway.getObstacleDistanceFromCentreline() > CENTRELINE_THRESHOLD &&
-                runway.getObstaclePosition() > STRIPEND_THRESHOLD){
+                (((runway.getStrip1().getDisplacedThreshold() + STRIPEND_THRESHOLD + runway.getPositionFromLeftDT()) < 0) ||
+                        ((runway.getStrip2().getDisplacedThreshold() + STRIPEND_THRESHOLD + runway.getPositionFromRightDT()) < 0))){
             //TODO maybe throw custom exception saying we don't have an obstacle and values are the same
-            return null;
+            return new Pair<Values, Values>(this.runway.getStrip1().getOrigVal(), this.runway.getStrip2().getOrigVal());
         }
 
         this.obstacleHeight = obstHeight;
         this.aircraftBlastProtection = blastProtection;
 
         Values originalValues = this.runway.getStrip1().getOrigVal();
-        int position = runway.getObstaclePosition();
+        int positionFromLeft = runway.getPositionFromLeftDT();
+        int positionFromRight = runway.getPositionFromRightDT();
 
         //recalculate TORA, TODA, ASDA for strip 1
-        recalculatedValuesStrip1 = calculateTakeOff(originalValues, position);
+        recalculatedValuesStrip1 = calculateTakeOff(originalValues, positionFromLeft);
         //get the LDA and way of landing
-        Pair<Integer, String> landing = calculateLanding(originalValues, position);
+        Pair<Integer, String> landing = calculateLanding(originalValues, positionFromLeft);
         recalculatedValuesStrip1.setLda(landing.getValue1());
         recalculatedValuesStrip1.setLanding(landing.getValue2());
 
         originalValues = this.runway.getStrip2().getOrigVal();
-        position = originalValues.getTora() - runway.getObstaclePosition();
 
         //recalculate TORA, TODA, ASDA for strip 12
-        recalculatedValuesStrip2 = calculateTakeOff(originalValues, position);
+        recalculatedValuesStrip2 = calculateTakeOff(originalValues, positionFromRight);
         //get new LDA and way of landing
-        landing = calculateLanding(originalValues, position);
+        landing = calculateLanding(originalValues, positionFromRight);
         recalculatedValuesStrip2.setLda(landing.getValue1());
         recalculatedValuesStrip2.setLanding(landing.getValue2());
 

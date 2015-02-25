@@ -5,13 +5,15 @@ public class Strip
     private int orientation;
     private String position;
     private Values origVal, recVal;
+    private final int displacedThreshold;
     private String stripId;
 
-    public Strip(String stripId, int orientation, String position,Values origVal) {
+    public Strip(String stripId, int orientation, String position,Values origVal, int displacedThreshold) {
         this.stripId = stripId;
         this.position = position;
         this.orientation = orientation;
         this.origVal = origVal;
+        this.displacedThreshold = displacedThreshold;
     }
 
     public int getOrientation(){
@@ -33,6 +35,8 @@ public class Strip
     public Values getOrigVal() {
         return origVal;
     }
+
+    public int getDisplacedThreshold() { return this.displacedThreshold; }
 
     public Values getRecVal() {
         return recVal;

@@ -7,7 +7,8 @@ public class Runway
     private Strip strip1;
     private Strip strip2;
     private Obstacle obstacle;
-    private Integer obstaclePosition;
+    private Integer positionFromLeftDT;
+    private Integer positionFromRightDT;
     private Integer distanceFromCentreline;
     private MathHandler mathHandler;
 
@@ -16,7 +17,8 @@ public class Runway
         this.strip1 = strip1;
         this.strip2 = strip2;
         this.obstacle = null;
-        this.obstaclePosition = null;
+        this.positionFromLeftDT = null;
+        this.positionFromRightDT = null;
         this.distanceFromCentreline = null;
         this.mathHandler = new MathHandler(this);
     }
@@ -29,9 +31,11 @@ public class Runway
 
     public Strip getStrip2() { return strip2; }
 
-    public void addObstacle(Obstacle obstacle, int obstaclePosition, int distanceFromCentreline){
+    public void addObstacle(Obstacle obstacle, int obstaclePositionFromLeft,
+            int obstaclePositionFromRight, int distanceFromCentreline){
         this.obstacle = obstacle;
-        this.obstaclePosition = obstaclePosition;
+        this.positionFromLeftDT = obstaclePositionFromLeft;
+        this.positionFromRightDT = obstaclePositionFromRight;
         this.distanceFromCentreline = distanceFromCentreline;
     }
 
@@ -43,8 +47,12 @@ public class Runway
         this.strip2.setRecVal(recVals.getValue2());
     }
 
-    public int getObstaclePosition(){
-        return this.obstaclePosition;
+    public int getPositionFromLeftDT(){
+        return this.positionFromLeftDT;
+    }
+
+    public int getPositionFromRightDT(){
+        return this.positionFromRightDT;
     }
 
     public int getObstacleDistanceFromCentreline(){
