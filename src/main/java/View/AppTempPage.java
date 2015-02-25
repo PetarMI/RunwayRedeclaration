@@ -90,7 +90,7 @@ public class AppTempPage extends JFrame
 
         Runway runway = new Runway("09L/27R", str1, str2);
         runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0);
-//        runway.recalculateValues();
+        runway.recalculateValues(300);
         System.out.println(str1.getOrigVal().toString());
         System.out.println(str1.getRecVal().toString());
         System.out.println(str2.getOrigVal().toString());
