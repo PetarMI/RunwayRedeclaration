@@ -5,7 +5,6 @@ public class Values {
     private int asda;
     private int toda;
     private int lda;
-    private int threshold;
     private String landing;
     private String takeoff;
 
@@ -14,7 +13,6 @@ public class Values {
         this.asda = asda;
         this.toda = toda;
         this.lda = lda;
-        this.threshold = this.tora - this. lda;
     }
 
     public int getTora() {
@@ -46,8 +44,6 @@ public class Values {
     public void setTakeoff(String takeoff){
         this.takeoff = takeoff;
     }
-
-    public int getThreshold() { return this.threshold; }
 
     @Override
     public String toString() {

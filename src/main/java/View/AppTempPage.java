@@ -76,20 +76,20 @@ public class AppTempPage extends JFrame
         /*AppTempPage atp = new AppTempPage();
         atp.init();*/
 
-        /*Values str1Vals = new Values(3902, 3902, 3902, 3595);
-        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals);
+        Values str1Vals = new Values(3902, 3902, 3902, 3595);
+        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals, 306);
 
         Values str2Vals = new Values(3884, 3962, 3884, 3884);
-        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);*/
+        Strip str2 = new Strip("jfglks", 27, "R", str2Vals, 0);
 
-        Values str1Vals = new Values(3660, 3660, 3660, 3353);
+        /*Values str1Vals = new Values(3660, 3660, 3660, 3353);
         Strip str1 = new Strip("09L/27R", 9, "L", str1Vals);
 
         Values str2Vals = new Values(3660, 3660, 3660, 3660);
-        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);
+        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);*/
 
         Runway runway = new Runway("09L/27R", str1, str2);
-        runway.addObstacle(new Obstacle("b", 1, 15, 1, "b"), 456, 60);
+        runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0);
 //        runway.recalculateValues();
         System.out.println(str1.getOrigVal().toString());
         System.out.println(str1.getRecVal().toString());
