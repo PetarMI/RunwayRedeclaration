@@ -2,21 +2,45 @@
 <Airport name="Heathrow">
 
     <Runway id="09L/27R">
-        <Strip id="08L">
-            <TORA>10</TORA>
-            <ASDA>2</ASDA>
-            <TODA>12</TODA>
-            <LDA>32</LDA>
+        <Strip id="09L">
+            <TORA>3902</TORA>
+            <ASDA>3902</ASDA>
+            <TODA>3902</TODA>
+            <LDA>3595</LDA>
+            <Threshold>306</Threshold>
             <Orientation>09</Orientation>
             <Position>L</Position>
         </Strip>
-        <Strip id="26R">
-            <TORA>10</TORA>
-            <ASDA>2</ASDA>
-            <TODA>12</TODA>
-            <LDA>32</LDA>
+        <Strip id="27R">
+            <TORA>3884</TORA>
+            <ASDA>3884</ASDA>
+            <TODA>3962</TODA>
+            <LDA>3884</LDA>
+            <Threshold>0</Threshold>
             <Orientation>27</Orientation>
             <Position>R</Position>
+        </Strip>
+    </Runway>
+
+
+    <Runway id="09R/27L">
+        <Strip id="09R">
+            <TORA>3660</TORA>
+            <ASDA>3660</ASDA>
+            <TODA>3660</TODA>
+            <LDA>3353</LDA>
+            <Threshold>307</Threshold>
+            <Orientation>09</Orientation>
+            <Position>R</Position>
+        </Strip>
+        <Strip id="27L">
+            <TORA>3660</TORA>
+            <ASDA>3660</ASDA>
+            <TODA>3660</TODA>
+            <LDA>3660</LDA>
+            <Threshold>0</Threshold>
+            <Orientation>27</Orientation>
+            <Position>L</Position>
         </Strip>
     </Runway>
 

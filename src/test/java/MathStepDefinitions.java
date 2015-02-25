@@ -14,6 +14,7 @@ public class MathStepDefinitions {
     private String runwayID;
     private Obstacle obs;
     private MathHandler maths;
+    private int blastAllowance;
 
 
     @Given("^The operator has the values for the runway (.*)$")
@@ -38,15 +39,16 @@ public class MathStepDefinitions {
         runway = new Runway(runwayID, strip1, strip2);
     }
 
-    @When("^He adds an obstacle (\\d+) m from the threshold of height (\\d+) m and (\\d+) m from the centreline$")
-    public void He_adds_an_obstacle_m_from_the_threshold_of_height_m(int position, int height, int distCentral) {
+    @When("^He adds an obstacle (\\d+) m from the threshold of height (\\d+) m and (\\d+) m from the centreline with blast allowance (\\d+)$")
+    public void He_adds_an_obstacle_m_from_the_threshold_of_height_m(int position, int height, int distCentral, int blastAllowance) {
         obs = new Obstacle("test", 1, height, 1, "test");
         runway.addObstacle(obs, position,distCentral);
+        this.blastAllowance = blastAllowance;
     }
 
     @Then("^The recalculated values for (.*) should be (.*), (.*), (.*), (.*)$")
     public void The_recalculated_values_for_Strip1(String stripId, String tora, String toda, String asda, String lda) {
-        runway.recalculateValues();
+        runway.recalculateValues(blastAllowance);
         trueValues = new Values(Integer.valueOf(tora), Integer.valueOf(asda), Integer.valueOf(toda), Integer.valueOf(lda));
         maths = new MathHandler(runway);
 

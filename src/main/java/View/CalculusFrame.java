@@ -120,7 +120,7 @@ public class CalculusFrame extends JFrame{
                 int pos = Integer.parseInt(positionFormattedTextField.getText());
                 int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
                 runway.addObstacle(obs, pos, centrelineDist);
-                runway.recalculateValues();
+//                runway.recalculateValues();
                 CalculusFrame.this.updateRecValues();
             }
         });

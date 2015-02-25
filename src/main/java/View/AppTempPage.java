@@ -1,12 +1,13 @@
 package View;
 
-import javax.swing.*;
-import java.awt.*;
 import Controller.Controller;
 import Model.Obstacle;
 import Model.Runway;
 import Model.Strip;
 import Model.Values;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by PetarMI 17.02.2015
@@ -89,7 +90,7 @@ public class AppTempPage extends JFrame
 
         Runway runway = new Runway("09L/27R", str1, str2);
         runway.addObstacle(new Obstacle("b", 1, 15, 1, "b"), 456, 60);
-        runway.recalculateValues();
+//        runway.recalculateValues();
         System.out.println(str1.getOrigVal().toString());
         System.out.println(str1.getRecVal().toString());
         System.out.println(str2.getOrigVal().toString());

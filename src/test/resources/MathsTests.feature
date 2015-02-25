@@ -6,7 +6,7 @@ Feature: Testing calculations done by the maths module
     Given The operator has the values for the runway 09L/27R
     And The values1 for 09L are 3902, 3902, 3902, 3595, 09 and L
     And The values2 for 27R are 3884, 3962, 3884, 3884, 27 and R
-    When He adds an obstacle 256 m from the threshold of height 12 m and 0 m from the centreline
+    When He adds an obstacle 256 m from the threshold of height 12 m and 0 m from the centreline with blast allowance 300
     Then The recalculated values for 09L should be 3346, 3346, 3346, 2986
 
 
