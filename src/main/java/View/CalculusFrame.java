@@ -124,15 +124,19 @@ public class CalculusFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Obstacle obs = (Obstacle)obstaclesComboBox.getSelectedItem();
-                int posFromRight = Integer.parseInt(posFromRightText.getText());
-                int posFromLeft = Integer.parseInt(posFromLeftText.getText());
-                int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
-                int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
-                System.out.println("Height: " + obs.getHeight());
-                System.out.println("width " +obs.getWidth());
-                runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
-                runway.recalculateValues(blastAllowance);
-                CalculusFrame.this.updateRecValues();
+                try {
+                    int posFromRight = Integer.parseInt(posFromRightText.getText());
+                    int posFromLeft = Integer.parseInt(posFromLeftText.getText());
+                    int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
+                    int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
+                    runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
+                    runway.recalculateValues(blastAllowance);
+                    CalculusFrame.this.updateRecValues();
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null,"One or more inputted values are not accepted.");
+                    e1.printStackTrace();
+                }
+
             }
         });
     }

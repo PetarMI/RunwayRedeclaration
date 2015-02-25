@@ -14,4 +14,11 @@
 <Height>12</Height>
 <Description> sdas</Description>
 </Obstacle>
+<Obstacle>
+<Name>12</Name>
+<Length>0</Length>
+<Width>1</Width>
+<Height>2</Height>
+<Description>23</Description>
+</Obstacle>
 </ObstacleList>
