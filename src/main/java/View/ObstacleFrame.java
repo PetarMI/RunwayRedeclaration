@@ -53,7 +53,7 @@ public class ObstacleFrame extends JFrame{
     }
 
     private void setProperties() {
-        this.setName("Add obstacle");
+        this.setTitle("Add obstacle");
         this.setSize(WIDTH, HEIGHT);
         this.setContentPane(mainPane);
         this.setVisible(true);
