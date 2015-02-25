@@ -7,8 +7,7 @@ public class MathHandler
 {
     private final static int CENTRELINE_THRESHOLD = 75;
     private final static int STRIPEND_THRESHOLD = 60;
-    //TODO unhardcode
-    private final static int BLAST_PROTECTION_VALUE = 300;
+
     private final static int RESA = 240;
 
     private static final String LAND_OVER = "Land over";
@@ -18,6 +17,7 @@ public class MathHandler
 
     private Runway runway;
     private Integer obstacleHeight;
+    private int aircraftBlastProtection;
     private Values recalculatedValuesStrip1;
     private Values recalculatedValuesStrip2;
 
@@ -29,7 +29,7 @@ public class MathHandler
     };
 
     //TODO consider if no exception
-    public Pair<Values, Values> recalculateValues(int obstHeight){
+    public Pair<Values, Values> recalculateValues(int obstHeight, int blastProtection){
         if (runway.getObstacleDistanceFromCentreline() > CENTRELINE_THRESHOLD &&
                 runway.getObstaclePosition() > STRIPEND_THRESHOLD){
             //TODO maybe throw custom exception saying we don't have an obstacle and values are the same
@@ -37,6 +37,7 @@ public class MathHandler
         }
 
         this.obstacleHeight = obstHeight;
+        this.aircraftBlastProtection = blastProtection;
 
         Values originalValues = this.runway.getStrip1().getOrigVal();
         int position = runway.getObstaclePosition();
@@ -75,7 +76,7 @@ public class MathHandler
     }
 
     private Values takeOffAway(Values stripValues, int position){
-        int tempTora = stripValues.getTora() - Math.max(BLAST_PROTECTION_VALUE, RESA + STRIPEND_THRESHOLD) - position;
+        int tempTora = stripValues.getTora() - Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD) - position;
         int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
         int tempToda = tempTora + stripValues.getToda() - stripValues.getTora();
 
@@ -103,7 +104,7 @@ public class MathHandler
 
     private int landOver(Values originalStripValues, int position) {
         int lda = (originalStripValues.getTora() - position - STRIPEND_THRESHOLD -
-                Math.max(Math.max(RESA, BLAST_PROTECTION_VALUE), this.obstacleHeight*50));
+                Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50));
         return Math.min(originalStripValues.getLda(), lda);
     }
 

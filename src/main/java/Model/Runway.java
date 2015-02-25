@@ -35,9 +35,10 @@ public class Runway
         this.distanceFromCentreline = distanceFromCentreline;
     }
 
-    //TODO pass blast allowance
-    public void recalculateValues() {
-        Pair<Values, Values> recVals = this.mathHandler.recalculateValues(this.obstacle.getHeight());
+    //pass blast allowance specific to the landing aircraft
+    public void recalculateValues(int aircraftBlastProtection) {
+        Pair<Values, Values> recVals = this.mathHandler.recalculateValues(this.obstacle.getHeight(),
+                aircraftBlastProtection);
         this.strip1.setRecVal(recVals.getValue1());
         this.strip2.setRecVal(recVals.getValue2());
     }
