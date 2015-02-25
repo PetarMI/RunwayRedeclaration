@@ -44,7 +44,7 @@ public class XMLHelper {
     public final static String LDA = "LDA";
     public final static String RUNWAY_ORIENTATION = "Orientation";
     public final static String RUNWAY_POSITION = "Position";
-
+    public static final String RUNWAY_THRESHOLD = "Threshold";
 
     public XMLHelper() {
     }
@@ -203,7 +203,8 @@ public class XMLHelper {
             Values values = new Values(tora, asda, toda, lda);
             String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
             int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
-            Strip strip = new Strip(stripId, orientation, position, values);
+            int threshold = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
+            Strip strip = new Strip(stripId, orientation, position, values, threshold);
             return strip;
         }
         else return null;
