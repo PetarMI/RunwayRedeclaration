@@ -15,7 +15,7 @@ import java.util.List;
 public class CalculusFrame extends JFrame{
 
     public static final int WIDTH = 650;
-    public static final int HEIGHT = 400;
+    public static final int HEIGHT = 300;
     private XMLHelper xmlHelper;
     private final Runway runway;
     private JPanel mainPane;
@@ -45,6 +45,8 @@ public class CalculusFrame extends JFrame{
     private JLabel recAsda1;
     private JLabel origLda1;
     private JLabel recLda1;
+    private JPanel strip2Panel;
+    private JPanel strip1Panel;
 
     public CalculusFrame(Runway runway) {
         this.runway = runway;
@@ -73,8 +75,13 @@ public class CalculusFrame extends JFrame{
         this.origAsda2.setText(String.valueOf(origValues.getAsda()));
         this.origLda2.setText(String.valueOf(origValues.getLda()));
 
+        this.strip2Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip1().getStripId())));
+        this.strip1Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip2().getStripId())));
+        this.strip1Panel.repaint();
+        this.sideViewRadioButton.setVisible(false);
+        this.topDownViewRadioButton.setVisible(false);
+        this.resetOrientationButton.setVisible(false);
         this.updateObstacleList();
-//        this.updateRecValues();
     }
 
     private void updateRecValues() {
@@ -119,8 +126,9 @@ public class CalculusFrame extends JFrame{
                 Obstacle obs = (Obstacle)obstaclesComboBox.getSelectedItem();
                 int pos = Integer.parseInt(positionFormattedTextField.getText());
                 int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
+                int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
                 runway.addObstacle(obs, pos, centrelineDist);
-//                runway.recalculateValues();
+                runway.recalculateValues(blastAllowance);
                 CalculusFrame.this.updateRecValues();
             }
         });
@@ -136,7 +144,7 @@ public class CalculusFrame extends JFrame{
     }
 
     private void setProperties() {
-        this.setName("Select Airport and Runway");
+        this.setTitle("Redeclaration");
         this.setSize(WIDTH, HEIGHT);
         this.setContentPane(mainPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

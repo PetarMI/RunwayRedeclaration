@@ -45,6 +45,7 @@ public class BeginFrame extends JFrame {
             airportsBox.setModel(model);
             updateRunwayBox((String) airportsBox.getItemAt(0));
         } catch (Exception e) {
+            JOptionPane.showInputDialog(null, "Error", "Some information couldn't be read from the cached airports");
             e.printStackTrace();
         }
     }
@@ -77,12 +78,13 @@ public class BeginFrame extends JFrame {
             List<String> runways = newAirport.getRunwayIds();
             runwayBox.setModel(new DefaultComboBoxModel(runways.toArray(new String[runways.size()])));
         } catch (Exception e1) {
+            JOptionPane.showInputDialog(null, "Error", "Some information couldn't be read from the cached obstacles");
             e1.printStackTrace();
         }
     }
 
     private void setProperties() {
-        this.setName("Select Airport and Runway");
+        this.setTitle("Select Airport and Runway");
         this.setSize(WIDTH, HEIGHT);
         this.setContentPane(mainPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
