@@ -14,4 +14,18 @@
 <Height>3</Height>
 <Description>used for maintenance</Description>
 </Obstacle>
+<Obstacle>
+<Name>Scenario 1</Name>
+<Length>0</Length>
+<Width>0</Width>
+<Height>12</Height>
+<Description/>
+</Obstacle>
+<Obstacle>
+<Name>Scenario 2</Name>
+<Length>0</Length>
+<Width>0</Width>
+<Height>25</Height>
+<Description/>
+</Obstacle>
 </ObstacleList>
