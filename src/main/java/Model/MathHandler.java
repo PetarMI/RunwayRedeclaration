@@ -31,7 +31,7 @@ public class MathHandler
     //TODO for now return original values if there is no obstacle
     public Pair<Values, Values> recalculateValues(int obstHeight, int blastProtection){
 
-        if (runway.getObstacleDistanceFromCentreline() > CENTRELINE_THRESHOLD &&
+        if (runway.getObstacleDistanceFromCentreline() > CENTRELINE_THRESHOLD ||
                 (((runway.getStrip1().getDisplacedThreshold() + STRIPEND_THRESHOLD + runway.getPositionFromLeftDT()) < 0) ||
                         ((runway.getStrip2().getDisplacedThreshold() + STRIPEND_THRESHOLD + runway.getPositionFromRightDT()) < 0))){
             //TODO maybe throw custom exception saying we don't have an obstacle and values are the same

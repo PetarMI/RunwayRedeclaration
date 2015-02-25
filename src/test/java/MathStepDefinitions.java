@@ -26,7 +26,6 @@ public class MathStepDefinitions {
     @And("^The values1 for (.*) are (.*), (.*), (.*), (.*), (.*), (.*) and (.*)$")
     public void The_values_for_Strip1
             (String stripId, String tora, String toda, String asda, String lda, String orientation, String position, String threshold){
-//        assertNotNub("|" + tora + "|", false);
         Values origVal = new Values(Integer.valueOf(tora), Integer.valueOf(asda), Integer.valueOf(toda), Integer.valueOf(lda));
         strip1 =  new Strip(stripId, Integer.valueOf(orientation), position, origVal, Integer.valueOf(threshold));
     }
@@ -39,16 +38,24 @@ public class MathStepDefinitions {
         runway = new Runway(runwayID, strip1, strip2);
     }
 
-    @When("^He adds an obstacle (\\d+) m from the threshold of height (\\d+) m and (\\d+) m from the centreline with blast allowance (\\d+)$")
-    public void He_adds_an_obstacle_m_from_the_threshold_of_height_m(int position, int height, int distCentral, int blastAllowance) {
-
-        this.blastAllowance = blastAllowance;
+    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) from the centreline$")
+    public void He_adds_an_obstacle_(int posLeft, int posRight, int height, int distCentral) {
+        obs = new Obstacle("test", 1, height, 1, "test");
+        runway.addObstacle(obs, posLeft, posRight,distCentral);
     }
 
+    @And("^with blast allowance (\\d+)$")
+    public void with_blast_allowance(int blastAllowance){
+        this.blastAllowance = blastAllowance;
+    }
     @Then("^The recalculated values for (.*) should be (.*), (.*), (.*), (.*)$")
     public void The_recalculated_values_for_Strip1(String stripId, String tora, String toda, String asda, String lda) {
         runway.recalculateValues(blastAllowance);
         trueValues = new Values(Integer.valueOf(tora), Integer.valueOf(asda), Integer.valueOf(toda), Integer.valueOf(lda));
+        System.out.println(runway.getStrip1().getRecVal().getTora());
+        System.out.println(runway.getStrip1().getRecVal().getToda());
+        System.out.println(runway.getStrip1().getRecVal().getAsda());
+        System.out.println(runway.getStrip1().getRecVal().getLda());
         maths = new MathHandler(runway);
 
         //test each value for the first strip
@@ -64,16 +71,5 @@ public class MathStepDefinitions {
 //        assertTrue("Recalculated TODA for the second strip is not correct", trueValues.getToda() == runway.getStrip1().getRecVal().getToda());
 //        assertTrue("Recalculated ASDA for the second strip is not correct", trueValues.getAsda() == runway.getStrip1().getRecVal().getAsda());
 //        assertTrue("Recalculated LDA for the second strip is not correct", trueValues.getLda() == runway.getStrip1().getRecVal().getLda());
-    }
-
-    @When("^He adds an obstacle -(\\d+) m from the left and (\\d+) m from the left, of height (\\d+) and (\\d+) from the centreline$")
-    public void He_adds_an_obstacle_(int posLeft, int posRight, int height, int distCentral) {
-        obs = new Obstacle("test", 1, height, 1, "test");
-        runway.addObstacle(obs, posLeft, posRight,distCentral);
-    }
-
-    @And("^with blast allowance (\\d+)$")
-    public void with_blast_allowance(int blastAllowance){
-
     }
 }

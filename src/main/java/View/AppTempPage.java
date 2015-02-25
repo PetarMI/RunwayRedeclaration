@@ -76,10 +76,10 @@ public class AppTempPage extends JFrame
         /*AppTempPage atp = new AppTempPage();
         atp.init();*/
 
-        Values str1Vals = new Values(3902, 3902, 3902, 3595);
-        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals, 306);
+        Values str1Vals = new Values(3660, 3660, 3660, 3353);
+        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals, 307);
 
-        Values str2Vals = new Values(3884, 3962, 3884, 3884);
+        Values str2Vals = new Values(3660, 3660, 3660, 3660);
         Strip str2 = new Strip("jfglks", 27, "R", str2Vals, 0);
 
         /*Values str1Vals = new Values(3660, 3660, 3660, 3353);
@@ -89,12 +89,12 @@ public class AppTempPage extends JFrame
         Strip str2 = new Strip("jfglks", 27, "R", str2Vals);*/
 
         Runway runway = new Runway("09L/27R", str1, str2);
-        runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0);
+        runway.addObstacle(new Obstacle("b", 1, 25, 1, "b"), 2853, 500, 20);
         runway.recalculateValues(300);
-        System.out.println(str1.getOrigVal().toString());
-        System.out.println(str1.getRecVal().toString());
-        System.out.println(str2.getOrigVal().toString());
-        System.out.println(str2.getRecVal().toString());
+        System.out.println(runway.getStrip1().getOrigVal().toString());
+        System.out.println(runway.getStrip1().getRecVal().toString());
+        System.out.println(runway.getStrip2().getOrigVal().toString());
+        System.out.println(runway.getStrip2().getRecVal().toString());
     }
 
     public void init()

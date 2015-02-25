@@ -77,9 +77,8 @@ public class CalculusFrame extends JFrame{
         this.origAsda2.setText(String.valueOf(origValues.getAsda()));
         this.origLda2.setText(String.valueOf(origValues.getLda()));
 
-        this.strip2Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip1().getStripId())));
-        this.strip1Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip2().getStripId())));
-        this.strip1Panel.repaint();
+        this.strip1Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip1().getStripId())));
+        this.strip2Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip2().getStripId())));
         this.sideViewRadioButton.setVisible(false);
         this.topDownViewRadioButton.setVisible(false);
         this.resetOrientationButton.setVisible(false);
@@ -121,7 +120,6 @@ public class CalculusFrame extends JFrame{
             }
         });
 
-        //TODO: integrate blast allowance into computation
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +128,8 @@ public class CalculusFrame extends JFrame{
                 int posFromLeft = Integer.parseInt(posFromLeftText.getText());
                 int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
                 int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
+                System.out.println("Height: " + obs.getHeight());
+                System.out.println("width " +obs.getWidth());
                 runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                 runway.recalculateValues(blastAllowance);
                 CalculusFrame.this.updateRecValues();

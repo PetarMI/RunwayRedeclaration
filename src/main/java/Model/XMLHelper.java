@@ -32,7 +32,7 @@ public class XMLHelper {
     public final static String OBSTACLE_LIST = "ObstacleList";
     public final static String OBSTACLE_ELEMENT = "Obstacle";
 
-    public static final String STRIP = "Strip";
+    public final static String STRIP = "Strip";
     public final static String AIRPORTS_DIRECTORY = "src/main/resources/Airports";
     public final static String AIRPORT = "Airport";
     public final static String AIRPORT_ATTR_NAME = "name";
@@ -44,7 +44,7 @@ public class XMLHelper {
     public final static String LDA = "LDA";
     public final static String RUNWAY_ORIENTATION = "Orientation";
     public final static String RUNWAY_POSITION = "Position";
-    public static final String RUNWAY_THRESHOLD = "Threshold";
+    public final static String RUNWAY_THRESHOLD = "Threshold";
 
     public XMLHelper() {
     }
@@ -127,7 +127,6 @@ public class XMLHelper {
                     int obsHeight = Integer.valueOf(element.getElementsByTagName(OBSTACLE_HEIGHT).item(0).getTextContent());
                     int obsLength =  Integer.valueOf(element.getElementsByTagName(OBSTACLE_LENGTH).item(0).getTextContent());
                     String obsDescr = element.getElementsByTagName(OBSTACLE_DESCRIPTION).item(0).getTextContent();
-                    //TODO: add threshold
                     obsList.add(new Obstacle(obsName, obsWidth, obsHeight, obsLength, obsDescr));
                 }
             }
@@ -202,8 +201,8 @@ public class XMLHelper {
             int lda = Integer.valueOf(element.getElementsByTagName(LDA).item(0).getTextContent());
             Values values = new Values(tora, asda, toda, lda);
             String position = element.getElementsByTagName(RUNWAY_POSITION).item(0).getTextContent();
+            int threshold = Integer.valueOf(element.getElementsByTagName(RUNWAY_THRESHOLD).item(0).getTextContent());
             int orientation = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
-            int threshold = Integer.valueOf(element.getElementsByTagName(RUNWAY_ORIENTATION).item(0).getTextContent());
             Strip strip = new Strip(stripId, orientation, position, values, threshold);
             return strip;
         }
