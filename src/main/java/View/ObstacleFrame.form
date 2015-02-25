@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.ObstacleFrame">
+  <grid id="27dc6" binding="mainPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="2fe76" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="d1b04" class="javax.swing.JTextField" binding="nameTextField">
+            <constraints border-constraint="North"/>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="99d61" class="javax.swing.JTextField" binding="heightTextField">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="7c0e6" class="javax.swing.JTextField" binding="widthTextField">
+            <constraints border-constraint="South"/>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="68f2f" class="javax.swing.JTextArea" binding="descriptionTextArea">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <rows value="12"/>
+        </properties>
+      </component>
+      <component id="5d6e4" class="javax.swing.JButton" binding="addButton">
+        <constraints border-constraint="South"/>
+        <properties>
+          <text value="Add"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

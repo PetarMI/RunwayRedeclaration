@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ObstacleList>
 <Obstacle>
-<Name>rock</Name>
+<Name>block</Name>
 <Length>2</Length>
 <Width>4</Width>
 <Height>7</Height>
@@ -13,5 +13,26 @@
 <Width>5</Width>
 <Height>3</Height>
 <Description>used for maintenance</Description>
+</Obstacle>
+<Obstacle>
+<Name>zx</Name>
+<Length>0</Length>
+<Width>32</Width>
+<Height>2</Height>
+<Description>zc</Description>
+</Obstacle>
+<Obstacle>
+<Name>4</Name>
+<Length>0</Length>
+<Width>34</Width>
+<Height>3</Height>
+<Description>4</Description>
+</Obstacle>
+<Obstacle>
+<Name>e</Name>
+<Length>0</Length>
+<Width>2</Width>
+<Height>32</Height>
+<Description>s</Description>
 </Obstacle>
 </ObstacleList>

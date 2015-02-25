@@ -1,5 +1,5 @@
-import Model.XMLHelper;
 import Model.Obstacle;
+import Model.XMLHelper;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -74,7 +75,7 @@ public class XMLStepDefinitions {
     public void The_program_should_save_them(){
         xml = new XMLHelper();
         assertTrue("obstacle list could not be saved", xml.createObstacleXML(obstacles));
-        ArrayList<Obstacle> savedObs = xml.readObstacles();
+        List<Obstacle> savedObs = xml.readObstacles();
         assertTrue("saved and read obstacles do not match", savedObs.equals(obstacles));
     }
 }

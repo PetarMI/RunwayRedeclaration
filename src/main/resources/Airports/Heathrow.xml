@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Airport name="Heathrow">
+
+    <Runway id="09L/27R">
+        <Strip id="08L">
+            <TORA>10</TORA>
+            <ASDA>2</ASDA>
+            <TODA>12</TODA>
+            <LDA>32</LDA>
+            <Orientation>09</Orientation>
+            <Position>L</Position>
+        </Strip>
+        <Strip id="26R">
+            <TORA>10</TORA>
+            <ASDA>2</ASDA>
+            <TODA>12</TODA>
+            <LDA>32</LDA>
+            <Orientation>27</Orientation>
+            <Position>R</Position>
+        </Strip>
+    </Runway>
+
+</Airport>

@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class XMLHelper {
 
@@ -52,7 +53,13 @@ public class XMLHelper {
         new XMLHelper();
     }
 
-    public boolean createObstacleXML(ArrayList<Obstacle> obs) {
+    public boolean addObstacleXML(Obstacle obs){
+        List<Obstacle> obstacles = this.readObstacles();
+        obstacles.add(obs);
+        return createObstacleXML(obstacles);
+    }
+
+    public boolean createObstacleXML(List<Obstacle> obs) {
 
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
@@ -98,7 +105,7 @@ public class XMLHelper {
         return node;
     }
 
-    public ArrayList<Obstacle> readObstacles(){
+    public List<Obstacle> readObstacles(){
         try {
             ArrayList<Obstacle> obsList = new ArrayList<Obstacle>();
             File file = new File(OBSTACLE_FILE_NAME);

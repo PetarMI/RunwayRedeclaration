@@ -27,7 +27,7 @@ public class Airport {
     }
 
     //TODO review necessity of method
-    public ArrayList<Runway> getRunways() {
+    public List<Runway> getRunways() {
         return this.runways;
     }
 
