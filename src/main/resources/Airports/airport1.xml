@@ -7,6 +7,7 @@
             <ASDA>2</ASDA>
             <TODA>12</TODA>
             <LDA>32</LDA>
+            <Threshold>306</Threshold>
             <Orientation>09</Orientation>
             <Position>L</Position>
         </Strip>
@@ -15,6 +16,7 @@
             <ASDA>2</ASDA>
             <TODA>12</TODA>
             <LDA>32</LDA>
+            <Threshold>306</Threshold>
             <Orientation>27</Orientation>
             <Position>R</Position>
         </Strip>
@@ -26,6 +28,7 @@
             <ASDA>2</ASDA>
             <TODA>12</TODA>
             <LDA>32</LDA>
+            <Threshold>306</Threshold>
             <Orientation>09</Orientation>
             <Position>L</Position>
         </Strip>
@@ -34,6 +37,7 @@
             <ASDA>2</ASDA>
             <TODA>12</TODA>
             <LDA>32</LDA>
+            <Threshold>306</Threshold>
             <Orientation>27</Orientation>
             <Position>R</Position>
         </Strip>

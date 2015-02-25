@@ -49,6 +49,10 @@ public class MathStepDefinitions {
     public void The_recalculated_values_for_Strip1(String stripId, String tora, String toda, String asda, String lda) {
         runway.recalculateValues(blastAllowance);
         trueValues = new Values(Integer.valueOf(tora), Integer.valueOf(asda), Integer.valueOf(toda), Integer.valueOf(lda));
+        System.out.println(runway.getStrip1().getRecVal().getTora());
+        System.out.println(runway.getStrip1().getRecVal().getToda());
+        System.out.println(runway.getStrip1().getRecVal().getAsda());
+        System.out.println(runway.getStrip1().getRecVal().getLda());
         maths = new MathHandler(runway);
 
         //test each value for the first strip
