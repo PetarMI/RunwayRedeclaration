@@ -26,7 +26,7 @@ public class CalculusFrame extends JFrame{
     private JRadioButton sideViewRadioButton;
     private JButton resetOrientationButton;
     private JButton calculateButton;
-    private JFormattedTextField positionFormattedTextField;
+    private JFormattedTextField posFromLeftText;
     private JFormattedTextField blastAllowanceFormattedTextField;
     private JFormattedTextField centreJFormattedTextField;
     private JLabel origTora2;
@@ -47,6 +47,7 @@ public class CalculusFrame extends JFrame{
     private JLabel recLda1;
     private JPanel strip2Panel;
     private JPanel strip1Panel;
+    private JTextField posFromRightText;
 
     public CalculusFrame(Runway runway) {
         this.runway = runway;
@@ -59,7 +60,8 @@ public class CalculusFrame extends JFrame{
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
         xmlHelper = new XMLHelper();
-        this.positionFormattedTextField.setUI(new HintTextFieldUI("Position", true));
+        this.posFromLeftText.setUI(new HintTextFieldUI("Position from Left", true));
+        this.posFromRightText.setUI(new HintTextFieldUI("Position from Right", true));
         this.blastAllowanceFormattedTextField.setUI(new HintTextFieldUI("Blast Allowance", true));
         this.centreJFormattedTextField.setUI(new HintTextFieldUI("Centreline distance", true));
 
@@ -124,10 +126,11 @@ public class CalculusFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Obstacle obs = (Obstacle)obstaclesComboBox.getSelectedItem();
-                int pos = Integer.parseInt(positionFormattedTextField.getText());
+                int posFromRight = Integer.parseInt(posFromRightText.getText());
+                int posFromLeft = Integer.parseInt(posFromLeftText.getText());
                 int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
                 int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
-                runway.addObstacle(obs, pos, centrelineDist);
+                runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                 runway.recalculateValues(blastAllowance);
                 CalculusFrame.this.updateRecValues();
             }

@@ -4,41 +4,9 @@ Feature: Testing calculations done by the maths module
   expected result?
 
     Given The operator has the values for the runway 09L/27R
-    And The values1 for 09L are 3902, 3902, 3902, 3595, 09 and L
-    And The values2 for 27R are 3884, 3962, 3884, 3884, 27 and R
-    When He adds an obstacle 256 m from the threshold of height 12 m and 0 m from the centreline with blast allowance 300
+#    VALUES: TORA TODA ASDA LDA Orientation Position Threshold
+    And The values1 for 09L are 3902, 3902, 3902, 3595, 09, L and 306
+    And The values2 for 27R are 3884, 3962, 3884, 3884, 27, R and 0
+    When He adds an obstacle -50 m from the left and 3646 m from the left, of height 12 and 0 from the centreline
+    And with blast allowance 300
     Then The recalculated values for 09L should be 3346, 3346, 3346, 2986
-
-
-#    Given The operator has the values for the runway 09L/27R
-#    And The values1 for <Strip1> are <TORA1>, <TODA1>, <ASDA1>, <LDA1>, <Orientation1> and <Position1>
-#    And The values2 for <Strip2> are <TORA2>, <TODA2>, <ASDA2>, <LDA2>, <Orientation2> and <Position2>
-#    When He adds an obstacle 2500 m from the threshold of height 25 m
-#    Then The recalculated values for <Strip2> should be <recTORA1>, <recTODA1>, <recASDA1>, <recLDA1>
-
-
-#  Examples: First Strip Original Values
-#    | Strip1  | TORA1 | TODA1 | ASDA1 | LDA1 | Orientation1 | Position1 |
-#    | 09L     | 3902  | 3902  | 3902  | 3595 | 09           | L         |
-##    | 09R    |3660   | 3660  | 3660  |3353  | 09           | R         |
-#
-##
-##
-#  Examples: Second Strip Original Values
-#    |Strip2 | TORA2 | TODA2 | ASDA2 | LDA2 | Orientation2 | Position2 |
-#    | 27R   |3884   |3962   |3884   |3884  | 27           | R         |
-###    | 27L   |3660   | 3660  | 3660  |3660  | 27           | L         |
-##
-#  Examples: First Strip Original Values
-#    |Strip1  | TORA1 | TODA1 | ASDA1 | LDA1 | Orientation1 | Position1 |
-#    | 09L    |3902   | 3902  | 3902  |3595  | 09           | L         |
-##    | 09R    |3660   | 3660  | 3660  |3353  | 09           | R         |
-#
-#    Examples: Recalculated Values for Strip1
-#    | recTORA1 | recTODA1 | recASDA1 | recLDA1 |
-#    | 1496     | 1496     | 1496     | 1496    |
-#
-
-
-
-
