@@ -37,7 +37,7 @@ public class MathStepDefinitions {
         runway = new Runway(runwayID, strip1, strip2);
     }
 
-    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) from the centreline$")
+    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) above the centreline$")
     public void He_adds_an_obstacle_(int posLeft, int posRight, int height, int distCentral) {
         obs = new Obstacle("test", 1, height, 1, "test");
         runway.addObstacle(obs, posLeft, posRight,distCentral);
@@ -66,7 +66,7 @@ public class MathStepDefinitions {
         assertTrue("Recalculated LDA for " + stripId + " is " + recValues.getLda(), trueValues.getLda() == recValues.getLda());
 
         //test it all together
-        assertTrue("Recalculated values are not the same", trueValues.equals(runway.getStrip1().getRecVal()));
+        assertTrue("Recalculated values are not the same", trueValues.equals(recValues));
     }
 
     @And("^For (.*) should be (\\d+),(\\d+), (\\d+), (\\d+)$")
