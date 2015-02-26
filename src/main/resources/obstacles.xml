@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ObstacleList>
 <Obstacle>
-<Name>12</Name>
-<Length>0</Length>
-<Width>222</Width>
-<Height>111</Height>
-<Description>2</Description>
+<Name>block</Name>
+<Length>2</Length>
+<Width>4</Width>
+<Height>7</Height>
+<Description>irregular shape</Description>
 </Obstacle>
 <Obstacle>
-<Name>sda</Name>
-<Length>0</Length>
-<Width>2</Width>
-<Height>12</Height>
-<Description> sdas</Description>
-</Obstacle>
-<Obstacle>
-<Name>12</Name>
-<Length>0</Length>
-<Width>1</Width>
-<Height>2</Height>
-<Description>23</Description>
+<Name>car</Name>
+<Length>5</Length>
+<Width>5</Width>
+<Height>3</Height>
+<Description>used for maintenance</Description>
 </Obstacle>
 </ObstacleList>

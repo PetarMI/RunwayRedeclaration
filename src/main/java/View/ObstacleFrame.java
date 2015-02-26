@@ -55,13 +55,13 @@ public class ObstacleFrame extends JFrame{
                     xmlHelper.addObstacleXML(new Obstacle(name, width, height , 0, description));
                     ObstacleFrame.this.dispose();
                 }catch (NumberFormatException e1){
-                    JOptionPane.showMessageDialog(null,"Height and width must be a number.");
+                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and width must be a number.");
                     e1.printStackTrace();
                 } catch (FieldEmptyException e1) {
-                    JOptionPane.showMessageDialog(null,"Name field cannot be empty.");
+                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Name field cannot be empty.");
                     e1.printStackTrace();
                 } catch (PositiveOnlyException e1) {
-                    JOptionPane.showMessageDialog(null,"Height and width must be greater than 0.");
+                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and width must be greater than 0.");
                     e1.printStackTrace();
                 }
             }
@@ -75,4 +75,19 @@ public class ObstacleFrame extends JFrame{
         this.setVisible(true);
     }
 
+    public void setName(String s) {
+        this.nameTextField.setText(s);
+    }
+
+    public void setHeight(String s) {
+        this.heightTextField.setText(s);
+    }
+
+    public void setWidth(String s) {
+        this.widthTextField.setText(s);
+    }
+
+    public void pressAddButton() {
+        this.addButton.doClick();
+    }
 }

@@ -109,6 +109,11 @@ public class XMLHelper {
         try {
             ArrayList<Obstacle> obsList = new ArrayList<Obstacle>();
             File file = new File(OBSTACLE_FILE_NAME);
+            if(!file.exists()){
+                file.createNewFile();
+                this.createObstacleXML(new ArrayList<Obstacle>());
+                return new ArrayList<Obstacle>();
+            }
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
@@ -130,7 +135,6 @@ public class XMLHelper {
                     obsList.add(new Obstacle(obsName, obsWidth, obsHeight, obsLength, obsDescr));
                 }
             }
-
             return obsList;
 
         } catch (Exception e) {

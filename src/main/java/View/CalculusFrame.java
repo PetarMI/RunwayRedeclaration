@@ -48,6 +48,7 @@ public class CalculusFrame extends JFrame{
     private JPanel strip2Panel;
     private JPanel strip1Panel;
     private JTextField posFromRightText;
+    private JOptionPane optionsPane;
 
     public CalculusFrame(Runway runway) {
         this.runway = runway;
@@ -60,6 +61,7 @@ public class CalculusFrame extends JFrame{
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
         xmlHelper = new XMLHelper();
+        optionsPane = new JOptionPane();
         this.posFromLeftText.setUI(new HintTextFieldUI("Position from Left", true));
         this.posFromRightText.setUI(new HintTextFieldUI("Position from Right", true));
         this.blastAllowanceFormattedTextField.setUI(new HintTextFieldUI("Blast Allowance", true));
@@ -133,7 +135,7 @@ public class CalculusFrame extends JFrame{
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
                 }catch (NumberFormatException e1){
-                    JOptionPane.showMessageDialog(null,"One or more inputted values are not accepted.");
+                    optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
                     e1.printStackTrace();
                 }
 
@@ -156,6 +158,25 @@ public class CalculusFrame extends JFrame{
         this.setContentPane(mainPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+
+    public void pressCalculate(){
+        calculateButton.doClick();
+    }
+
+    public void setPosFromLeft(String s){
+        posFromLeftText.setText(s);
+    }
+    public void setPosFromRight(String s){
+        posFromRightText.setText(s);
+    }
+    public void setBlastAllowance(String s){
+        blastAllowanceFormattedTextField.setText(s);
+    }
+
+    public void setCentreLineDist(String s){
+        centreJFormattedTextField.setText(s);
     }
 
 }

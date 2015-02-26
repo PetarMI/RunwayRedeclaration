@@ -62,7 +62,7 @@ public class MathStepDefinitions {
         assertTrue("Recalculated TORA for the first strip is not correct", trueValues.getTora() == runway.getStrip1().getRecVal().getTora());
         assertTrue("Recalculated TODA for the first strip is not correct", trueValues.getToda() == runway.getStrip1().getRecVal().getToda());
         assertTrue("Recalculated ASDA for the first strip is not correct", trueValues.getAsda() == runway.getStrip1().getRecVal().getAsda());
-        assertTrue("Recalculated LDA for the first strip is not correct" + runway.getStrip1().getRecVal().getLda(), trueValues.getLda() == runway.getStrip1().getRecVal().getLda());
+        assertTrue("Recalculated LDA for the first strip is not correct", trueValues.getLda() == runway.getStrip1().getRecVal().getLda());
 
         assertTrue("Recalculated values are not the same", trueValues.equals(runway.getStrip1().getRecVal()));
 
