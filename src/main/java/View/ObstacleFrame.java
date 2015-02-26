@@ -26,10 +26,10 @@ public class ObstacleFrame extends JFrame{
     }
 
     private void doInitializations() {
-        this.nameTextField.setUI(new HintTextFieldUI("Name", true));
-        this.heightTextField.setUI(new HintTextFieldUI("Height", true));
-        this.widthTextField.setUI(new HintTextFieldUI("Width", true));
-        this.descriptionTextArea.setUI(new HintTextFieldUI("Description", true));
+        this.nameTextField.setUI(new HintTextField("Name"));
+        this.heightTextField.setUI(new HintTextField("Height"));
+        this.widthTextField.setUI(new HintTextField("Width"));
+        this.descriptionTextArea.setUI(new HintTextField("Description"));
 
     }
 
