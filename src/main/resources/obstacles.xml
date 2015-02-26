@@ -14,11 +14,4 @@
 <Height>3</Height>
 <Description>used for maintenance</Description>
 </Obstacle>
-<Obstacle>
-<Name>W</Name>
-<Length>0</Length>
-<Width>1</Width>
-<Height>-2</Height>
-<Description/>
-</Obstacle>
 </ObstacleList>

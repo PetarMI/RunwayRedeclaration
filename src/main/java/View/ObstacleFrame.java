@@ -48,7 +48,7 @@ public class ObstacleFrame extends JFrame{
                     if(name.equals("")){
                         throw new FieldEmptyException();
                     }
-                    if((width <= 0 )){
+                    if((width <= 0) || (height <=0)){
                         throw new PositiveOnlyException();
                     }
                     XMLHelper xmlHelper = new XMLHelper();
@@ -61,7 +61,7 @@ public class ObstacleFrame extends JFrame{
                     JOptionPane.showMessageDialog(ObstacleFrame.this,"Name field cannot be empty.");
                     e1.printStackTrace();
                 } catch (PositiveOnlyException e1) {
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Width must be greater than 0.");
+                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and Width must be greater than 0.");
                     e1.printStackTrace();
                 }
             }
