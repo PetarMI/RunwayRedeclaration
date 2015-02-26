@@ -5,7 +5,6 @@ import View.ObstacleFrame;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import junit.framework.Assert;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -23,7 +22,7 @@ public class GUIstepDefinitions {
     public void the_operator_is_on_the_calculus_page() throws ParserConfigurationException, SAXException, IOException {
         XMLHelper xml = new XMLHelper();
         Airport airport = xml.readAirport(xml.readAllAirports().get(0) +".xml");
-        calculusFrame = new CalculusFrame(airport.getRunway(airport.getRunwayIds().get(0)));
+        calculusFrame = new CalculusFrame(airport.getRunway(airport.getRunwayIds().get(0)), true);
     }
 
     @When("^he inputs (.*) on all of the fields$")
@@ -48,7 +47,7 @@ public class GUIstepDefinitions {
 
     @Given("^The operator is on the new obstacle page$")
     public void The_operator_is_on_the_new_obstacle_page() {
-       obstacleFrame = new ObstacleFrame();
+       obstacleFrame = new ObstacleFrame(true);
     }
 
     @When("^he inputs (.*) on height and width$")
@@ -65,7 +64,7 @@ public class GUIstepDefinitions {
         }catch (Exception e){
             ok = false;
         }
-        Assert.assertTrue("Application crashed", ok);
+        assertTrue("Application crashed", ok);
     }
 
 

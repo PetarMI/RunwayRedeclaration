@@ -49,9 +49,11 @@ public class CalculusFrame extends JFrame{
     private JPanel strip1Panel;
     private JTextField posFromRightText;
     private JOptionPane optionsPane;
+    private boolean testable;
 
-    public CalculusFrame(Runway runway) {
+    public CalculusFrame(Runway runway, boolean testable) {
         this.runway = runway;
+        this.testable = testable;
         this.doInitializations();
         this.setListeners();
         this.setProperties();
@@ -112,7 +114,7 @@ public class CalculusFrame extends JFrame{
         newObstacleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final ObstacleFrame obstacleFrame = new ObstacleFrame();
+                final ObstacleFrame obstacleFrame = new ObstacleFrame(false);
                 obstacleFrame.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosed(WindowEvent e) {
@@ -135,8 +137,10 @@ public class CalculusFrame extends JFrame{
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
                 }catch (NumberFormatException e1){
-                    optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
+                        e1.printStackTrace();
+                    }
                 }
 
             }

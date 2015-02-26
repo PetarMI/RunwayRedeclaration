@@ -18,8 +18,10 @@ public class ObstacleFrame extends JFrame{
     private JTextField nameTextField, heightTextField, widthTextField;
     private JTextArea descriptionTextArea;
     private JButton addButton;
+    private boolean testable;
 
-    public ObstacleFrame(){
+    public ObstacleFrame(boolean testable){
+        this.testable = testable;
         this.doInitializations();
         this.setListeners();
         this.setProperties();
@@ -55,14 +57,20 @@ public class ObstacleFrame extends JFrame{
                     xmlHelper.addObstacleXML(new Obstacle(name, width, height , 0, description));
                     ObstacleFrame.this.dispose();
                 }catch (NumberFormatException e1){
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and width must be a number.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height and width must be a number.");
+                        e1.printStackTrace();
+                    }
                 } catch (FieldEmptyException e1) {
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Name field cannot be empty.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Name field cannot be empty.");
+                        e1.printStackTrace();
+                    }
                 } catch (PositiveOnlyException e1) {
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and Width must be greater than 0.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height and Width must be greater than 0.");
+                        e1.printStackTrace();
+                    }
                 }
             }
         });

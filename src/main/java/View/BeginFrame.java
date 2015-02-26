@@ -64,7 +64,7 @@ public class BeginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Runway runway = newAirport.getRunway((String) runwayBox.getSelectedItem());
-                new CalculusFrame(runway);
+                new CalculusFrame(runway, false);
                 BeginFrame.this.dispose();
             }
         });

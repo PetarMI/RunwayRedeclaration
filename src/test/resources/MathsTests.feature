@@ -1,7 +1,7 @@
 Feature: Testing calculations done by the maths module
 
   #Scenario 1
-  Scenario: Scenario 1 12m tall obstacle, on the centreline, 50m before the 09L threshold, i.e. to the west of the
+  Scenario: Example Scenario 1: 12m tall obstacle, on the centreline, 50m before the 09L threshold, i.e. to the west of the
   threshold. The same obstacle is 3646m from the 27R threshold.
 
     #    VALUES: TORA TODA ASDA LDA Orientation Position Threshold
@@ -14,7 +14,7 @@ Feature: Testing calculations done by the maths module
     And For 27R should be 2986,2986, 2986, 3346
 
 
-  Scenario: Scenario 2 25m tall obstacle, 20m below of the centerline, 500m from the 27L threshold and 2853m from
+  Scenario:  Example Scenario 2: 25m tall obstacle, 20m below of the centerline, 500m from the 27L threshold and 2853m from
   09R threshold.
 
     Given The operator has the values for the runway 09R/27L
@@ -26,7 +26,7 @@ Feature: Testing calculations done by the maths module
     And For 27L should be 2860,2860, 2860, 1850
 
 
-  Scenario: Scenario 3 15m tall obstacle, 60m above of centreline, 150m from 09R threshold and 3203m from 27L
+  Scenario: Example Scenario 3: 15m tall obstacle, 60m above of centreline, 150m from 09R threshold and 3203m from 27L
   threshold.
 
     Given The operator has the values for the runway 09R/27L
@@ -38,7 +38,7 @@ Feature: Testing calculations done by the maths module
     And For 27L should be 2393,2393, 2393, 2903
 
 
-  Scenario: 20m tall obstacle, 20m above of centreline, 50m from 27R threshold and 3546m
+  Scenario: Example Scenario 4: 20m tall obstacle, 20m above of centreline, 50m from 27R threshold and 3546m
   from 09L threshold.
 
     Given The operator has the values for the runway 09L/27R
