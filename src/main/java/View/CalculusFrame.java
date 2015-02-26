@@ -62,10 +62,10 @@ public class CalculusFrame extends JFrame{
     private void doInitializations() {
         xmlHelper = new XMLHelper();
         optionsPane = new JOptionPane();
-        this.posFromLeftText.setUI(new HintTextFieldUI("Position from Left", true));
-        this.posFromRightText.setUI(new HintTextFieldUI("Position from Right", true));
-        this.blastAllowanceFormattedTextField.setUI(new HintTextFieldUI("Blast Allowance", true));
-        this.centreJFormattedTextField.setUI(new HintTextFieldUI("Centreline distance", true));
+        this.posFromLeftText.setUI(new HintTextField("Position from Left"));
+        this.posFromRightText.setUI(new HintTextField("Position from Right"));
+        this.blastAllowanceFormattedTextField.setUI(new HintTextField("Blast Allowance"));
+        this.centreJFormattedTextField.setUI(new HintTextField("Centreline distance"));
 
         Values origValues = runway.getStrip1().getOrigVal();
         this.origTora1.setText(String.valueOf(origValues.getTora()));
