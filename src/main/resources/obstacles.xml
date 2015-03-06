@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ObstacleList>
-<Obstacle>
-<Name>block</Name>
-<Length>2</Length>
-<Width>4</Width>
-<Height>7</Height>
-<Description>irregular shape</Description>
-</Obstacle>
 
 <Obstacle>
 <Name>Scenario 1</Name>
 <Length>1</Length>
 <Width>1</Width>
 <Height>12</Height>
-<Description>Scenario1</Description>
+<Description>Scenario 1 object</Description>
 </Obstacle>
 
 <Obstacle>
@@ -21,7 +14,7 @@
 <Length>1</Length>
 <Width>1</Width>
 <Height>25</Height>
-<Description>Scenario2</Description>
+<Description>Scenario 2 object</Description>
 </Obstacle>
 
 <Obstacle>
@@ -29,7 +22,7 @@
 <Length>1</Length>
 <Width>1</Width>
 <Height>15</Height>
-<Description>Scenario3</Description>
+<Description>Scenario 3 object</Description>
 </Obstacle>
 
 <Obstacle>
@@ -37,7 +30,7 @@
 <Length>1</Length>
 <Width>1</Width>
 <Height>20</Height>
-<Description>Scenario4</Description>
+<Description>Scenario 4 object</Description>
 </Obstacle>
 
 </ObstacleList>
