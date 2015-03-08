@@ -47,19 +47,20 @@ public class ObstacleFrame extends JFrame{
 
                     Integer height = Integer.parseInt(heightTextField.getText());
                     int width = Integer.parseInt(widthTextField.getText());
+                    int length = Integer.parseInt(lengthTextField.getText());
                     String description = descriptionTextArea.getText();
                     if(name.equals("")){
                         throw new FieldEmptyException();
                     }
-                    if((width <= 0) || (height <=0)){
+                    if((width <= 0) || (height <= 0) || (length <= 0)){
                         throw new PositiveOnlyException();
                     }
                     XMLHelper xmlHelper = new XMLHelper();
-                    xmlHelper.addObstacleXML(new Obstacle(name, width, height , 0, description));
+                    xmlHelper.addObstacleXML(new Obstacle(name, width, height , length, description));
                     ObstacleFrame.this.dispose();
                 }catch (NumberFormatException e1){
                     if(!testable) {
-                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height and width must be a number.");
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height, width and length must be a number.");
                         e1.printStackTrace();
                     }
                 } catch (FieldEmptyException e1) {
@@ -69,7 +70,7 @@ public class ObstacleFrame extends JFrame{
                     }
                 } catch (PositiveOnlyException e1) {
                     if(!testable) {
-                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height and Width must be greater than 0.");
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height, width and length must be greater than 0.");
                         e1.printStackTrace();
                     }
                 }
