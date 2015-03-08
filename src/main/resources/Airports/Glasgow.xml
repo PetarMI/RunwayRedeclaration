@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Airport name="Glasgow">
+
+    <Runway id="05/23">
+        <Strip id="05">
+            <TORA>2658</TORA>
+            <ASDA>2658</ASDA>
+            <TODA>2783</TODA>
+            <LDA>2661</LDA>
+            <Threshold>0</Threshold>
+            <Orientation>05</Orientation>
+            <Position> </Position>
+        </Strip>
+        <Strip id="23">
+            <TORA>2661</TORA>
+            <ASDA>2812</ASDA>
+            <TODA>3090</TODA>
+            <LDA>2356</LDA>
+            <Threshold>0</Threshold>
+            <Orientation>23</Orientation>
+            <Position> </Position>
+        </Strip>
+    </Runway>
+
+</Airport>
