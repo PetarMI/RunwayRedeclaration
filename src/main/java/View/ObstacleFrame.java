@@ -13,9 +13,9 @@ public class ObstacleFrame extends JFrame{
 
     public static final int WIDTH = 150;
     public static final int HEIGHT = 300;
-    
+
     private JPanel mainPane;
-    private JTextField nameTextField, heightTextField, widthTextField;
+    private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
     private JTextArea descriptionTextArea;
     private JButton addButton;
     private boolean testable;
@@ -30,12 +30,13 @@ public class ObstacleFrame extends JFrame{
     private void doInitializations() {
         this.nameTextField.setUI(new HintTextField("Name"));
         this.heightTextField.setUI(new HintTextField("Height"));
+        this.lengthTextField.setUI(new HintTextField("Length"));
         this.widthTextField.setUI(new HintTextField("Width"));
         this.descriptionTextArea.setUI(new HintTextField("Description"));
 
     }
 
-    //TODO: Should I add length to the form? If we are not using it anymore it should be removed from the obstacle class
+    //TODO: Length added to form, needs to be implemented in here
     //TODO: Also, manage input errors somehow
     private void setListeners() {
         this.addButton.addActionListener(new ActionListener() {
