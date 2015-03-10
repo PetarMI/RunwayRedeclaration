@@ -100,7 +100,7 @@ public class MathTestRecValues {
         assertTrue(runway.getStrip1().getRecVal().getLanding().equals(expectedValues.getLanding()));
     }
 
-    //landOverBeforeMiddle edge case for the above test.
+    //landingOverBeforeMiddle edge case for the above test.
     @Test
     public void landOverBeforeMiddleEdgeCase() {
         //runway specs
