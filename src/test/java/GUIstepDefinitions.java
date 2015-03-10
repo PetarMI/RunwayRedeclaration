@@ -1,7 +1,7 @@
 import Model.Airport;
 import Model.XMLHelper;
-import View.CalculusFrame;
-import View.ObstacleFrame;
+import View.CalculusPanel;
+import View.ObstaclePanel;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,29 +15,29 @@ import static junit.framework.TestCase.assertTrue;
 
 public class GUIstepDefinitions {
 
-    CalculusFrame calculusFrame;
-    ObstacleFrame obstacleFrame;
+    CalculusPanel calculusPanel;
+    ObstaclePanel obstaclePanel;
 
     @Given("^The operator is on the calculus page$")
     public void the_operator_is_on_the_calculus_page() throws ParserConfigurationException, SAXException, IOException {
         XMLHelper xml = new XMLHelper();
         Airport airport = xml.readAirport(xml.readAllAirports().get(0) +".xml");
-        calculusFrame = new CalculusFrame(airport.getRunway(airport.getRunwayIds().get(0)), true);
+        calculusPanel = new CalculusPanel(airport.getRunway(airport.getRunwayIds().get(0)), true);
     }
 
     @When("^he inputs (.*) on all of the fields$")
     public void he_inputs_on_all_of_the_fields(String input){
-        calculusFrame.setBlastAllowance(input);
-        calculusFrame.setCentreLineDist(input);
-        calculusFrame.setPosFromLeft(input);
-        calculusFrame.setPosFromRight(input);
+        calculusPanel.setBlastAllowance(input);
+        calculusPanel.setCentreLineDist(input);
+        calculusPanel.setPosFromLeft(input);
+        calculusPanel.setPosFromRight(input);
     }
 
     @Then("^The application should not crash if Calculate button pressed$")
     public void The_application_should_not_crash_if_Calculate_button_pressed() {
         boolean ok = true;
         try{
-            calculusFrame.pressCalculate();
+            calculusPanel.pressCalculate();
             JOptionPane.getRootFrame().dispose();
         }catch (Exception e){
             ok = false;
@@ -47,20 +47,20 @@ public class GUIstepDefinitions {
 
     @Given("^The operator is on the new obstacle page$")
     public void The_operator_is_on_the_new_obstacle_page() {
-       obstacleFrame = new ObstacleFrame(true);
+       obstaclePanel = new ObstaclePanel(true);
     }
 
     @When("^he inputs (.*) on height and width$")
     public void he_inputs_on_height_and_width(String s) {
-        obstacleFrame.setHeight(s);
-        obstacleFrame.setWidth(s);
+        obstaclePanel.setHeight(s);
+        obstaclePanel.setWidth(s);
     }
 
     @Then("^The application should not crash if add button pressed$")
     public void The_application_should_not_crash_if_button_pressed() {
         boolean ok = true;
         try {
-            obstacleFrame.pressAddButton();
+            obstaclePanel.pressAddButton();
         }catch (Exception e){
             ok = false;
         }

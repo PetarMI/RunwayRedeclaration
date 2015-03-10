@@ -1,5 +1,6 @@
 package View;
 
+import Controller.SetupListener;
 import Model.Obstacle;
 import Model.Runway;
 import Model.Values;
@@ -12,13 +13,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-public class CalculusFrame extends JFrame{
+public class CalculusPanel extends JPanel{
 
     public static final int WIDTH = 650;
     public static final int HEIGHT = 300;
     private XMLHelper xmlHelper;
     private final Runway runway;
-    private JPanel mainPane;
     private JButton changeRunwayButton;
     private JComboBox obstaclesComboBox;
     private JButton newObstacleButton;
@@ -51,11 +51,11 @@ public class CalculusFrame extends JFrame{
     private JOptionPane optionsPane;
     private boolean testable;
 
-    public CalculusFrame(Runway runway, boolean testable) {
+    public CalculusPanel(Runway runway, boolean testable, ActionListener al1, ActionListener al2, SetupListener al3) {
         this.runway = runway;
         this.testable = testable;
         this.doInitializations();
-        this.setListeners();
+        this.setListeners(al1, al2, al3);
         this.setProperties();
     }
 
@@ -89,7 +89,7 @@ public class CalculusFrame extends JFrame{
         this.updateObstacleList();
     }
 
-    private void updateRecValues() {
+    public void updateRecValues() {
         Values recValues = runway.getStrip1().getRecVal();
         this.recTora1.setText(String.valueOf(recValues.getTora()));
         this.recToda1.setText(String.valueOf(recValues.getToda()));
@@ -103,51 +103,14 @@ public class CalculusFrame extends JFrame{
         this.recLda2.setText(String.valueOf(recValues.getLda()));
     }
 
-    private void setListeners() {
-        changeRunwayButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new BeginFrame();
-                CalculusFrame.this.dispose();
-            }
-        });
-        newObstacleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final ObstacleFrame obstacleFrame = new ObstacleFrame(false);
-                obstacleFrame.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        CalculusFrame.this.updateObstacleList();
-                    }
-                });
-            }
-        });
-
-        calculateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Obstacle obs = (Obstacle)obstaclesComboBox.getSelectedItem();
-                try {
-                    int posFromRight = Integer.parseInt(posFromRightText.getText());
-                    int posFromLeft = Integer.parseInt(posFromLeftText.getText());
-                    int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
-                    int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
-                    runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
-                    runway.recalculateValues(blastAllowance);
-                    CalculusFrame.this.updateRecValues();
-                }catch (NumberFormatException e1){
-                    if(!testable) {
-                        optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
-                        e1.printStackTrace();
-                    }
-                }
-
-            }
-        });
+    private void setListeners(ActionListener listener1, ActionListener listener2, SetupListener listener3) {
+        listener3.useThis(new Object[]{calculateButton});
+        changeRunwayButton.addActionListener(listener1);
+        newObstacleButton.addActionListener(listener2);
+        calculateButton.addActionListener(listener3);
     }
 
-    private void updateObstacleList(){
+    public void updateObstacleList(){
         List<Obstacle> obstacles = xmlHelper.readObstacles();
         obstaclesComboBox.removeAllItems();
         for(Obstacle o : obstacles){
@@ -157,13 +120,9 @@ public class CalculusFrame extends JFrame{
     }
 
     private void setProperties() {
-        this.setTitle("Redeclaration");
         this.setSize(WIDTH, HEIGHT);
-        this.setContentPane(mainPane);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
 
     public void pressCalculate(){
         calculateButton.doClick();
