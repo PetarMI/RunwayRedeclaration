@@ -3,9 +3,14 @@ package Controller;
 import Model.Airport;
 import Model.Runway;
 import Model.XMLHelper;
+import View.BeginFrame;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,6 +24,7 @@ public class Controller {
     private List<String> availableAirports;
     private XMLHelper xmlHelper;
     private Runway runway;
+    private static BeginFrame currentFrame;
 
     public Controller() {
         xmlHelper = new XMLHelper();
