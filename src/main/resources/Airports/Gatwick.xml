@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Airport name="Gatwick">
+
+    <Runway id="08L/26R">
+        <Strip id="08L">
+            <TORA>2565</TORA>
+            <ASDA>2565</ASDA>
+            <TODA>3040</TODA>
+            <LDA>2243</LDA>
+            <Threshold>427</Threshold>
+            <Orientation>08</Orientation>
+            <Position>L</Position>
+        </Strip>
+        <Strip id="26R">
+            <TORA>2565</TORA>
+            <ASDA>2565</ASDA>
+            <TODA>2703</TODA>
+            <LDA>2148</LDA>
+            <Threshold>417</Threshold>
+            <Orientation>26</Orientation>
+            <Position>R</Position>
+        </Strip>
+    </Runway>
+
+
+    <Runway id="08R/26L">
+        <Strip id="08R">
+            <TORA>3159</TORA>
+            <ASDA>3233</ASDA>
+            <TODA>3311</TODA>
+            <LDA>2766</LDA>
+            <Threshold>393</Threshold>
+            <Orientation>08</Orientation>
+            <Position>R</Position>
+        </Strip>
+        <Strip id="26L">
+            <TORA>3255</TORA>
+            <ASDA>3316</ASDA>
+            <TODA>3399</TODA>
+            <LDA>2831</LDA>
+            <Threshold>424</Threshold>
+            <Orientation>26</Orientation>
+            <Position>L</Position>
+        </Strip>
+    </Runway>
+
+</Airport>

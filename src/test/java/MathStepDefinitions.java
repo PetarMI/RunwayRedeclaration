@@ -19,7 +19,6 @@ public class MathStepDefinitions {
 
     @Given("^The operator has the values for the runway (.*)$")
     public void The_operator_has_the_values_for_the_runway(String runwayID) {
-
         this.runwayID = runwayID;
     }
 
@@ -38,7 +37,7 @@ public class MathStepDefinitions {
         runway = new Runway(runwayID, strip1, strip2);
     }
 
-    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) from the centreline$")
+    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) above the centreline$")
     public void He_adds_an_obstacle_(int posLeft, int posRight, int height, int distCentral) {
         obs = new Obstacle("test", 1, height, 1, "test");
         runway.addObstacle(obs, posLeft, posRight,distCentral);
@@ -48,28 +47,45 @@ public class MathStepDefinitions {
     public void with_blast_allowance(int blastAllowance){
         this.blastAllowance = blastAllowance;
     }
-    @Then("^The recalculated values for (.*) should be (.*), (.*), (.*), (.*)$")
+
+    @Then("^The recalculated values for (.*) should be (\\d+), (\\d+), (\\d+), (\\d+)$")
     public void The_recalculated_values_for_Strip1(String stripId, String tora, String toda, String asda, String lda) {
         runway.recalculateValues(blastAllowance);
+        Values recValues;
+        if (runway.getStrip1().getStripId().equals(stripId)) {
+            recValues = runway.getStrip1().getRecVal();
+        } else {
+            recValues = runway.getStrip2().getRecVal();
+        }
         trueValues = new Values(Integer.valueOf(tora), Integer.valueOf(asda), Integer.valueOf(toda), Integer.valueOf(lda));
-        System.out.println(runway.getStrip1().getRecVal().getTora());
-        System.out.println(runway.getStrip1().getRecVal().getToda());
-        System.out.println(runway.getStrip1().getRecVal().getAsda());
-        System.out.println(runway.getStrip1().getRecVal().getLda());
-        maths = new MathHandler(runway);
 
-        //test each value for the first strip
-        assertTrue("Recalculated TORA for the first strip is not correct", trueValues.getTora() == runway.getStrip1().getRecVal().getTora());
-        assertTrue("Recalculated TODA for the first strip is not correct", trueValues.getToda() == runway.getStrip1().getRecVal().getToda());
-        assertTrue("Recalculated ASDA for the first strip is not correct", trueValues.getAsda() == runway.getStrip1().getRecVal().getAsda());
-        assertTrue("Recalculated LDA for the first strip is not correct", trueValues.getLda() == runway.getStrip1().getRecVal().getLda());
+        //test each value
+        assertTrue("Recalculated TORA for " + stripId + " is " + recValues.getTora(), trueValues.getTora() == recValues.getTora());
+        assertTrue("Recalculated TODA for " + stripId + " is " + recValues.getToda(), trueValues.getToda() == recValues.getToda());
+        assertTrue("Recalculated ASDA for " + stripId + " is " + recValues.getAsda(), trueValues.getAsda() == recValues.getAsda());
+        assertTrue("Recalculated LDA for " + stripId + " is " + recValues.getLda(), trueValues.getLda() == recValues.getLda());
 
-        assertTrue("Recalculated values are not the same", trueValues.equals(runway.getStrip1().getRecVal()));
+        //test it all together
+        assertTrue("Recalculated values are not the same", trueValues.equals(recValues));
+    }
 
+    @And("^For (.*) should be (\\d+),(\\d+), (\\d+), (\\d+)$")
+    public void For_R_should_be_(String stripId, int tora, int toda, int asda, int lda)  {
+        trueValues = new Values(tora, asda, toda, lda);
+        Values recValues ;
+        if(runway.getStrip1().getStripId().equals(stripId)){
+            recValues = runway.getStrip1().getRecVal();
+        }
+        else{
+            recValues = runway.getStrip2().getRecVal();
+        }
+        //test each value
+        assertTrue("Recalculated TORA for "+ stripId +" is "+ recValues.getTora(), trueValues.getTora() == recValues.getTora());
+        assertTrue("Recalculated TODA for "+ stripId +" is "+ recValues.getToda(), trueValues.getToda() == recValues.getToda());
+        assertTrue("Recalculated ASDA for "+ stripId +" is "+ recValues.getAsda(), trueValues.getAsda() ==recValues.getAsda());
+        assertTrue("Recalculated LDA for "+ stripId +" is "+ recValues.getLda(), trueValues.getLda() == recValues.getLda());
 
-//        assertTrue("Recalculated TORA for the second strip is not correct", trueValues.getTora() == runway.getStrip1().getRecVal().getTora());
-//        assertTrue("Recalculated TODA for the second strip is not correct", trueValues.getToda() == runway.getStrip1().getRecVal().getToda());
-//        assertTrue("Recalculated ASDA for the second strip is not correct", trueValues.getAsda() == runway.getStrip1().getRecVal().getAsda());
-//        assertTrue("Recalculated LDA for the second strip is not correct", trueValues.getLda() == runway.getStrip1().getRecVal().getLda());
+        //test it all together
+        assertTrue("Recalculated values are not the same", trueValues.equals(recValues));
     }
 }

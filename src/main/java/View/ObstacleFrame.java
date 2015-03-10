@@ -13,27 +13,30 @@ public class ObstacleFrame extends JFrame{
 
     public static final int WIDTH = 150;
     public static final int HEIGHT = 300;
-    
+
     private JPanel mainPane;
-    private JTextField nameTextField, heightTextField, widthTextField;
+    private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
     private JTextArea descriptionTextArea;
     private JButton addButton;
+    private boolean testable;
 
-    public ObstacleFrame(){
+    public ObstacleFrame(boolean testable){
+        this.testable = testable;
         this.doInitializations();
         this.setListeners();
         this.setProperties();
     }
 
     private void doInitializations() {
-        this.nameTextField.setUI(new HintTextFieldUI("Name", true));
-        this.heightTextField.setUI(new HintTextFieldUI("Height", true));
-        this.widthTextField.setUI(new HintTextFieldUI("Width", true));
-        this.descriptionTextArea.setUI(new HintTextFieldUI("Description", true));
+        this.nameTextField.setUI(new HintTextField("Name"));
+        this.heightTextField.setUI(new HintTextField("Height"));
+        this.lengthTextField.setUI(new HintTextField("Length"));
+        this.widthTextField.setUI(new HintTextField("Width"));
+        this.descriptionTextArea.setUI(new HintTextField("Description"));
 
     }
 
-    //TODO: Should I add length to the form? If we are not using it anymore it should be removed from the obstacle class
+    //TODO: Length added to form, needs to be implemented in here
     //TODO: Also, manage input errors somehow
     private void setListeners() {
         this.addButton.addActionListener(new ActionListener() {
@@ -44,25 +47,32 @@ public class ObstacleFrame extends JFrame{
 
                     Integer height = Integer.parseInt(heightTextField.getText());
                     int width = Integer.parseInt(widthTextField.getText());
+                    int length = Integer.parseInt(lengthTextField.getText());
                     String description = descriptionTextArea.getText();
                     if(name.equals("")){
                         throw new FieldEmptyException();
                     }
-                    if((width <= 0 ) || (height <= 0)){
+                    if((width <= 0) || (height <= 0) || (length <= 0)){
                         throw new PositiveOnlyException();
                     }
                     XMLHelper xmlHelper = new XMLHelper();
-                    xmlHelper.addObstacleXML(new Obstacle(name, width, height , 0, description));
+                    xmlHelper.addObstacleXML(new Obstacle(name, width, height , length, description));
                     ObstacleFrame.this.dispose();
                 }catch (NumberFormatException e1){
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and width must be a number.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height, width and length must be a number.");
+                        e1.printStackTrace();
+                    }
                 } catch (FieldEmptyException e1) {
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Name field cannot be empty.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Name field cannot be empty.");
+                        e1.printStackTrace();
+                    }
                 } catch (PositiveOnlyException e1) {
-                    JOptionPane.showMessageDialog(ObstacleFrame.this,"Height and width must be greater than 0.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(ObstacleFrame.this, "Height, width and length must be greater than 0.");
+                        e1.printStackTrace();
+                    }
                 }
             }
         });

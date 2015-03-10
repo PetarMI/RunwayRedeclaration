@@ -49,9 +49,11 @@ public class CalculusFrame extends JFrame{
     private JPanel strip1Panel;
     private JTextField posFromRightText;
     private JOptionPane optionsPane;
+    private boolean testable;
 
-    public CalculusFrame(Runway runway) {
+    public CalculusFrame(Runway runway, boolean testable) {
         this.runway = runway;
+        this.testable = testable;
         this.doInitializations();
         this.setListeners();
         this.setProperties();
@@ -62,10 +64,10 @@ public class CalculusFrame extends JFrame{
     private void doInitializations() {
         xmlHelper = new XMLHelper();
         optionsPane = new JOptionPane();
-        this.posFromLeftText.setUI(new HintTextFieldUI("Position from Left", true));
-        this.posFromRightText.setUI(new HintTextFieldUI("Position from Right", true));
-        this.blastAllowanceFormattedTextField.setUI(new HintTextFieldUI("Blast Allowance", true));
-        this.centreJFormattedTextField.setUI(new HintTextFieldUI("Centreline distance", true));
+        this.posFromLeftText.setUI(new HintTextField("Position from Left"));
+        this.posFromRightText.setUI(new HintTextField("Position from Right"));
+        this.blastAllowanceFormattedTextField.setUI(new HintTextField("Blast Allowance"));
+        this.centreJFormattedTextField.setUI(new HintTextField("Centreline distance"));
 
         Values origValues = runway.getStrip1().getOrigVal();
         this.origTora1.setText(String.valueOf(origValues.getTora()));
@@ -112,7 +114,7 @@ public class CalculusFrame extends JFrame{
         newObstacleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final ObstacleFrame obstacleFrame = new ObstacleFrame();
+                final ObstacleFrame obstacleFrame = new ObstacleFrame(false);
                 obstacleFrame.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosed(WindowEvent e) {
@@ -135,8 +137,10 @@ public class CalculusFrame extends JFrame{
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
                 }catch (NumberFormatException e1){
-                    optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
-                    e1.printStackTrace();
+                    if(!testable) {
+                        optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
+                        e1.printStackTrace();
+                    }
                 }
 
             }

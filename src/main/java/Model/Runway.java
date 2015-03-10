@@ -42,7 +42,7 @@ public class Runway
     //pass blast allowance specific to the landing aircraft
     public void recalculateValues(int aircraftBlastProtection) {
         Pair<Values, Values> recVals = this.mathHandler.recalculateValues(this.obstacle.getHeight(),
-                aircraftBlastProtection);
+                this.obstacle.getLength(), this.obstacle.getWidth(), aircraftBlastProtection);
         this.strip1.setRecVal(recVals.getValue1());
         this.strip2.setRecVal(recVals.getValue2());
     }
