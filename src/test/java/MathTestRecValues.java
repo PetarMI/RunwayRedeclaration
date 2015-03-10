@@ -3,6 +3,7 @@ import Model.Runway;
 import Model.Strip;
 import Model.Values;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -154,18 +155,18 @@ public class MathTestRecValues {
         str2 = new Strip("27L", 27, "L", str2Values, 0);
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
-        obstacle = new Obstacle("tall", 4, 10, 10, "");
+        obstacle = new Obstacle("tall", 4, 19, 10, "");
         runway.addObstacle(obstacle, 1873, 3646, 15);
         runway.recalculateValues(BLAST_ALLOWANCE);
 
         //expected values
         expectedValues = new Values(1175, 1175, 1175, DEFAULT_VALUE);
-        expectedValues.setTakeoff("TakeOff Towards");
+        expectedValues.setTakeoff("TakeOff Away");
         System.out.println(runway.getStrip1().getOrigVal());
         System.out.println(runway.getStrip1().getRecVal());
         assertTrue(runway.getStrip1().getRecVal().getTora() == expectedValues.getTora());
-        /*assertTrue(runway.getStrip1().getRecVal().getToda() == expectedValues.getToda());
-        assertTrue(runway.getStrip1().getRecVal().getAsda() == expectedValues.getAsda());*/
+        assertTrue(runway.getStrip1().getRecVal().getToda() == expectedValues.getToda());
+        assertTrue(runway.getStrip1().getRecVal().getAsda() == expectedValues.getAsda());
         assertTrue(runway.getStrip1().getRecVal().getTakeoff().equals(expectedValues.getTakeoff()));
     }
 
