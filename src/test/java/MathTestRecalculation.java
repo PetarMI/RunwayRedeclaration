@@ -15,7 +15,6 @@ public class MathTestRecalculation {
     //Strip 1
     private Values str1Values;
     private Strip str1;
-    private Values expectedValues;
     //Strip2
     private Values str2Values;
     private Strip str2;
@@ -60,6 +59,56 @@ public class MathTestRecalculation {
         //only care about width
         obstacle = new Obstacle("plane", 4, 10, 5, "");
         runway.addObstacle(obstacle, -50, 3646, 78);
+        runway.recalculateValues(BLAST_ALLOWANCE);
+        assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
+        assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
+    }
+
+    @Test
+    public void testStripendWithin(){
+        //only care about length
+        obstacle = new Obstacle("plane", 5, 10, 4, "");
+        runway.addObstacle(obstacle, -50, 3646, 20);
+        runway.recalculateValues(BLAST_ALLOWANCE);
+        assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
+        assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
+    }
+
+    @Test
+    public void testStripendLeftOn(){
+        //only care about length
+        obstacle = new Obstacle("plane", 5, 10, 4, "");
+        runway.addObstacle(obstacle, -368, 3646, 20);
+        runway.recalculateValues(BLAST_ALLOWANCE);
+        assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
+        assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
+    }
+
+    @Test
+    public void testStripendRightOn(){
+        //only care about length
+        obstacle = new Obstacle("plane", 5, 10, 4, "");
+        runway.addObstacle(obstacle, 3200, -62, 20);
+        runway.recalculateValues(BLAST_ALLOWANCE);
+        assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
+        assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
+    }
+
+    @Test
+    public void testStripendLeftBeyond(){
+        //only care about length
+        obstacle = new Obstacle("plane", 5, 10, 4, "");
+        runway.addObstacle(obstacle, -369, 3646, 20);
+        runway.recalculateValues(BLAST_ALLOWANCE);
+        assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
+        assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
+    }
+
+    @Test
+    public void testStripendRightBeyond(){
+        //only care about length
+        obstacle = new Obstacle("plane", 5, 10, 4, "");
+        runway.addObstacle(obstacle, 3300, -63, 20);
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));

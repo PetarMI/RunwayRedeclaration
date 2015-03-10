@@ -17,8 +17,8 @@ public class MathHandler
 
     private Runway runway;
     private Integer obstacleHeight;
-    private Integer obstacleLength;
-    private Integer obstacleWidth;
+    private Integer obstacleLengthHalf;
+    private Integer obstacleWidthHalf;
     private int aircraftBlastProtection;
     private Values recalculatedValuesStrip1;
     private Values recalculatedValuesStrip2;
@@ -26,8 +26,8 @@ public class MathHandler
     public MathHandler(Runway runway) {
         this.runway = runway;
         this.obstacleHeight = null;
-        this.obstacleLength = null;
-        this.obstacleWidth = null;
+        this.obstacleLengthHalf = null;
+        this.obstacleWidthHalf = null;
         this.recalculatedValuesStrip1 = null;
         this.recalculatedValuesStrip2 = null;
     };
@@ -37,15 +37,15 @@ public class MathHandler
                 int obstWidth, int blastProtection) {
 
         this.obstacleHeight = obstHeight;
-        this.obstacleLength = obstLength;
-        this.obstacleWidth = obstWidth;
+        this.obstacleLengthHalf = (int)Math.ceil(obstLength/2.0);
+        this.obstacleWidthHalf = (int)Math.ceil(obstWidth/2.0);
 
         //decide if we have to recalculate the runway distances
-        if ((runway.getObstacleDistanceFromCentreline() - obstacleWidth/2) > CENTRELINE_THRESHOLD ||
+        if ((runway.getObstacleDistanceFromCentreline() - obstacleWidthHalf) > CENTRELINE_THRESHOLD ||
                 (((runway.getStrip1().getDisplacedThreshold() + STRIPEND_THRESHOLD
-                        + runway.getPositionFromLeftDT() + obstacleLength/2) < 0) ||
+                        + runway.getPositionFromLeftDT() + obstacleLengthHalf) < 0) ||
                         ((runway.getStrip2().getDisplacedThreshold() + STRIPEND_THRESHOLD
-                                + runway.getPositionFromRightDT() + obstacleLength/2) < 0))){
+                                + runway.getPositionFromRightDT() + obstacleLengthHalf) < 0))){
             //TODO maybe throw custom exception saying we don't have an obstacle and values are the same
             return new Pair<Values, Values>(this.runway.getStrip1().getOrigVal(), this.runway.getStrip2().getOrigVal());
         }
@@ -92,7 +92,7 @@ public class MathHandler
 
     private Values takeOffAway(Values stripValues, int distance, int threshold){
         int tempTora = stripValues.getTora() - Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD)
-                - distance - threshold - obstacleLength/2;
+                - distance - threshold - obstacleLengthHalf;
         int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
         int tempToda = tempTora + stripValues.getToda() - stripValues.getTora();
 
@@ -100,7 +100,7 @@ public class MathHandler
     }
 
     private Values takeOffTowards(int distance, int threshold){
-        int tempTora = distance - obstacleLength/2 + threshold - Math.max(this.obstacleHeight*50, RESA)
+        int tempTora = distance - obstacleLengthHalf + threshold - Math.max(this.obstacleHeight*50, RESA)
                 - STRIPEND_THRESHOLD;
 
         //toda and asda are equal to the tora as the obstacle blocks the clearway and stopway
@@ -120,12 +120,12 @@ public class MathHandler
     }
 
     private int landOver(Values originalStripValues, int distance) {
-        int lda = (originalStripValues.getLda() - distance - STRIPEND_THRESHOLD - obstacleLength/2 -
+        int lda = (originalStripValues.getLda() - distance - STRIPEND_THRESHOLD - obstacleLengthHalf -
                 Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50));
         return Math.min(originalStripValues.getLda(), lda);
     }
 
     private int landTowards(int distance) {
-        return (distance - obstacleLength/2 - STRIPEND_THRESHOLD - RESA);
+        return (distance - obstacleLengthHalf - STRIPEND_THRESHOLD - RESA);
     }
 }
