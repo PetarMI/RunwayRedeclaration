@@ -26,10 +26,10 @@ public class MathTestRecalculation {
     @Before
     public void setUp() {
         str1Values = new Values(3660, 3660, 3660, 3353);
-        str1 = new Strip("09L/27R", 9, "L", str1Values, 306);
+        str1 = new Strip("09L", 9, "L", str1Values, 306);
 
         str2Values = new Values(3660, 3660, 3660, 3660);
-        str2 = new Strip("jfglks", 27, "R", str2Values, 0);
+        str2 = new Strip("27R", 27, "R", str2Values, 0);
 
         runway = new Runway("09L/27R", str1, str2);
     }
