@@ -60,7 +60,7 @@ public class MathHandler
         recalculatedValuesStrip1 = calculateTakeOff(originalValues, positionFromLeft,
                 runway.getStrip1().getDisplacedThreshold());
         //get the LDA and way of landing
-        Pair<Integer, String> landing = calculateLanding(originalValues, positionFromLeft);
+        Pair<Integer, String> landing = calculateLanding(originalValues, recalculatedValuesStrip1, positionFromLeft);
         recalculatedValuesStrip1.setLda(landing.getValue1());
         recalculatedValuesStrip1.setLanding(landing.getValue2());
 
@@ -70,7 +70,7 @@ public class MathHandler
         recalculatedValuesStrip2 = calculateTakeOff(originalValues, positionFromRight,
                 runway.getStrip2().getDisplacedThreshold());
         //get new LDA and way of landing
-        landing = calculateLanding(originalValues, positionFromRight);
+        landing = calculateLanding(originalValues, recalculatedValuesStrip2, positionFromRight);
         recalculatedValuesStrip2.setLda(landing.getValue1());
         recalculatedValuesStrip2.setLanding(landing.getValue2());
 
@@ -91,11 +91,14 @@ public class MathHandler
     }
 
     private Values takeOffAway(Values stripValues, int distance, int threshold){
+        int distanceFromObstacle = Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD);
         int tempTora = stripValues.getTora() - Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD)
                 - distance - threshold - obstacleLengthHalf;
         int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
         int tempToda = tempTora + stripValues.getToda() - stripValues.getTora();
-        return new Values(tempTora, tempAsda, tempToda, 0);
+        Values values = new Values(tempTora, tempAsda, tempToda, 0);
+        values.setTakeoffDistanceFormObject(distanceFromObstacle);
+        return values;
     }
 
     private Values takeOffTowards(int distance, int threshold){
@@ -106,11 +109,13 @@ public class MathHandler
         return new Values(tempTora, tempTora, tempTora, 0);
     }
 
-    private Pair<Integer, String> calculateLanding(Values stripValues, int distance) {
-        int landOver = landOver(stripValues, distance);
+    private Pair<Integer, String> calculateLanding(Values stripValues, Values recValues,  int distance) {
+        Pair<Integer, Integer> landingOver = landOver(stripValues, distance);
+        int landOver = landingOver.getValue1();
         int landTowards = landTowards(distance);
 
         if (landOver >= landTowards){
+            recValues.setLandingDistanceFormObject(landingOver.getValue2());
            return new Pair<Integer, String>(landOver, LAND_OVER);
         }
         else {
@@ -118,10 +123,11 @@ public class MathHandler
         }
     }
 
-    private int landOver(Values originalStripValues, int distance) {
+    private Pair<Integer, Integer> landOver(Values originalStripValues, int distance) {
+        int distanceFromObstacle = Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50) - STRIPEND_THRESHOLD;
         int lda = (originalStripValues.getLda() - distance - STRIPEND_THRESHOLD - obstacleLengthHalf -
                 Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50));
-        return Math.min(originalStripValues.getLda(), lda);
+        return new Pair<Integer, Integer>(Math.min(originalStripValues.getLda(), lda), distanceFromObstacle);
     }
 
     private int landTowards(int distance) {
