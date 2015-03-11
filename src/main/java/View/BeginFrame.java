@@ -26,7 +26,6 @@ public class BeginFrame extends JFrame {
     //TODO: Also, the main method is here just for testing purposes. We have to find a better place for it.
 
     public BeginFrame(){
-        this.setContentPane(mainPane);
         this.doInitializations();
         this.setProperties();
     }
@@ -49,7 +48,7 @@ public class BeginFrame extends JFrame {
     public void setListeners(SetupListener listener1, SetupListener listener2) {
         listener1.useThis(new Object[]{airportsBox});
         airportsBox.addActionListener(listener1);
-        listener2.useThis(new Object[]{runwayBox});
+        listener2.useThis(new Object[]{runwayBox, airportsBox});
         okBtn.addActionListener(listener2);
     }
 
@@ -67,7 +66,10 @@ public class BeginFrame extends JFrame {
     }
 
     private void setProperties() {
+        this.setTitle("Select Airport and Runway");
+        this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 

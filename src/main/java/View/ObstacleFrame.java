@@ -22,7 +22,6 @@ public class ObstacleFrame extends JFrame{
     private boolean testable;
 
     public ObstacleFrame(boolean testable){
-        this.setContentPane(mainPane);
         this.testable = testable;
         this.doInitializations();
         this.setProperties();
@@ -45,7 +44,10 @@ public class ObstacleFrame extends JFrame{
     }
 
     private void setProperties() {
+        this.setTitle("Add obstacle");
+        this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 

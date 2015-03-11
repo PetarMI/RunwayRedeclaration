@@ -61,12 +61,12 @@ public class Controller {
         beginFrame = new BeginFrame();
         beginFrame.setListeners(snrl, btcl);
     }
-    private void makeCalculusFrame() {
+    private void makeObstacleFrame() {
         obsFrame = new ObstacleFrame(testable);
         obsFrame.setListeners(nol);
     }
-    private void makeObstacleFrame() {
-        calcFrame = new CalculusFrame(null, testable);
+    private void makeCalculusFrame() {
+        calcFrame = new CalculusFrame(runway, testable);
         calcFrame.setListeners(ctbl, btol, aol);
     }
 
@@ -202,18 +202,30 @@ public class Controller {
         }
         //okBtn
         class BeginToCalculusListener extends SetupListener {
-            private JComboBox runwayBox;
+            private JComboBox runwayBox,airportsBox;
             private boolean setup = false;
             public void useThis(Object[] stuff) {
                 setup = true;
                 runwayBox = (JComboBox) stuff[0];
+                airportsBox = (JComboBox) stuff[1];
             }
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (setup = false){
                    System.out.println("You haven't set up the BeginToCalculusListener");
                 }
-                Runway runway = currentAirport.getRunway((String) runwayBox.getSelectedItem());
+                try {
+                    currentAirport = xmlHelper.readAirport(airportsBox.getSelectedItem().toString().concat((".xml")));
+                } catch (ParserConfigurationException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (SAXException e1) {
+                    e1.printStackTrace();
+                }
+                runway = currentAirport.getRunway((String) runwayBox.getSelectedItem());
+                beginFrame.dispose();
+                makeCalculusFrame();
             }
         }
 

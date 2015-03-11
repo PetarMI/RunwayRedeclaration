@@ -53,7 +53,6 @@ public class CalculusFrame extends JFrame{
     private boolean testable;
 
     public CalculusFrame(Runway runway, boolean testable) {
-        this.setContentPane(mainPane);
         this.runway = runway;
         this.testable = testable;
         this.doInitializations();
@@ -105,7 +104,7 @@ public class CalculusFrame extends JFrame{
     }
 
     public void setListeners(ActionListener listener1, ActionListener listener2, SetupListener listener3) {
-        listener3.useThis(new Object[]{calculateButton});
+        listener3.useThis(new Object[]{obstaclesComboBox, posFromRightText, posFromLeftText, centreJFormattedTextField, blastAllowanceFormattedTextField, optionsPane});
         changeRunwayButton.addActionListener(listener1);
         newObstacleButton.addActionListener(listener2);
         calculateButton.addActionListener(listener3);
@@ -121,7 +120,10 @@ public class CalculusFrame extends JFrame{
     }
 
     private void setProperties() {
+        this.setTitle("Redeclaration");
+        this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
