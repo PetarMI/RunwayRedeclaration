@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Airport name="Southampton">
+
+    <Runway id="02/20">
+        <Strip id="02">
+            <TORA>1723</TORA>
+            <ASDA>1723</ASDA>
+            <TODA>1831</TODA>
+            <LDA>1650</LDA>
+            <Threshold>73</Threshold>
+            <Orientation>02</Orientation>
+            <Position> </Position>
+        </Strip>
+        <Strip id="20">
+            <TORA>1650</TORA>
+            <ASDA>1650</ASDA>
+            <TODA>1805</TODA>
+            <LDA>1605</LDA>
+            <Threshold>45</Threshold>
+            <Orientation>20</Orientation>
+            <Position> </Position>
+        </Strip>
+    </Runway>
+
+</Airport>
