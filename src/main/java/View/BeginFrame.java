@@ -24,6 +24,8 @@ public class BeginFrame extends JFrame {
     //TODO: Bindings must be fixed by using the controller for communication. We must discuss the architecture.
     //TODO: Also, the main method is here just for testing purposes. We have to find a better place for it.
 
+    public static  void main  (String[] args) { new BeginFrame(); }
+
     public BeginFrame(){
         this.doInitializations();
         this.setListeners();
