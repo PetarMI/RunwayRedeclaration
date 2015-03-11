@@ -7,6 +7,7 @@ import Model.Values;
 import Model.XMLHelper;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -188,6 +189,9 @@ public class CalculusFrame extends JFrame{
     private void setProperties() {
         this.setTitle("Redeclaration");
         this.setSize(WIDTH, HEIGHT);
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
