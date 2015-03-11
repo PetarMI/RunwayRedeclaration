@@ -16,7 +16,7 @@ import java.util.List;
 public class CalculusPage extends JFrame
 {
     //frame size
-    public static final int WIDTH = 650;
+    public static final int WIDTH = 675;
     public static final int HEIGHT = 350;
     //model references
     private final Runway runway;
