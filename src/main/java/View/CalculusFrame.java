@@ -1,5 +1,6 @@
 package View;
 
+import Exceptions.PositiveOnlyException;
 import Model.Obstacle;
 import Model.Runway;
 import Model.Values;
@@ -48,6 +49,11 @@ public class CalculusFrame extends JFrame{
     private JPanel strip2Panel;
     private JPanel strip1Panel;
     private JTextField posFromRightText;
+    private JComboBox<String> centrelinePosComboBox;
+    private JLabel str1Landing;
+    private JLabel str1Takeoff;
+    private JLabel str2Landing;
+    private JLabel str2Takeoff;
     private JOptionPane optionsPane;
     private boolean testable;
 
@@ -68,6 +74,8 @@ public class CalculusFrame extends JFrame{
         this.posFromRightText.setUI(new HintTextField("Position from Right"));
         this.blastAllowanceFormattedTextField.setUI(new HintTextField("Blast Allowance"));
         this.centreJFormattedTextField.setUI(new HintTextField("Centreline distance"));
+        this.centrelinePosComboBox.addItem("Above");
+        this.centrelinePosComboBox.addItem("Below");
 
         Values origValues = runway.getStrip1().getOrigVal();
         this.origTora1.setText(String.valueOf(origValues.getTora()));
@@ -95,12 +103,16 @@ public class CalculusFrame extends JFrame{
         this.recToda1.setText(String.valueOf(recValues.getToda()));
         this.recAsda1.setText(String.valueOf(recValues.getAsda()));
         this.recLda1.setText(String.valueOf(recValues.getLda()));
+        this.str1Landing.setText(recValues.getLanding());
+        this.str1Takeoff.setText(recValues.getTakeoff());
 
         recValues = runway.getStrip2().getRecVal();
         this.recTora2.setText(String.valueOf(recValues.getTora()));
         this.recToda2.setText(String.valueOf(recValues.getToda()));
         this.recAsda2.setText(String.valueOf(recValues.getAsda()));
         this.recLda2.setText(String.valueOf(recValues.getLda()));
+        this.str2Landing.setText(recValues.getLanding());
+        this.str2Takeoff.setText(recValues.getTakeoff());
     }
 
     private void setListeners() {
@@ -132,6 +144,10 @@ public class CalculusFrame extends JFrame{
                     int posFromRight = Integer.parseInt(posFromRightText.getText());
                     int posFromLeft = Integer.parseInt(posFromLeftText.getText());
                     int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
+                    if (centrelineDist < 0)
+                    {
+                        throw new PositiveOnlyException();
+                    }
                     int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
                     runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                     runway.recalculateValues(blastAllowance);
@@ -139,6 +155,13 @@ public class CalculusFrame extends JFrame{
                 }catch (NumberFormatException e1){
                     if(!testable) {
                         optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
+                        e1.printStackTrace();
+                    }
+                }
+                //TODO remove print stack trace
+                catch (PositiveOnlyException e1) {
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(CalculusFrame.this, "Distance from centreline must be greater than 0.");
                         e1.printStackTrace();
                     }
                 }
