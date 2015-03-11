@@ -134,10 +134,11 @@ public class CalculusFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 final ObstacleFrame obstacleFrame = new ObstacleFrame(false);
-                obstacleFrame.addWindowListener(new WindowAdapter() {
+                obstacleFrame.addButton.addActionListener(new ActionListener() {
                     @Override
-                    public void windowClosed(WindowEvent e) {
+                    public void actionPerformed(ActionEvent e) {
                         CalculusFrame.this.updateObstacleList();
+                        CalculusFrame.this.obstaclesComboBox.setSelectedIndex(obstaclesComboBox.getItemCount()-1);
                     }
                 });
             }
