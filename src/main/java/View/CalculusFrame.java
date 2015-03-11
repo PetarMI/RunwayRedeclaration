@@ -13,7 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-public class CalculusPanel extends JPanel{
+public class CalculusFrame extends JFrame{
 
     public static final int WIDTH = 650;
     public static final int HEIGHT = 300;
@@ -48,14 +48,15 @@ public class CalculusPanel extends JPanel{
     private JPanel strip2Panel;
     private JPanel strip1Panel;
     private JTextField posFromRightText;
+    private JPanel mainPane;
     private JOptionPane optionsPane;
     private boolean testable;
 
-    public CalculusPanel(Runway runway, boolean testable, ActionListener al1, ActionListener al2, SetupListener al3) {
+    public CalculusFrame(Runway runway, boolean testable) {
+        this.setContentPane(mainPane);
         this.runway = runway;
         this.testable = testable;
         this.doInitializations();
-        this.setListeners(al1, al2, al3);
         this.setProperties();
     }
 
@@ -103,7 +104,7 @@ public class CalculusPanel extends JPanel{
         this.recLda2.setText(String.valueOf(recValues.getLda()));
     }
 
-    private void setListeners(ActionListener listener1, ActionListener listener2, SetupListener listener3) {
+    public void setListeners(ActionListener listener1, ActionListener listener2, SetupListener listener3) {
         listener3.useThis(new Object[]{calculateButton});
         changeRunwayButton.addActionListener(listener1);
         newObstacleButton.addActionListener(listener2);

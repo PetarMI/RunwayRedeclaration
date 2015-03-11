@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ObstaclePanel extends JPanel{
+public class ObstacleFrame extends JFrame{
 
     public static final int WIDTH = 150;
     public static final int HEIGHT = 300;
@@ -18,12 +18,13 @@ public class ObstaclePanel extends JPanel{
     private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
     private JTextArea descriptionTextArea;
     private JButton addButton;
+    private JPanel mainPane;
     private boolean testable;
 
-    public ObstaclePanel(boolean testable, SetupListener al1){
+    public ObstacleFrame(boolean testable){
+        this.setContentPane(mainPane);
         this.testable = testable;
         this.doInitializations();
-        this.setListeners(al1);
         this.setProperties();
     }
 
@@ -38,7 +39,7 @@ public class ObstaclePanel extends JPanel{
 
     //TODO: Length added to form, needs to be implemented in here
     //TODO: Also, manage input errors somehow
-    private void setListeners(SetupListener listener1) {
+    public void setListeners(SetupListener listener1) {
         listener1.useThis(new Object[]{nameTextField, heightTextField, widthTextField, lengthTextField, descriptionTextArea});
         this.addButton.addActionListener(listener1);
     }

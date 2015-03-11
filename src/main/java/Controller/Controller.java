@@ -6,9 +6,9 @@ import Model.Airport;
 import Model.Obstacle;
 import Model.Runway;
 import Model.XMLHelper;
-import View.BeginPanel;
-import View.CalculusPanel;
-import View.ObstaclePanel;
+import View.BeginFrame;
+import View.CalculusFrame;
+import View.ObstacleFrame;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Author(s) Petar, Metin, Tom
+ * Author(s) Petar, Metin, Tom, Ed
  * Controller class for handling interactions between Model and View
  */
 public class Controller {
@@ -29,18 +29,18 @@ public class Controller {
     private List<String> availableAirports;
     private XMLHelper xmlHelper;
     private Runway runway;
-    private static boolean testable;
-    private static JFrame everythingHolder;
-    private static JPanel cardHolder;
-    private static CardLayout cards;
-    private static BeginPanel beginPanel;
-    private static ObstaclePanel obsPanel;
-    private static CalculusPanel calcPanel;
+    private static boolean testable = true;
+    private static BeginFrame beginFrame;
+    private static ObstacleFrame obsFrame;
+    private static CalculusFrame calcFrame;
+    private static SetupListener snrl, btcl, nol, aol;
+    private static ActionListener ctbl, btol;
 
     public Controller() {
         xmlHelper = new XMLHelper();
         loadAirports();
-        init();
+        initListeners();
+        makeBeginFrame();
     }
 
     public static void main (String[] args)
@@ -48,41 +48,29 @@ public class Controller {
         new Controller();
     }
 
-    private void init()
-    {
-        testable = true;
-
-        cards = new CardLayout();
-        cardHolder = new JPanel(cards);
-        everythingHolder = new JFrame();
-        everythingHolder.setLayout(cards);
-
-        SetupListener snrl = new SelectNewRunwayListener();
-        SetupListener btcl = new BeginToCalculusListener();
-        beginPanel = new BeginPanel(snrl, btcl);
-
-        SetupListener nol = new NewObstacleListener();
-        obsPanel = new ObstaclePanel(testable, nol);
-
-        ActionListener ctbl = new CalculusToBeginListener();
-        ActionListener btol = new BeginToObstacleListener();
-        SetupListener aol = new AddObstacleListener();
-        calcPanel = new CalculusPanel(null, testable, ctbl, btol, aol);
-
-        cardHolder.add(beginPanel, "begin");
-        cardHolder.add(obsPanel, "obstacles");
-        cardHolder.add(calcPanel, "calculations");
-
-        everythingHolder.setContentPane(cardHolder);
-        everythingHolder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        everythingHolder.setVisible(true);
-
-        /*obsPanel*/everythingHolder.setTitle("Add obstacle");
-        /*beginPanel*/everythingHolder.setTitle("Select Airport and Runway");
-        /*calcPanel*/everythingHolder.setTitle("Redeclaration");
+    private void initListeners() {
+        snrl = new SelectNewRunwayListener();
+        btcl = new BeginToCalculusListener();
+        nol = new NewObstacleListener();
+        ctbl = new CalculusToBeginListener();
+        btol = new BeginToObstacleListener();
+        aol = new AddObstacleListener();
     }
 
-    //from ObstaclePanel
+    private void makeBeginFrame() {
+        beginFrame = new BeginFrame();
+        beginFrame.setListeners(snrl, btcl);
+    }
+    private void makeCalculusFrame() {
+        obsFrame = new ObstacleFrame(testable);
+        obsFrame.setListeners(nol);
+    }
+    private void makeObstacleFrame() {
+        calcFrame = new CalculusFrame(null, testable);
+        calcFrame.setListeners(ctbl, btol, aol);
+    }
+
+    //from ObstacleFrame
     class NewObstacleListener extends  SetupListener {
         private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
         private  JTextArea descriptionTextArea;
@@ -116,44 +104,45 @@ public class Controller {
                 }
                 XMLHelper xmlHelper = new XMLHelper();
                 xmlHelper.addObstacleXML(new Obstacle(name, width, height, length, description));
-                //ObstaclePanel.this.dispose();
+                //ObstacleFrame.this.dispose();
             } catch (NumberFormatException e1) {
                 if (!testable) {
-                    JOptionPane.showMessageDialog(obsPanel, "Height, width and length must be a number.");
+                    JOptionPane.showMessageDialog(obsFrame, "Height, width and length must be a number.");
                     e1.printStackTrace();
                 }
             } catch (FieldEmptyException e1) {
                 if (!testable) {
-                    JOptionPane.showMessageDialog(obsPanel, "Name field cannot be empty.");
+                    JOptionPane.showMessageDialog(obsFrame, "Name field cannot be empty.");
                     e1.printStackTrace();
                 }
             } catch (PositiveOnlyException e1) {
                 if (!testable) {
-                    JOptionPane.showMessageDialog(obsPanel, "Height, width and length must be greater than 0.");
+                    JOptionPane.showMessageDialog(obsFrame, "Height, width and length must be greater than 0.");
                     e1.printStackTrace();
                 }
             }
         }
     }
 
-    //from CalculusPanel
-        //changeRunwayButton
+    //from CalculusFrame
+    //changeRunwayButton
     class CalculusToBeginListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cards.show(cardHolder, "begin");
+                calcFrame.dispose();
+                makeBeginFrame();
             }
         }
-        //newObstacleButton
+    //newObstacleButton
     class BeginToObstacleListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-                calcPanel.updateObstacleList();
-                cards.show(cardHolder, "obstacles");
+                calcFrame.updateObstacleList();
+                calcFrame.dispose();
+                makeObstacleFrame();
             }
         }
-
-        //calculateButton
+    //calculateButton
     class AddObstacleListener extends SetupListener {
             private JComboBox obstaclesComboBox;
             private JTextField posFromRightText, posFromLeftText, centreJFormattedTextField, blastAllowanceFormattedTextField;
@@ -169,7 +158,6 @@ public class Controller {
                 blastAllowanceFormattedTextField = (JTextField) stuff[4];
                 optionsPane = (JOptionPane) stuff[5];
             }
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (setup = false){
@@ -183,18 +171,18 @@ public class Controller {
                     int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
                     runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                     runway.recalculateValues(blastAllowance);
-                    calcPanel.updateRecValues();
+                    calcFrame.updateRecValues();
                 } catch (NumberFormatException e1) {
                     if (!testable) {
-                        optionsPane.showMessageDialog(calcPanel, "One or more inputted values are not accepted.");
+                        optionsPane.showMessageDialog(calcFrame, "One or more inputted values are not accepted.");
                         e1.printStackTrace();
                     }
                 }
             }
         }
     //TODO: Manage the errors with our own exceptions?
-    // From BeginPanel
-            //airportsBox
+    //From BeginFrame
+    //airportsBox
     class SelectNewRunwayListener extends  SetupListener {
         private JComboBox airportsBox;
         private boolean setup = false;
@@ -209,10 +197,9 @@ public class Controller {
                     System.out.println("You haven't set up the SelectNewRunwayListener");
                 }
                 String selectedAirport = airportsBox.getSelectedItem().toString();
-                beginPanel.updateRunwayBox(selectedAirport);
+                beginFrame.updateRunwayBox(selectedAirport);
             }
         }
-
         //okBtn
         class BeginToCalculusListener extends SetupListener {
             private JComboBox runwayBox;
