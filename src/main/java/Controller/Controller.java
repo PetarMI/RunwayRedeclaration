@@ -71,14 +71,15 @@ public class Controller {
     }
 
     //from ObstacleFrame
-    class ObstacleClosedListener extends WindowAdapter
-    {
-        public void windowClosing(WindowEvent e) {
-            makeCalculusFrame();
+    //applied to whole window
+    class ObstacleClosedListener extends WindowAdapter{
+        @Override
+        public void windowClosed(WindowEvent e) {
             calcFrame.updateObstacleList();
             obsFrame.dispose();
         }
     }
+    //applied to addButton
     class NewObstacleListener extends  SetupListener {
         private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
         private  JTextArea descriptionTextArea;
@@ -92,14 +93,12 @@ public class Controller {
             lengthTextField = (JTextField) stuff[3];
             descriptionTextArea = (JTextArea) stuff[4];
         }
-
         public void actionPerformed(ActionEvent e) {
             try {
                 if (setup = false){
                     System.out.println("You haven't set up the NewObstacleListener");
                 }
                 String name = nameTextField.getText();
-
                 Integer height = Integer.parseInt(heightTextField.getText());
                 int width = Integer.parseInt(widthTextField.getText());
                 int length = Integer.parseInt(lengthTextField.getText());
@@ -112,6 +111,7 @@ public class Controller {
                 }
                 XMLHelper xmlHelper = new XMLHelper();
                 xmlHelper.addObstacleXML(new Obstacle(name, width, height, length, description));
+                calcFrame.updateObstacleList();
                 //ObstacleFrame.this.dispose();
             } catch (NumberFormatException e1) {
                 if (!testable) {
@@ -133,7 +133,7 @@ public class Controller {
     }
 
     //from CalculusFrame
-    //changeRunwayButton
+    //applied to changeRunwayButton
     class CalculusToBeginListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,16 +141,15 @@ public class Controller {
                 makeBeginFrame();
             }
         }
-    //newObstacleButton
+    //applied to newObstacleButton
     class CalculusToObstacleListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 calcFrame.updateObstacleList();
-                calcFrame.dispose();
                 makeObstacleFrame();
             }
         }
-    //calculateButton
+    //applied to calculateButton
     class AddObstacleListener extends SetupListener {
             private JComboBox obstaclesComboBox;
             private JTextField posFromRightText, posFromLeftText, centreJFormattedTextField, blastAllowanceFormattedTextField;
@@ -199,7 +198,7 @@ public class Controller {
         }
     //TODO: Manage the errors with our own exceptions?
     //From BeginFrame
-    //airportsBox
+    //applied to airportsBox
     class SelectNewRunwayListener extends  SetupListener {
         private JComboBox airportsBox;
         private boolean setup = false;
@@ -217,7 +216,7 @@ public class Controller {
                 beginFrame.updateRunwayBox(selectedAirport);
             }
         }
-        //okBtn
+        //applied to okBtn
         class BeginToCalculusListener extends SetupListener {
             private JComboBox runwayBox,airportsBox;
             private boolean setup = false;

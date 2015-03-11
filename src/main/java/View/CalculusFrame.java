@@ -142,9 +142,9 @@ public class CalculusFrame extends JFrame{
         this.setTitle("Redeclaration");
         //TODO: Minimum/Maximum size or don't allow it to be resized?
         this.setResizable(false);
+        this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
-        this.setSize(WIDTH, HEIGHT);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }

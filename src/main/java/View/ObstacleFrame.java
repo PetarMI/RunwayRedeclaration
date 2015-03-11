@@ -52,7 +52,7 @@ public class ObstacleFrame extends JFrame{
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.setVisible(true);
     }
 
