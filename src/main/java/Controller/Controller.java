@@ -73,10 +73,10 @@ public class Controller {
     //from ObstacleFrame
     class ObstacleClosedListener extends WindowAdapter
     {
-        public void windowClosed(WindowEvent e) {
+        public void windowClosing(WindowEvent e) {
+            makeCalculusFrame();
             calcFrame.updateObstacleList();
             obsFrame.dispose();
-            makeCalculusFrame();
         }
     }
     class NewObstacleListener extends  SetupListener {
@@ -233,6 +233,7 @@ public class Controller {
                 }
                 try {
                     currentAirport = xmlHelper.readAirport(airportsBox.getSelectedItem().toString().concat((".xml")));
+                    runway = currentAirport.getRunway((String) runwayBox.getSelectedItem());
                 } catch (ParserConfigurationException e1) {
                     e1.printStackTrace();
                 } catch (IOException e1) {
@@ -240,7 +241,6 @@ public class Controller {
                 } catch (SAXException e1) {
                     e1.printStackTrace();
                 }
-                runway = currentAirport.getRunway((String) runwayBox.getSelectedItem());
                 beginFrame.dispose();
                 makeCalculusFrame();
             }
