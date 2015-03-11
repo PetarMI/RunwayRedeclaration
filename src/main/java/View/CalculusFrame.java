@@ -1,17 +1,11 @@
 package View;
 
 import Exceptions.PositiveOnlyException;
-import Model.Obstacle;
-import Model.Runway;
-import Model.Values;
-import Model.XMLHelper;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.List;
 
 public class CalculusFrame extends JFrame{
@@ -22,6 +16,7 @@ public class CalculusFrame extends JFrame{
     public static final int HEIGHT = 600;
     private XMLHelper xmlHelper;
     private final Runway runway;
+    private final String airport;
     private JPanel mainPane;
     private JButton changeRunwayButton;
     private JComboBox obstaclesComboBox;
@@ -64,8 +59,9 @@ public class CalculusFrame extends JFrame{
     private JOptionPane optionsPane;
     private boolean testable;
 
-    public CalculusFrame(Runway runway, boolean testable) {
+    public CalculusFrame(Runway runway, String airport, boolean testable) {
         this.runway = runway;
+        this.airport = airport;
         this.testable = testable;
         this.doInitializations();
         this.setListeners();
@@ -76,6 +72,44 @@ public class CalculusFrame extends JFrame{
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
         xmlHelper = new XMLHelper();
+
+        //Creates the menubar
+        JMenuBar menubar = new JMenuBar();
+        JMenu file = new JMenu("File");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setMnemonic(KeyEvent.VK_E);
+        exitItem.setToolTipText("Exit application");
+        exitItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        JMenuItem exportItem = new JMenuItem("Export");
+        exportItem.setMnemonic(KeyEvent.VK_P);
+        exportItem.setToolTipText("Export the calculation as a .txt");
+        exportItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String filename = JOptionPane.showInputDialog(null,
+                        "Enter a name for the config",
+                        "",
+                        JOptionPane.QUESTION_MESSAGE);
+                try {
+                    PrintHelper.print(runway, airport, filename);
+                } catch (Exception exp) {}
+            }
+        });
+
+        file.add(exportItem);
+        file.add(exitItem);
+        menubar.add(file);
+
+        this.setJMenuBar(menubar);
+
         optionsPane = new JOptionPane();
         this.posFromLeftText.setUI(new HintTextField("Position from Left"));
         this.posFromRightText.setUI(new HintTextField("Position from Right"));

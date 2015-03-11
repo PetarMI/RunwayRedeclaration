@@ -84,7 +84,7 @@ public class AppTempPage extends JFrame
         runway.addObstacle(new Obstacle("b", 4, 12, 5, "b"), -50, 3464, 0);
         runway.recalculateValues(300);
         try {
-            PrintHelper.print(runway, new Obstacle("b", 4, 12, 5, "b"), "Heathrow", "");
+            PrintHelper.print(runway, "Heathrow", "");
         } catch (IOException e) {
             e.printStackTrace();
         }
