@@ -15,8 +15,10 @@ import java.util.List;
 
 public class CalculusFrame extends JFrame{
 
-    public static final int WIDTH = 650;
-    public static final int HEIGHT = 300;
+    //public static final int WIDTH = 675;
+    public static final int WIDTH = 1000;
+    //public static final int HEIGHT = 400;
+    public static final int HEIGHT = 600;
     private XMLHelper xmlHelper;
     private final Runway runway;
     private JPanel mainPane;
@@ -54,6 +56,10 @@ public class CalculusFrame extends JFrame{
     private JLabel str1Takeoff;
     private JLabel str2Landing;
     private JLabel str2Takeoff;
+    private JPanel infoPane;
+    private JPanel displayPane;
+    private JPanel calcPane;
+    private JPanel viewPane;
     private JOptionPane optionsPane;
     private boolean testable;
 
