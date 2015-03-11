@@ -95,7 +95,6 @@ public class MathHandler
                 - distance - threshold - obstacleLengthHalf;
         int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
         int tempToda = tempTora + stripValues.getToda() - stripValues.getTora();
-
         return new Values(tempTora, tempAsda, tempToda, 0);
     }
 
