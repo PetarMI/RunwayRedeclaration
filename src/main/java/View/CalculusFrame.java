@@ -5,6 +5,7 @@ import Model.Obstacle;
 import Model.Runway;
 import Model.Values;
 import Model.XMLHelper;
+import javafx.application.Platform;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,6 +64,7 @@ public class CalculusFrame extends JFrame{
     private JPanel viewPane;
     private JOptionPane optionsPane;
     private boolean testable;
+    private ThreeDVisuals threeD;
 
     public CalculusFrame(Runway runway, boolean testable) {
         this.runway = runway;
@@ -75,6 +77,7 @@ public class CalculusFrame extends JFrame{
 
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
+        threeD = new ThreeDVisuals();
         xmlHelper = new XMLHelper();
         optionsPane = new JOptionPane();
         this.posFromLeftText.setUI(new HintTextField("Position from Left"));
@@ -159,6 +162,16 @@ public class CalculusFrame extends JFrame{
                     runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
+                    viewPane.removeAll();
+
+                    viewPane.add(threeD, BorderLayout.CENTER);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            threeD.init(runway);
+                        }
+                    });
+                    viewPane.repaint();
                 }catch (NumberFormatException e1){
                     if(!testable) {
                         optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");

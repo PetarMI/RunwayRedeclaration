@@ -47,6 +47,10 @@ public class Runway
         this.strip2.setRecVal(recVals.getValue2());
     }
 
+    public Obstacle getObstacle() {
+        return obstacle;
+    }
+
     public int getPositionFromLeftDT(){
         return this.positionFromLeftDT;
     }
