@@ -22,7 +22,7 @@ public class GUIstepDefinitions {
     public void the_operator_is_on_the_calculus_page() throws ParserConfigurationException, SAXException, IOException {
         XMLHelper xml = new XMLHelper();
         Airport airport = xml.readAirport(xml.readAllAirports().get(0) +".xml");
-        calculusFrame = new CalculusFrame(airport.getRunway(airport.getRunwayIds().get(0)), airport.getName(), true);
+        calculusFrame = new CalculusFrame(airport.getRunway(airport.getRunwayIds().get(0)), true);
     }
 
     @When("^he inputs (.*) on all of the fields$")

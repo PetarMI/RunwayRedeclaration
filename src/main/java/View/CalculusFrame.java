@@ -5,6 +5,7 @@ import Model.Obstacle;
 import Model.Runway;
 import Model.Values;
 import Model.XMLHelper;
+import javafx.application.Platform;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -158,6 +159,15 @@ public class CalculusFrame extends JFrame{
                     runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
+                    final ThreeDVisuals threeD = new ThreeDVisuals();
+                    viewPane.removeAll();
+                    viewPane.add(threeD);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            threeD.init(runway);
+                        }
+                    });
                 }catch (NumberFormatException e1){
                     if(!testable) {
                         optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
