@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CalculusFrame extends JFrame{
 
-    public static final int WIDTH = 650;
+    public static final int WIDTH = 675;
     public static final int HEIGHT = 300;
     private XMLHelper xmlHelper;
     private final Runway runway;
