@@ -67,8 +67,11 @@ public class BeginFrame extends JFrame {
 
     private void setProperties() {
         this.setTitle("Select Airport and Runway");
-        this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setContentPane(mainPane);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }

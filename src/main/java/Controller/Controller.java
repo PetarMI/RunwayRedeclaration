@@ -13,9 +13,7 @@ import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,6 +33,7 @@ public class Controller {
     private static CalculusFrame calcFrame;
     private static SetupListener snrl, btcl, nol, aol;
     private static ActionListener ctbl, btol;
+    private static WindowAdapter ocl;
 
     public Controller() {
         xmlHelper = new XMLHelper();
@@ -51,9 +50,10 @@ public class Controller {
     private void initListeners() {
         snrl = new SelectNewRunwayListener();
         btcl = new BeginToCalculusListener();
+        ocl = new ObstacleClosedListener();
         nol = new NewObstacleListener();
         ctbl = new CalculusToBeginListener();
-        btol = new BeginToObstacleListener();
+        btol = new CalculusToObstacleListener();
         aol = new AddObstacleListener();
     }
 
@@ -63,7 +63,7 @@ public class Controller {
     }
     private void makeObstacleFrame() {
         obsFrame = new ObstacleFrame(testable);
-        obsFrame.setListeners(nol);
+        obsFrame.setListeners(nol, ocl);
     }
     private void makeCalculusFrame() {
         calcFrame = new CalculusFrame(runway, testable);
@@ -71,6 +71,14 @@ public class Controller {
     }
 
     //from ObstacleFrame
+    class ObstacleClosedListener extends WindowAdapter
+    {
+        public void windowClosed(WindowEvent e) {
+            calcFrame.updateObstacleList();
+            obsFrame.dispose();
+            makeCalculusFrame();
+        }
+    }
     class NewObstacleListener extends  SetupListener {
         private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
         private  JTextArea descriptionTextArea;
@@ -134,7 +142,7 @@ public class Controller {
             }
         }
     //newObstacleButton
-    class BeginToObstacleListener implements  ActionListener {
+    class CalculusToObstacleListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 calcFrame.updateObstacleList();
@@ -168,6 +176,10 @@ public class Controller {
                     int posFromRight = Integer.parseInt(posFromRightText.getText());
                     int posFromLeft = Integer.parseInt(posFromLeftText.getText());
                     int centrelineDist = Integer.parseInt(centreJFormattedTextField.getText());
+                    if (centrelineDist < 0)
+                    {
+                        throw new PositiveOnlyException();
+                    }
                     int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
                     runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
                     runway.recalculateValues(blastAllowance);
@@ -175,6 +187,11 @@ public class Controller {
                 } catch (NumberFormatException e1) {
                     if (!testable) {
                         optionsPane.showMessageDialog(calcFrame, "One or more inputted values are not accepted.");
+                        e1.printStackTrace();
+                    }
+                }catch (PositiveOnlyException e1) {
+                    if(!testable) {
+                        JOptionPane.showMessageDialog(calcFrame, "Distance from centreline must be greater than 0.");
                         e1.printStackTrace();
                     }
                 }

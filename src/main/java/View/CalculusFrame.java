@@ -1,12 +1,14 @@
 package View;
 
 import Controller.SetupListener;
+import Exceptions.PositiveOnlyException;
 import Model.Obstacle;
 import Model.Runway;
 import Model.Values;
 import Model.XMLHelper;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -15,8 +17,10 @@ import java.util.List;
 
 public class CalculusFrame extends JFrame{
 
-    public static final int WIDTH = 650;
-    public static final int HEIGHT = 300;
+    //public static final int WIDTH = 675;
+    public static final int WIDTH = 1000;
+    //public static final int HEIGHT = 400;
+    public static final int HEIGHT = 600;
     private XMLHelper xmlHelper;
     private final Runway runway;
     private JButton changeRunwayButton;
@@ -49,6 +53,15 @@ public class CalculusFrame extends JFrame{
     private JPanel strip1Panel;
     private JTextField posFromRightText;
     private JPanel mainPane;
+    private JComboBox<String> centrelinePosComboBox;
+    private JLabel str1Landing;
+    private JLabel str1Takeoff;
+    private JLabel str2Landing;
+    private JLabel str2Takeoff;
+    private JPanel infoPane;
+    private JPanel displayPane;
+    private JPanel calcPane;
+    private JPanel viewPane;
     private JOptionPane optionsPane;
     private boolean testable;
 
@@ -68,6 +81,8 @@ public class CalculusFrame extends JFrame{
         this.posFromRightText.setUI(new HintTextField("Position from Right"));
         this.blastAllowanceFormattedTextField.setUI(new HintTextField("Blast Allowance"));
         this.centreJFormattedTextField.setUI(new HintTextField("Centreline distance"));
+        this.centrelinePosComboBox.addItem("Above");
+        this.centrelinePosComboBox.addItem("Below");
 
         Values origValues = runway.getStrip1().getOrigVal();
         this.origTora1.setText(String.valueOf(origValues.getTora()));
@@ -95,12 +110,16 @@ public class CalculusFrame extends JFrame{
         this.recToda1.setText(String.valueOf(recValues.getToda()));
         this.recAsda1.setText(String.valueOf(recValues.getAsda()));
         this.recLda1.setText(String.valueOf(recValues.getLda()));
+        this.str1Landing.setText(recValues.getLanding());
+        this.str1Takeoff.setText(recValues.getTakeoff());
 
         recValues = runway.getStrip2().getRecVal();
         this.recTora2.setText(String.valueOf(recValues.getTora()));
         this.recToda2.setText(String.valueOf(recValues.getToda()));
         this.recAsda2.setText(String.valueOf(recValues.getAsda()));
         this.recLda2.setText(String.valueOf(recValues.getLda()));
+        this.str2Landing.setText(recValues.getLanding());
+        this.str2Takeoff.setText(recValues.getTakeoff());
     }
 
     public void setListeners(ActionListener listener1, ActionListener listener2, SetupListener listener3) {
@@ -121,6 +140,9 @@ public class CalculusFrame extends JFrame{
 
     private void setProperties() {
         this.setTitle("Redeclaration");
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

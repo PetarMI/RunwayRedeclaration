@@ -9,6 +9,7 @@ import Model.XMLHelper;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 public class ObstacleFrame extends JFrame{
 
@@ -38,15 +39,19 @@ public class ObstacleFrame extends JFrame{
 
     //TODO: Length added to form, needs to be implemented in here
     //TODO: Also, manage input errors somehow
-    public void setListeners(SetupListener listener1) {
+    public void setListeners(SetupListener listener1, WindowAdapter listener2) {
         listener1.useThis(new Object[]{nameTextField, heightTextField, widthTextField, lengthTextField, descriptionTextArea});
         this.addButton.addActionListener(listener1);
+        this.addWindowListener(listener2);
     }
 
     private void setProperties() {
         this.setTitle("Add obstacle");
-        this.setContentPane(mainPane);
         this.setSize(WIDTH, HEIGHT);
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setContentPane(mainPane);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }

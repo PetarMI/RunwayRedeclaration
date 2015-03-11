@@ -1,59 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ObstacleList>
 <Obstacle>
-<Name>Scenario 1</Name>
-<Length>1</Length>
-<Width>1</Width>
-<Height>12</Height>
-<Description>Scenario 1 object</Description>
-</Obstacle>
-<Obstacle>
-<Name>Scenario 2</Name>
-<Length>1</Length>
-<Width>1</Width>
-<Height>25</Height>
-<Description>Scenario 2 object</Description>
-</Obstacle>
-<Obstacle>
-<Name>Scenario 3</Name>
-<Length>1</Length>
-<Width>1</Width>
-<Height>15</Height>
-<Description>Scenario 3 object</Description>
-</Obstacle>
-<Obstacle>
-<Name>Scenario 4</Name>
-<Length>1</Length>
-<Width>1</Width>
-<Height>20</Height>
-<Description>Scenario 4 object</Description>
-</Obstacle>
-<Obstacle>
-<Name>plane</Name>
-<Length>10</Length>
+<Name>block</Name>
+<Length>2</Length>
 <Width>4</Width>
-<Height>12</Height>
-<Description/>
+<Height>7</Height>
+<Description>irregular shape</Description>
 </Obstacle>
 <Obstacle>
-<Name>TallObstacle</Name>
-<Length>10</Length>
-<Width>1</Width>
-<Height>50</Height>
-<Description/>
-</Obstacle>
-<Obstacle>
-<Name>25m</Name>
-<Length>1</Length>
-<Width>1</Width>
-<Height>25</Height>
-<Description/>
-</Obstacle>
-<Obstacle>
-<Name>s</Name>
-<Length>10</Length>
-<Width>1</Width>
-<Height>10</Height>
-<Description/>
+<Name>car</Name>
+<Length>5</Length>
+<Width>5</Width>
+<Height>3</Height>
+<Description>used for maintenance</Description>
 </Obstacle>
 </ObstacleList>
