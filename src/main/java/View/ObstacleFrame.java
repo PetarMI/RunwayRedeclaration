@@ -17,7 +17,7 @@ public class ObstacleFrame extends JFrame{
     private JPanel mainPane;
     private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
     private JTextArea descriptionTextArea;
-    private JButton addButton;
+    protected JButton addButton;
     private boolean testable;
 
     public ObstacleFrame(boolean testable){

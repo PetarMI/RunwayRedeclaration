@@ -63,6 +63,10 @@ public class Runway
         return this.distanceFromCentreline;
     }
 
+    public Obstacle getObstacle(){
+        return this.obstacle;
+    }
+
     @Override
     public String toString() {
         return "Runway{" +

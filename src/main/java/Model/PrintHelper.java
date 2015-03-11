@@ -16,10 +16,10 @@ public final class PrintHelper
 
     private PrintHelper() {}
 
-    public static void print(Runway r, Obstacle o, String airport, String filename) throws IOException, FileNotFoundException
+    public static void print(Runway r, String airport, String filename) throws IOException, FileNotFoundException
     {
         runway = r;
-        obstacle = o;
+        obstacle = runway.getObstacle();
         airportName = airport;
         duplicateFile = 0;
         Values strVals = runway.getStrip1().getOrigVal();

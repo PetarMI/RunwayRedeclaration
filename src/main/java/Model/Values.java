@@ -7,6 +7,8 @@ public class Values {
     private int lda;
     private String landing;
     private String takeoff;
+    private int landingDistance;
+    private int takeOffDistance;
 
     public Values(int tora, int asda, int toda, int lda) {
         this.tora = tora;
@@ -37,6 +39,10 @@ public class Values {
 
     public String getTakeoff() { return this.takeoff; }
 
+    public int getLandingDistance() { return this.landingDistance; }
+
+    public int getTakeOffDistance() { return this.landingDistance; }
+
     public void setLanding(String landing){
         this.landing = landing;
     }
@@ -44,6 +50,10 @@ public class Values {
     public void setTakeoff(String takeoff){
         this.takeoff = takeoff;
     }
+
+    public void setLandingDistanceFormObject(int landDistance) { this.landingDistance =  landDistance; }
+
+    public void setTakeoffDistanceFormObject(int takeOffDistance) { this.takeOffDistance =  takeOffDistance; }
 
     @Override
     public String toString() {
