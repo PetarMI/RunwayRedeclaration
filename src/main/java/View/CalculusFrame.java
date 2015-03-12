@@ -10,6 +10,8 @@ import javafx.application.Platform;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class CalculusFrame extends JFrame{
@@ -102,9 +104,18 @@ public class CalculusFrame extends JFrame{
                         "Enter a custom name to save the configuration",
                         "Export Configuration",
                         JOptionPane.QUESTION_MESSAGE);
-                try {
+                try
+                {
                     PrintHelper.print(runway, airport, filename);
-                } catch (Exception exp) {}
+                }
+                catch (FileNotFoundException exp)
+                {
+                    JOptionPane.showMessageDialog(CalculusFrame.this, "Invalid file name.");
+                }
+                catch (IOException exc)
+                {
+                    JOptionPane.showMessageDialog(CalculusFrame.this, "Could not create file.\nTryAgain");
+                }
             }
         });
 

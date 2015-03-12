@@ -25,6 +25,8 @@ public final class PrintHelper
         Values strVals = runway.getStrip1().getOrigVal();
         //TODO: The printhelper runs to this line and does not carry on
         //Maybe the folder/file needs to be created first?
+        String str = getFileName(filename);
+        System.out.println(filename);
         File file = new File("files/", getFileName(filename));
         bw = new BufferedWriter(new FileWriter(file));
         //Airport
@@ -40,22 +42,31 @@ public final class PrintHelper
         bw.newLine();
         bw.newLine();
         //Obstacle headings
-        bw.write("Obstacle:");
-        bw.newLine();
-        formatter.format("%-10s %-10s %-10s %-10s %-15s %-15s", "Name", "Height", "Length", "Width",
-                "Distance Left", "Distance Right");
-        bw.write(sb.toString());
-        sb.setLength(0);
-        bw.newLine();
-        //Obstacle values
-        formatter.format("%-10s %-10d %-10d %-10d %-15d %-15d", obstacle.getName(), obstacle.getHeight(),
-                obstacle.getLength(), obstacle.getWidth(), runway.getPositionFromLeftDT(), runway.getPositionFromRightDT());
-        bw.write(sb.toString());
-        sb.setLength(0);
-        bw.newLine();
-        formatter.format("%-10s %-10s", "Description:", obstacle.getDescription());
-        bw.write(sb.toString());
-        sb.setLength(0);
+        bw.write("Obstacle: ");
+        if (obstacle != null)
+        {
+            bw.newLine();
+            formatter.format("%-10s %-10s %-10s %-10s %-15s %-15s", "Name", "Height", "Length", "Width",
+                    "Distance Left", "Distance Right");
+            bw.write(sb.toString());
+            sb.setLength(0);
+            bw.newLine();
+            //Obstacle values
+            formatter.format("%-10s %-10d %-10d %-10d %-15d %-15d", obstacle.getName(), obstacle.getHeight(),
+                    obstacle.getLength(), obstacle.getWidth(), runway.getPositionFromLeftDT(), runway.getPositionFromRightDT());
+            bw.write(sb.toString());
+            sb.setLength(0);
+            bw.newLine();
+            formatter.format("%-10s %-10s", "Description:", obstacle.getDescription());
+            bw.write(sb.toString());
+            sb.setLength(0);
+            bw.newLine();
+            bw.newLine();
+        }
+        else
+        {
+            bw.write("No Obstacle");
+        }
         bw.newLine();
         bw.newLine();
         //Strip 1 headings
@@ -119,11 +130,20 @@ public final class PrintHelper
         if (file.equals(""))
         {
             filename = new StringBuilder();
+            filename.append(airportName);
+            filename.append("_");
             filename.append(runway.getStrip1().getStripId());
             filename.append("_");
             filename.append(runway.getStrip2().getStripId());
             filename.append("_");
-            filename.append(obstacle.getName());
+            if(obstacle != null)
+            {
+                filename.append(obstacle.getName());
+            }
+            else
+            {
+                filename.append("empty");
+            }
         }
         else
         {
@@ -146,7 +166,7 @@ public final class PrintHelper
                 filename.append(duplicateFile);
             }
         }
-        System.out.println(filename);
+        duplicateFile = 0;
         return filename.append(".txt").toString();
     }
 
