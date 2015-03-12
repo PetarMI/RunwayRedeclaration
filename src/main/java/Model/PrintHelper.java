@@ -26,7 +26,6 @@ public final class PrintHelper
         //TODO: The printhelper runs to this line and does not carry on
         //Maybe the folder/file needs to be created first?
         String str = getFileName(filename);
-        System.out.println(filename);
         File file = new File("files/", getFileName(filename));
         bw = new BufferedWriter(new FileWriter(file));
         //Airport
@@ -151,6 +150,7 @@ public final class PrintHelper
         }
 
         File fileDir = new File("files/");
+        fileDir.mkdir();
         File[] files = fileDir.listFiles();
         while (checkFilenameExists(files, filename.toString()))
         {
