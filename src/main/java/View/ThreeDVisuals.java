@@ -58,7 +58,7 @@ public class ThreeDVisuals extends JFXPanel {
     private int obstHeight = 15;
     private int obstWidth = 12;
     private int obstDepth = 12;
-    private int runwayDepth = 200;
+    private int runwayDepth = 150;
     private int runwayHeight = 50;
     private int obstPos;
 
@@ -108,6 +108,8 @@ public class ThreeDVisuals extends JFXPanel {
         else {
             rotateZ.setAngle(PLAIN_ANGLE);
         }
+        rotateX.setAngle(PLAIN_ANGLE);
+        rotateZ.setAngle(PLAIN_ANGLE);
     }
 
     private void calculateStopWays() {
@@ -129,7 +131,7 @@ public class ThreeDVisuals extends JFXPanel {
         floor = new Box(runwayLength, runwayHeight, runwayDepth);
         obstacle = new Box(obstWidth, obstHeight, obstDepth);
         slope = new Box(1500, 5, obstDepth);
-        zoom = new Translate(0,0,-3000);
+        zoom = new Translate(0,0, -runwayLength*2.2);
 
         clearway1 = new Box(clearway1Width, runwayHeight, runwayDepth);
         clearway2 = new Box(clearway2Width, runwayHeight, runwayDepth);
@@ -607,6 +609,7 @@ public class ThreeDVisuals extends JFXPanel {
 
     public void setSelectedView(int angle){
         rotateX.setAngle(angle);
+        rotateY.setAngle(0);
     }
 
 //    public static void main(String[] args) {
