@@ -1,6 +1,7 @@
 package Model;
 
 public class Values {
+
     private int tora;
     private int asda;
     private int toda;
@@ -15,6 +16,8 @@ public class Values {
         this.asda = asda;
         this.toda = toda;
         this.lda = lda;
+        this.landing = MathHandler.NO_INSTRUCTION;
+        this.takeoff = MathHandler.NO_INSTRUCTION;
     }
 
     public int getTora() {

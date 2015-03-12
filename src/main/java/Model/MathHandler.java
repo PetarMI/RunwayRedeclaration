@@ -14,6 +14,7 @@ public class MathHandler
     public static final String LAND_TOWARDS = "Land towards";
     public static final String TAKEOFF_AWAY = "TakeOff Away";
     public static final String TAKEOFF_TOWARDS = "TakeOff Towards";
+    public static final String NO_INSTRUCTION = "No Instruction";
 
     private Runway runway;
     private Integer obstacleHeight;
