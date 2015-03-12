@@ -45,7 +45,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 4, 12, 5, "");
-        runway.addObstacle(obstacle, -50, 3646, 0);
+        runway.addObstacle(obstacle, -50, 3646, 0, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -66,7 +66,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 4, 12, 10, "");
-        runway.addObstacle(obstacle, 2853, 500, 0);
+        runway.addObstacle(obstacle, 2853, 500, 0, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -89,7 +89,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("Tall", 4, 50, 10, "");
-        runway.addObstacle(obstacle, 669, 2927, 0);
+        runway.addObstacle(obstacle, 669, 2927, 0, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -110,7 +110,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("Tall", 4, 50, 10, "");
-        runway.addObstacle(obstacle, 667, 2929, 0);
+        runway.addObstacle(obstacle, 667, 2929, 0, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -134,7 +134,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 4, 12, 10, "");
-        runway.addObstacle(obstacle, -50, 3646, 0);
+        runway.addObstacle(obstacle, -50, 3646, 0, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -157,7 +157,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("tall", 4, 19, 10, "");
-        runway.addObstacle(obstacle, 1873, 3646, 15);
+        runway.addObstacle(obstacle, 1873, 3646, 15, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -180,7 +180,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 7, 12, 20, "");
-        runway.addObstacle(obstacle, 106, 1544, 20);
+        runway.addObstacle(obstacle, 106, 1544, 20, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values
@@ -206,7 +206,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 4, 4, 10, "short");
-        runway.addObstacle(obstacle, 1645, 1951, 15);
+        runway.addObstacle(obstacle, 1645, 1951, 15, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE_MAX);
 
         //expected values
@@ -232,7 +232,7 @@ public class MathTestRecValues {
         runway = new Runway("09L/27R", str1, str2);
         //obstacle to test
         obstacle = new Obstacle("plane", 4, 13, 10, "tall");
-        runway.addObstacle(obstacle, 1645, 1951, 15);
+        runway.addObstacle(obstacle, 1645, 1951, 15, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE_MINIMUM);
 
         //expected values

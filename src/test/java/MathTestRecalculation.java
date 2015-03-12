@@ -38,7 +38,7 @@ public class MathTestRecalculation {
     public void testCentrelineWithin(){
         //only care about width
         obstacle = new Obstacle("plane", 4, 10, 5, "");
-        runway.addObstacle(obstacle, -50, 3646, 75);
+        runway.addObstacle(obstacle, -50, 3646, 75, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -48,7 +48,7 @@ public class MathTestRecalculation {
     public void testCentrelineOn(){
         //only care about width
         obstacle = new Obstacle("plane", 4, 10, 5, "");
-        runway.addObstacle(obstacle, -50, 3646, 77);
+        runway.addObstacle(obstacle, -50, 3646, 77, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -58,7 +58,7 @@ public class MathTestRecalculation {
     public void testCentrelineBeyond(){
         //only care about width
         obstacle = new Obstacle("plane", 4, 10, 5, "");
-        runway.addObstacle(obstacle, -50, 3646, 78);
+        runway.addObstacle(obstacle, -50, 3646, 78, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -68,7 +68,7 @@ public class MathTestRecalculation {
     public void testStripendWithin(){
         //only care about length
         obstacle = new Obstacle("plane", 5, 10, 4, "");
-        runway.addObstacle(obstacle, -50, 3646, 20);
+        runway.addObstacle(obstacle, -50, 3646, 20, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -78,7 +78,7 @@ public class MathTestRecalculation {
     public void testStripendLeftOn(){
         //only care about length
         obstacle = new Obstacle("plane", 5, 10, 4, "");
-        runway.addObstacle(obstacle, -368, 3646, 20);
+        runway.addObstacle(obstacle, -368, 3646, 20, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -88,7 +88,7 @@ public class MathTestRecalculation {
     public void testStripendRightOn(){
         //only care about length
         obstacle = new Obstacle("plane", 5, 10, 4, "");
-        runway.addObstacle(obstacle, 3200, -62, 20);
+        runway.addObstacle(obstacle, 3200, -62, 20, "Above");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertFalse(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertFalse(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -98,7 +98,7 @@ public class MathTestRecalculation {
     public void testStripendLeftBeyond(){
         //only care about length
         obstacle = new Obstacle("plane", 5, 10, 4, "");
-        runway.addObstacle(obstacle, -369, 3646, 20);
+        runway.addObstacle(obstacle, -369, 3646, 20, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));
@@ -108,7 +108,7 @@ public class MathTestRecalculation {
     public void testStripendRightBeyond(){
         //only care about length
         obstacle = new Obstacle("plane", 5, 10, 4, "");
-        runway.addObstacle(obstacle, 3300, -63, 20);
+        runway.addObstacle(obstacle, 3300, -63, 20, "Below");
         runway.recalculateValues(BLAST_ALLOWANCE);
         assertTrue(runway.getStrip1().getOrigVal().equals(runway.getStrip1().getRecVal()));
         assertTrue(runway.getStrip2().getOrigVal().equals(runway.getStrip2().getRecVal()));

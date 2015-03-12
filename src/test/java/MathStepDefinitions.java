@@ -40,7 +40,7 @@ public class MathStepDefinitions {
     @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of width (\\d+), height (\\d+), length (\\d+) and (-?\\d+) above the centreline$")
     public void He_adds_an_obstacle_(int posLeft, int posRight, int width, int height, int length, int distCentral) {
         obs = new Obstacle("test", width, height, length, "test");
-        runway.addObstacle(obs, posLeft, posRight,distCentral);
+        runway.addObstacle(obs, posLeft, posRight,distCentral, "Below");
     }
 
     @And("^with blast allowance (\\d+)$")
