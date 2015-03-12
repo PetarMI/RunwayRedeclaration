@@ -47,6 +47,12 @@ public class Runway
         this.strip2.setRecVal(recVals.getValue2());
     }
 
+    public int getCompassHeading()
+    {
+        int heading = Integer.parseInt(this.runwayId.substring(0, 2))*10;
+        return (90 - heading);
+    }
+
     public Obstacle getObstacle() {
         return obstacle;
     }
