@@ -110,6 +110,7 @@ public final class PrintHelper
         bw.newLine();
         bw.newLine();
         bw.close();
+        //TODO: Confirmation message on completion?
     }
 
     public static String getFileName(String file)

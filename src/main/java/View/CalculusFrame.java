@@ -99,8 +99,8 @@ public class CalculusFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String filename = JOptionPane.showInputDialog(null,
-                        "Enter a name for the config",
-                        "",
+                        "Enter a custom name to save the configuration",
+                        "Export Configuration",
                         JOptionPane.QUESTION_MESSAGE);
                 try {
                     PrintHelper.print(runway, airport, filename);
