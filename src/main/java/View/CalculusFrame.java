@@ -218,6 +218,7 @@ public class CalculusFrame extends JFrame{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            Platform.setImplicitExit(false);
                             threeD.init(runway);
                         }
                     });
