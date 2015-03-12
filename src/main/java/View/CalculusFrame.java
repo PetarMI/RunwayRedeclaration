@@ -282,7 +282,7 @@ public class CalculusFrame extends JFrame{
     }
 
     private void setProperties() {
-        this.setTitle("Redeclaration");
+        this.setTitle(airport);
         this.setSize(WIDTH, HEIGHT);
         //TODO: Minimum/Maximum size or don't allow it to be resized?
         this.setResizable(false);
