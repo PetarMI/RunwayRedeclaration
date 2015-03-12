@@ -2,6 +2,8 @@ package Model;
 
 public class Runway
 {
+    private static final String OBSTACLE_ABOVE = "Above";
+    private static final String OBSTACLE_BELOW = "Below";
 
     private String runwayId;
     private Strip strip1;
@@ -10,6 +12,7 @@ public class Runway
     private Integer positionFromLeftDT;
     private Integer positionFromRightDT;
     private Integer distanceFromCentreline;
+    private String positionFromCentreline;
     private MathHandler mathHandler;
 
     public Runway(String runwayId, Strip strip1, Strip strip2) {
@@ -32,11 +35,12 @@ public class Runway
     public Strip getStrip2() { return strip2; }
 
     public void addObstacle(Obstacle obstacle, int obstaclePositionFromLeft,
-            int obstaclePositionFromRight, int distanceFromCentreline){
+            int obstaclePositionFromRight, int distanceFromCentreline, String position){
         this.obstacle = obstacle;
         this.positionFromLeftDT = obstaclePositionFromLeft;
         this.positionFromRightDT = obstaclePositionFromRight;
         this.distanceFromCentreline = distanceFromCentreline;
+        this.positionFromCentreline = position;
     }
 
     //pass blast allowance specific to the landing aircraft
@@ -51,6 +55,18 @@ public class Runway
     {
         int heading = Integer.parseInt(this.runwayId.substring(0, 2))*10;
         return (90 - heading);
+    }
+
+    public int getDistanceFromCentrelineFor3D()
+    {
+        if (this.positionFromCentreline.equals(OBSTACLE_ABOVE))
+        {
+            return this.distanceFromCentreline;
+        }
+        else
+        {
+            return (0 - this.distanceFromCentreline);
+        }
     }
 
     public Obstacle getObstacle() {

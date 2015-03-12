@@ -147,9 +147,9 @@ public class CalculusFrame extends JFrame{
 
         this.strip1Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip1().getStripId())));
         this.strip2Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip2().getStripId())));
-        this.sideViewRadioButton.setVisible(false);
-        this.topDownViewRadioButton.setVisible(false);
-        this.resetOrientationButton.setVisible(false);
+        this.sideViewRadioButton.setVisible(true);
+        this.topDownViewRadioButton.setVisible(true);
+        this.resetOrientationButton.setVisible(true);
         this.updateObstacleList();
     }
 
@@ -205,7 +205,8 @@ public class CalculusFrame extends JFrame{
                         throw new PositiveOnlyException();
                     }
                     int blastAllowance = Integer.parseInt(blastAllowanceFormattedTextField.getText());
-                    runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist);
+                    runway.addObstacle(obs, posFromLeft, posFromRight, centrelineDist,
+                            centrelinePosComboBox.getSelectedItem().toString());
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
                     final ThreeDVisuals threeD = new ThreeDVisuals();
