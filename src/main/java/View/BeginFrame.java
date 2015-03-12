@@ -32,7 +32,6 @@ public class BeginFrame extends JFrame {
         this.doInitializations();
         this.setListeners();
         this.setProperties();
-
     }
 
     private void doInitializations() {
@@ -64,6 +63,7 @@ public class BeginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Runway runway = newAirport.getRunway((String) runwayBox.getSelectedItem());
+                String airport = (String) airportsBox.getSelectedItem();
                 new CalculusFrame(runway, false);
                 BeginFrame.this.dispose();
             }
@@ -86,6 +86,9 @@ public class BeginFrame extends JFrame {
     private void setProperties() {
         this.setTitle("Select Airport and Runway");
         this.setSize(WIDTH, HEIGHT);
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

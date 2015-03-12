@@ -13,6 +13,7 @@ public class Strip
         this.position = position;
         this.orientation = orientation;
         this.origVal = origVal;
+        this.recVal = origVal;
         this.displacedThreshold = displacedThreshold;
     }
 

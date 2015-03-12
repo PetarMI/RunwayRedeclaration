@@ -17,7 +17,7 @@ public class ObstacleFrame extends JFrame{
     private JPanel mainPane;
     private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;
     private JTextArea descriptionTextArea;
-    private JButton addButton;
+    protected JButton addButton;
     private boolean testable;
 
     public ObstacleFrame(boolean testable){
@@ -81,6 +81,9 @@ public class ObstacleFrame extends JFrame{
     private void setProperties() {
         this.setTitle("Add obstacle");
         this.setSize(WIDTH, HEIGHT);
+        //TODO: Minimum/Maximum size or don't allow it to be resized?
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setContentPane(mainPane);
         this.setVisible(true);
     }

@@ -1,13 +1,11 @@
 package View;
 
 import Controller.Controller;
-import Model.Obstacle;
-import Model.Runway;
-import Model.Strip;
-import Model.Values;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created by PetarMI 17.02.2015
@@ -77,24 +75,19 @@ public class AppTempPage extends JFrame
         atp.init();*/
 
         Values str1Vals = new Values(3902, 3902, 3902, 3595);
-        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals, 306);
+        Strip str1 = new Strip("09L", 9, "L", str1Vals, 306);
 
         Values str2Vals = new Values(3884, 3962, 3884, 3884);
-        Strip str2 = new Strip("jfglks", 27, "R", str2Vals, 0);
-
-        /*Values str1Vals = new Values(3660, 3660, 3660, 3353);
-        Strip str1 = new Strip("09L/27R", 9, "L", str1Vals);
-
-        Values str2Vals = new Values(3660, 3660, 3660, 3660);
-        Strip str2 = new Strip("jfglks", 27, "R", str2Vals);*/
+        Strip str2 = new Strip("27R", 27, "R", str2Vals, 0);
 
         Runway runway = new Runway("09L/27R", str1, str2);
         runway.addObstacle(new Obstacle("b", 4, 12, 5, "b"), -50, 3464, 0);
         runway.recalculateValues(300);
-        System.out.println(runway.getStrip1().getOrigVal().toString());
-        System.out.println(runway.getStrip1().getRecVal().toString());
-        System.out.println(runway.getStrip2().getOrigVal().toString());
-        System.out.println(runway.getStrip2().getRecVal().toString());
+        try {
+            PrintHelper.print(runway, "Heathrow", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void init()
