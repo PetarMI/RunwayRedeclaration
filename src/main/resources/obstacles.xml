@@ -14,4 +14,25 @@
 <Height>3</Height>
 <Description>used for maintenance</Description>
 </Obstacle>
+<Obstacle>
+<Name>34</Name>
+<Length>60</Length>
+<Width>10</Width>
+<Height>60</Height>
+<Description/>
+</Obstacle>
+<Obstacle>
+<Name>qsad1</Name>
+<Length>120</Length>
+<Width>20</Width>
+<Height>12</Height>
+<Description/>
+</Obstacle>
+<Obstacle>
+<Name>sada</Name>
+<Length>600</Length>
+<Width>100</Width>
+<Height>12</Height>
+<Description/>
+</Obstacle>
 </ObstacleList>

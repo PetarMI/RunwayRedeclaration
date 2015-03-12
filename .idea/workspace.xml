@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f80f8c04-7785-4ecd-bbbc-bb8925215833" name="Default" comment="EVEN more 3D visuals">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/View/CalculusFrame.form" afterPath="$PROJECT_DIR$/src/main/java/View/CalculusFrame.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/View/CalculusFrame.java" afterPath="$PROJECT_DIR$/src/main/java/View/CalculusFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/View/ThreeDVisuals.java" afterPath="$PROJECT_DIR$/src/main/java/View/ThreeDVisuals.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/obstacles.xml" afterPath="$PROJECT_DIR$/src/main/resources/obstacles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -37,10 +39,16 @@
       <file leaf-file-name="ThreeDVisuals.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/View/ThreeDVisuals.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.586206" vertical-offset="9830" max-vertical-offset="10421">
-              <caret line="609" column="43" selection-start-line="609" selection-start-column="43" selection-end-line="609" selection-end-column="43" />
+            <state vertical-scroll-proportion="-5.137931" vertical-offset="9830" max-vertical-offset="10574">
+              <caret line="596" column="37" selection-start-line="596" selection-start-column="37" selection-end-line="596" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#24168#24169#0" expanded="true" />
+                <element signature="e#24207#24208#0" expanded="true" />
+                <element signature="e#24256#24257#0" expanded="true" />
+                <element signature="e#24295#24296#0" expanded="true" />
+                <element signature="e#24337#24338#0" expanded="true" />
+                <element signature="e#24376#24377#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,6 +104,13 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="CalculusFrame.form" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/View/CalculusFrame.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MathHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Model/MathHandler.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -106,25 +121,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalculusFrame.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalculusFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/View/CalculusFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.054054" vertical-offset="2990" max-vertical-offset="4267">
-              <caret line="232" column="45" selection-start-line="232" selection-start-column="45" selection-end-line="232" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4486" max-vertical-offset="5270">
+              <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrintHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Model/PrintHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="3332">
-              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2972#3129#0" expanded="true" />
+                <element signature="e#3128#3129#0" expanded="true" />
+                <element signature="e#3344#4197#0" expanded="true" />
+                <element signature="e#4196#4197#0" expanded="true" />
+                <element signature="e#6738#6943#0" expanded="true" />
+                <element signature="e#6942#6943#0" expanded="true" />
+                <element signature="e#6990#7577#0" expanded="true" />
+                <element signature="e#7218#7551#0" expanded="true" />
+                <element signature="e#7550#7551#0" expanded="true" />
+                <element signature="e#7576#7577#0" expanded="true" />
+                <element signature="e#7623#9727#0" expanded="true" />
+                <element signature="e#8803#9055#0" expanded="true" />
+                <element signature="e#9054#9055#0" expanded="true" />
+                <element signature="e#9726#9727#0" expanded="true" />
+                <element signature="e#9775#9953#0" expanded="true" />
+                <element signature="e#9952#9953#0" expanded="true" />
+                <element signature="e#10000#10337#0" expanded="true" />
+                <element signature="e#10336#10337#0" expanded="true" />
+                <element signature="e#10384#10728#0" expanded="true" />
+                <element signature="e#10727#10728#0" expanded="true" />
+                <element signature="e#10779#10956#0" expanded="true" />
+                <element signature="e#10955#10956#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -157,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/test/java/MathTestRecalculation.java" />
         <option value="$PROJECT_DIR$/src/main/resources/obstacles.xml" />
         <option value="$PROJECT_DIR$/src/test/java/MathTestRecValues.java" />
-        <option value="$PROJECT_DIR$/src/main/java/View/CalculusFrame.form" />
         <option value="$PROJECT_DIR$/src/main/java/View/FXTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/View/BlaFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/View/TestFrame.java" />
@@ -174,6 +198,7 @@
         <option value="$PROJECT_DIR$/src/main/java/View/AppTempPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/View/ThreeDVisuals.java" />
         <option value="$PROJECT_DIR$/src/main/java/View/CalculusFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/View/CalculusFrame.form" />
       </list>
     </option>
   </component>
@@ -715,8 +740,8 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="UPDATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/Model/MathHandler.java</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/Model/Values.java</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/View/CalculusFrame.form</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/View/CalculusFrame.java</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Created" />
@@ -1129,10 +1154,16 @@
       <option name="project" value="LOCAL" />
       <updated>1426166140247</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="EVEN more and more 3D visuals">
+      <created>1426167528630</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1426167528630</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
-  <component name="TodoView" selected-index="0">
+  <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
       <are-packages-shown value="false" />
       <are-modules-shown value="false" />
@@ -1158,17 +1189,18 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32328308" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40703517" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32328308" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32663316" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35714287" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24120604" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.085427135" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4958124" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2647504" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22094801" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1178,7 +1210,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1204,7 +1235,8 @@
     <MESSAGE value="3D visuals" />
     <MESSAGE value="more 3D visuals" />
     <MESSAGE value="EVEN more 3D visuals" />
-    <option name="LAST_COMMIT_MESSAGE" value="EVEN more 3D visuals" />
+    <MESSAGE value="EVEN more and more 3D visuals" />
+    <option name="LAST_COMMIT_MESSAGE" value="EVEN more and more 3D visuals" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1585,11 +1617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/View/CalculusFrame.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/GUIstepDefinitions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
@@ -1672,22 +1699,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/View/ThreeDVisuals.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.586206" vertical-offset="9830" max-vertical-offset="10421">
-          <caret line="609" column="43" selection-start-line="609" selection-start-column="43" selection-end-line="609" selection-end-column="43" />
+        <state vertical-scroll-proportion="-5.137931" vertical-offset="9830" max-vertical-offset="10574">
+          <caret line="596" column="37" selection-start-line="596" selection-start-column="37" selection-end-line="596" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#24168#24169#0" expanded="true" />
+            <element signature="e#24207#24208#0" expanded="true" />
+            <element signature="e#24256#24257#0" expanded="true" />
+            <element signature="e#24295#24296#0" expanded="true" />
+            <element signature="e#24337#24338#0" expanded="true" />
+            <element signature="e#24376#24377#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/View/CalculusFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.054054" vertical-offset="2990" max-vertical-offset="4267">
-          <caret line="232" column="45" selection-start-line="232" selection-start-column="45" selection-end-line="232" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4486" max-vertical-offset="5270">
+          <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2972#3129#0" expanded="true" />
+            <element signature="e#3128#3129#0" expanded="true" />
+            <element signature="e#3344#4197#0" expanded="true" />
+            <element signature="e#4196#4197#0" expanded="true" />
+            <element signature="e#6738#6943#0" expanded="true" />
+            <element signature="e#6942#6943#0" expanded="true" />
+            <element signature="e#6990#7577#0" expanded="true" />
+            <element signature="e#7218#7551#0" expanded="true" />
+            <element signature="e#7550#7551#0" expanded="true" />
+            <element signature="e#7576#7577#0" expanded="true" />
+            <element signature="e#7623#9727#0" expanded="true" />
+            <element signature="e#8803#9055#0" expanded="true" />
+            <element signature="e#9054#9055#0" expanded="true" />
+            <element signature="e#9726#9727#0" expanded="true" />
+            <element signature="e#9775#9953#0" expanded="true" />
+            <element signature="e#9952#9953#0" expanded="true" />
+            <element signature="e#10000#10337#0" expanded="true" />
+            <element signature="e#10336#10337#0" expanded="true" />
+            <element signature="e#10384#10728#0" expanded="true" />
+            <element signature="e#10727#10728#0" expanded="true" />
+            <element signature="e#10779#10956#0" expanded="true" />
+            <element signature="e#10955#10956#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/View/CalculusFrame.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
       </provider>
     </entry>
   </component>

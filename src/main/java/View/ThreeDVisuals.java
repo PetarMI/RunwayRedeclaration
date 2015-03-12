@@ -32,6 +32,7 @@ public class ThreeDVisuals extends JFXPanel {
     public static final int FONT_SIZE = 55;
     public static final int TOP_DOWN_ANGLE = -90;
     public static final int SIDE_VIEW_ANGLE = 0;
+    public static final int SIDE_SECOND_VIEW_ANGLE = 180;
     public static final int PLAIN_ANGLE = 0;
     public static final int TEXT_ABOVE = -5;
     public static final int ARROW_SMALL = 1;
@@ -108,8 +109,8 @@ public class ThreeDVisuals extends JFXPanel {
         else {
             rotateZ.setAngle(PLAIN_ANGLE);
         }
-        rotateX.setAngle(PLAIN_ANGLE);
-        rotateZ.setAngle(PLAIN_ANGLE);
+        rotateX.setAngle(TOP_DOWN_ANGLE);
+        rotateY.setAngle(PLAIN_ANGLE);
     }
 
     private void calculateStopWays() {
@@ -598,19 +599,25 @@ public class ThreeDVisuals extends JFXPanel {
         obstacle.setDepth(obstDepth);
     }
 
-    public void setObstPos(int runwayLength, int xPos){
-        obstacle.setTranslateX(-(runwayLength / 2 - xPos));
-    }
-
-    public void setRunwayLength(int length){
-        runwayLength = length;
-        floor.setWidth(runwayLength);
-    }
 
     public void setSelectedView(int angle){
         rotateX.setAngle(angle);
-        rotateY.setAngle(0);
+        rotateY.setAngle(PLAIN_ANGLE);
+        rotateZ.setAngle(PLAIN_ANGLE);
     }
+
+    public void setHorizontalRotation(int angle){
+        rotateX.setAngle(angle);
+    }
+
+    public void setVerticalRotation(int angle){
+        rotateY.setAngle(angle);
+    }
+
+    public void setZRotation(int angle){
+        rotateZ.setAngle(angle);
+    }
+
 
 //    public static void main(String[] args) {
 //        launch(args);

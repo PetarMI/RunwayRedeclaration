@@ -17,9 +17,9 @@ import java.util.List;
 public class CalculusFrame extends JFrame{
 
     //public static final int WIDTH = 675;
-    public static final int WIDTH = 1000;
+    public static final int WIDTH = 1200;
     //public static final int HEIGHT = 400;
-    public static final int HEIGHT = 600;
+    public static final int HEIGHT = 700;
     private XMLHelper xmlHelper;
     private final Runway runway;
     private final String airport;
@@ -29,7 +29,6 @@ public class CalculusFrame extends JFrame{
     private JButton newObstacleButton;
     private JButton topDownViewButton;
     private JButton sideViewButton;
-    private JButton resetOrientationButton;
     private JButton calculateButton;
     private JFormattedTextField posFromLeftText;
     private JFormattedTextField blastAllowanceFormattedTextField;
@@ -242,21 +241,25 @@ public class CalculusFrame extends JFrame{
         topDownViewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                threeD.setSelectedView(ThreeDVisuals.TOP_DOWN_ANGLE);
+                threeD.setCompassOrientation(false);
             }
         });
 
         str1SideOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                threeD.setSelectedView(ThreeDVisuals.SIDE_VIEW_ANGLE);
+                threeD.setHorizontalRotation(ThreeDVisuals.PLAIN_ANGLE);
+                threeD.setVerticalRotation(ThreeDVisuals.SIDE_VIEW_ANGLE);
+                threeD.setZRotation(ThreeDVisuals.PLAIN_ANGLE);
             }
         });
 
         str2SideOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                threeD.setSelectedView(ThreeDVisuals.SIDE_VIEW_ANGLE);
+                threeD.setHorizontalRotation(ThreeDVisuals.PLAIN_ANGLE);
+                threeD.setVerticalRotation(ThreeDVisuals.SIDE_SECOND_VIEW_ANGLE);
+                threeD.setZRotation(ThreeDVisuals.PLAIN_ANGLE);
             }
         });
 
@@ -267,12 +270,6 @@ public class CalculusFrame extends JFrame{
             }
         });
 
-        resetOrientationButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                threeD.setCompassOrientation(false);
-            }
-        });
     }
 
     private void updateObstacleList(){
