@@ -425,7 +425,7 @@ public class ThreeDVisuals extends JFXPanel {
 
     private void setTransXforStrip1() {
 
-        if(runway.getStrip1().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_TOWARDS)) {
+        if(!runway.getStrip1().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_AWAY)) {
             toraBox.setTranslateX(-runwayLength / 2 + vals1.getTora() / 2);
             toraTxt.setTranslateX(-runwayLength / 2 + vals1.getTora() / 2);
 
@@ -486,7 +486,8 @@ public class ThreeDVisuals extends JFXPanel {
 
     private void setTransXforStrip2() {
 
-        if(runway.getStrip2().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_TOWARDS)){
+
+        if(!runway.getStrip2().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_AWAY)){
 
             tora1Box.setTranslateX(runwayLength / 2 - vals2.getTora() / 2);
             tora1Txt.setTranslateX(runwayLength / 2 - vals2.getTora() / 2);
@@ -527,7 +528,7 @@ public class ThreeDVisuals extends JFXPanel {
             asda3Box.setTranslateX( -(runwayLength/ 2 - vals2.getAsda() / 2 + stopway2Width));
             asda3Txt.setTranslateX( -(runwayLength/ 2 - vals2.getAsda() / 2 + stopway2Width));
         }
-        if(runway.getStrip2().getRecVal().getLanding().equals(MathHandler.LAND_TOWARDS)){
+        if(!runway.getStrip2().getRecVal().getLanding().equals(MathHandler.LAND_OVER)){
             lda1Box.setTranslateX(dt2Pos - vals2.getLda() / 2);
             lda1Txt.setTranslateX(dt2Pos - vals2.getLda() / 2);
 
