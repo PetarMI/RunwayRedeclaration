@@ -5,15 +5,15 @@ package Model;
  */
 public class MathHandler
 {
-    private final static int CENTRELINE_THRESHOLD = 75;
-    private final static int STRIPEND_THRESHOLD = 60;
+    public final static int CENTRELINE_THRESHOLD = 75;
+    public final static int STRIPEND_THRESHOLD = 60;
 
-    private final static int RESA = 240;
+    public final static int RESA = 240;
 
-    private static final String LAND_OVER = "Land over";
-    private static final String LAND_TOWARDS = "Land towards";
-    private static final String TAKEOFF_AWAY = "TakeOff Away";
-    private static final String TAKEOFF_TOWARDS = "TakeOff Towards";
+    public static final String LAND_OVER = "Land over";
+    public static final String LAND_TOWARDS = "Land towards";
+    public static final String TAKEOFF_AWAY = "TakeOff Away";
+    public static final String TAKEOFF_TOWARDS = "TakeOff Towards";
 
     private Runway runway;
     private Integer obstacleHeight;
@@ -91,7 +91,7 @@ public class MathHandler
     }
 
     private Values takeOffAway(Values stripValues, int distance, int threshold){
-        int distanceFromObstacle = Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD);
+        int distanceFromObstacle = Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD) - obstacleLengthHalf;
         int tempTora = stripValues.getTora() - Math.max(this.aircraftBlastProtection, RESA + STRIPEND_THRESHOLD)
                 - distance - threshold - obstacleLengthHalf;
         int tempAsda = tempTora + stripValues.getAsda() - stripValues.getTora();
@@ -124,7 +124,8 @@ public class MathHandler
     }
 
     private Pair<Integer, Integer> landOver(Values originalStripValues, int distance) {
-        int distanceFromObstacle = Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50) - STRIPEND_THRESHOLD;
+        int distanceFromObstacle = Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50) - STRIPEND_THRESHOLD
+                - this.obstacleLengthHalf;
         int lda = (originalStripValues.getLda() - distance - STRIPEND_THRESHOLD - obstacleLengthHalf -
                 Math.max(Math.max(RESA, this.aircraftBlastProtection), this.obstacleHeight*50));
         return new Pair<Integer, Integer>(Math.min(originalStripValues.getLda(), lda), distanceFromObstacle);

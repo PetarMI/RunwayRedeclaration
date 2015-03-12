@@ -64,6 +64,7 @@ public class CalculusFrame extends JFrame{
     private JPanel viewPane;
     private JOptionPane optionsPane;
     private boolean testable;
+    private ThreeDVisuals threeD;
 
     public CalculusFrame(Runway runway, String airport, boolean testable) {
         this.runway = runway;
@@ -78,7 +79,7 @@ public class CalculusFrame extends JFrame{
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
         xmlHelper = new XMLHelper();
-
+        threeD = new ThreeDVisuals();
         //Creates the menubar
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
@@ -209,8 +210,9 @@ public class CalculusFrame extends JFrame{
                             centrelinePosComboBox.getSelectedItem().toString());
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
-                    final ThreeDVisuals threeD = new ThreeDVisuals();
-                    viewPane.removeAll();
+                    viewPane.remove(threeD);
+                    threeD = new ThreeDVisuals();
+
                     viewPane.add(threeD);
                     Platform.runLater(new Runnable() {
                         @Override
