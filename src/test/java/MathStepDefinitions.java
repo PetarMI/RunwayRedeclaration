@@ -37,9 +37,9 @@ public class MathStepDefinitions {
         runway = new Runway(runwayID, strip1, strip2);
     }
 
-    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of height (\\d+) and (-?\\d+) above the centreline$")
-    public void He_adds_an_obstacle_(int posLeft, int posRight, int height, int distCentral) {
-        obs = new Obstacle("test", 1, height, 1, "test");
+    @When("^He adds an obstacle (-?\\d+) m from the left and (-?\\d+) m from the right, of width (\\d+), height (\\d+), length (\\d+) and (-?\\d+) above the centreline$")
+    public void He_adds_an_obstacle_(int posLeft, int posRight, int width, int height, int length, int distCentral) {
+        obs = new Obstacle("test", width, height, length, "test");
         runway.addObstacle(obs, posLeft, posRight,distCentral);
     }
 
@@ -63,7 +63,7 @@ public class MathStepDefinitions {
         assertTrue("Recalculated TORA for " + stripId + " is " + recValues.getTora(), trueValues.getTora() == recValues.getTora());
         assertTrue("Recalculated TODA for " + stripId + " is " + recValues.getToda(), trueValues.getToda() == recValues.getToda());
         assertTrue("Recalculated ASDA for " + stripId + " is " + recValues.getAsda(), trueValues.getAsda() == recValues.getAsda());
-        assertTrue("Recalculated LDA for " + stripId + " is " + recValues.getLda(), trueValues.getLda() == recValues.getLda());
+        assertTrue("Recalculated LDA for "  + stripId + " is " + recValues.getLda(), trueValues.getLda()   == recValues.getLda());
 
         //test it all together
         assertTrue("Recalculated values are not the same", trueValues.equals(recValues));
@@ -83,7 +83,7 @@ public class MathStepDefinitions {
         assertTrue("Recalculated TORA for "+ stripId +" is "+ recValues.getTora(), trueValues.getTora() == recValues.getTora());
         assertTrue("Recalculated TODA for "+ stripId +" is "+ recValues.getToda(), trueValues.getToda() == recValues.getToda());
         assertTrue("Recalculated ASDA for "+ stripId +" is "+ recValues.getAsda(), trueValues.getAsda() ==recValues.getAsda());
-        assertTrue("Recalculated LDA for "+ stripId +" is "+ recValues.getLda(), trueValues.getLda() == recValues.getLda());
+        assertTrue("Recalculated LDA for "+ stripId  +" is "+ recValues.getLda(), trueValues.getLda() == recValues.getLda());
 
         //test it all together
         assertTrue("Recalculated values are not the same", trueValues.equals(recValues));
