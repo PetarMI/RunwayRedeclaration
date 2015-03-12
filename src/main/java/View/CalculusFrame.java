@@ -27,8 +27,8 @@ public class CalculusFrame extends JFrame{
     private JButton changeRunwayButton;
     private JComboBox obstaclesComboBox;
     private JButton newObstacleButton;
-    private JRadioButton topDownViewRadioButton;
-    private JRadioButton sideViewRadioButton;
+    private JButton topDownViewButton;
+    private JButton sideViewButton;
     private JButton resetOrientationButton;
     private JButton calculateButton;
     private JFormattedTextField posFromLeftText;
@@ -62,6 +62,9 @@ public class CalculusFrame extends JFrame{
     private JPanel displayPane;
     private JPanel calcPane;
     private JPanel viewPane;
+    private JButton compassHeadingButton;
+    private JButton str1SideOnButton;
+    private JButton str2SideOnButton;
     private JOptionPane optionsPane;
     private boolean testable;
     private ThreeDVisuals threeD;
@@ -148,9 +151,6 @@ public class CalculusFrame extends JFrame{
 
         this.strip1Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip1().getStripId())));
         this.strip2Panel.setBorder(BorderFactory.createTitledBorder((runway.getStrip2().getStripId())));
-        this.sideViewRadioButton.setVisible(true);
-        this.topDownViewRadioButton.setVisible(true);
-        this.resetOrientationButton.setVisible(true);
         this.updateObstacleList();
     }
 
@@ -236,6 +236,41 @@ public class CalculusFrame extends JFrame{
                     }
                 }
 
+            }
+        });
+
+        topDownViewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                threeD.setSelectedView(ThreeDVisuals.TOP_DOWN_ANGLE);
+            }
+        });
+
+        str1SideOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                threeD.setSelectedView(ThreeDVisuals.SIDE_VIEW_ANGLE);
+            }
+        });
+
+        str2SideOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                threeD.setSelectedView(ThreeDVisuals.SIDE_VIEW_ANGLE);
+            }
+        });
+
+        compassHeadingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                threeD.setCompassOrientation(true);
+            }
+        });
+
+        resetOrientationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                threeD.setCompassOrientation(false);
             }
         });
     }

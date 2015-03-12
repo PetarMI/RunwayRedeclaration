@@ -20,41 +20,6 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="9873f" class="javax.swing.JRadioButton" binding="sideViewRadioButton" default-binding="true">
-            <constraints>
-              <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <hideActionText value="false"/>
-              <text value="Side View"/>
-            </properties>
-            <clientProperties>
-              <html.disable class="java.lang.Boolean" value="false"/>
-            </clientProperties>
-          </component>
-          <component id="8b204" class="javax.swing.JButton" binding="resetOrientationButton" default-binding="true">
-            <constraints>
-              <grid row="17" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <text value="Reset Orientation"/>
-            </properties>
-          </component>
-          <component id="18558" class="javax.swing.JRadioButton" binding="topDownViewRadioButton" default-binding="true">
-            <constraints>
-              <grid row="16" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <hideActionText value="false"/>
-              <text value="Top-Down View"/>
-            </properties>
-            <clientProperties>
-              <html.disable class="java.lang.Boolean" value="false"/>
-            </clientProperties>
-          </component>
           <component id="fe6d7" class="javax.swing.JButton" binding="calculateButton" default-binding="true">
             <constraints>
               <grid row="18" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -94,7 +59,7 @@
           <component id="c133a" class="javax.swing.JFormattedTextField" binding="centreJFormattedTextField">
             <constraints>
               <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="112" height="20"/>
+                <preferred-size width="119" height="20"/>
               </grid>
             </constraints>
             <properties>
@@ -151,6 +116,53 @@
               </grid>
             </constraints>
             <properties/>
+          </component>
+          <component id="bcb8e" class="javax.swing.JButton" binding="str2SideOnButton">
+            <constraints>
+              <grid row="16" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <hideActionText value="false"/>
+              <text value="Side On Right"/>
+            </properties>
+          </component>
+          <component id="6ca5a" class="javax.swing.JButton" binding="compassHeadingButton">
+            <constraints>
+              <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Compas Heading"/>
+            </properties>
+          </component>
+          <component id="8b204" class="javax.swing.JButton" binding="resetOrientationButton" default-binding="true">
+            <constraints>
+              <grid row="17" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <text value="Reset Orientation"/>
+            </properties>
+          </component>
+          <component id="5ca32" class="javax.swing.JButton" binding="topDownViewButton" default-binding="true">
+            <constraints>
+              <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="119" height="32"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <hideActionText value="false"/>
+              <text value="Top-Down View"/>
+            </properties>
+          </component>
+          <component id="26f69" class="javax.swing.JButton" binding="str1SideOnButton">
+            <constraints>
+              <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Side On Left"/>
+            </properties>
           </component>
         </children>
       </grid>
