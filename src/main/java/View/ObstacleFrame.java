@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class ObstacleFrame extends JFrame{
 
     public static final int WIDTH = 150;
-    public static final int HEIGHT = 300;
+    public static final int HEIGHT = 250;
 
     private JPanel mainPane;
     private JTextField nameTextField, heightTextField, widthTextField, lengthTextField;

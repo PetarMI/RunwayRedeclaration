@@ -50,7 +50,7 @@
       <component id="68f2f" class="javax.swing.JTextArea" binding="descriptionTextArea">
         <constraints border-constraint="Center"/>
         <properties>
-          <rows value="12"/>
+          <rows value="2"/>
         </properties>
       </component>
       <component id="5d6e4" class="javax.swing.JButton" binding="addButton">
