@@ -188,6 +188,7 @@ public class CalculusFrame extends JFrame{
                     @Override
                     public void windowClosed(WindowEvent e) {
                         CalculusFrame.this.updateObstacleList();
+                        CalculusFrame.this.obstaclesComboBox.setSelectedIndex(obstaclesComboBox.getItemCount()-1);
                     }
                 });
             }
