@@ -1,9 +1,11 @@
 package Model;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 public class Runway
 {
-    private static final String OBSTACLE_ABOVE = "Above";
-    private static final String OBSTACLE_BELOW = "Below";
+    public static final String OBSTACLE_ABOVE = "Above";
+    public static final String OBSTACLE_BELOW = "Below";
 
     private String runwayId;
     private Strip strip1;
