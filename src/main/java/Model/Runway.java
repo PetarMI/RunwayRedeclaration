@@ -1,7 +1,5 @@
 package Model;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 public class Runway
 {
     public static final String OBSTACLE_ABOVE = "Above";
@@ -87,6 +85,15 @@ public class Runway
         return this.distanceFromCentreline;
     }
 
+    public void setSimpleCalculations()
+    {
+        this.mathHandler.setSimpleCalculations();
+    };
+
+    public void setComplexCalculations()
+    {
+        this.mathHandler.setComplexCalculations();
+    };
 
     @Override
     public String toString() {

@@ -126,6 +126,40 @@ public class CalculusFrame extends JFrame{
         file.add(exitItem);
         menubar.add(file);
 
+        //Calculations option
+        JMenu calculations = new JMenu("Calculations");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        ButtonGroup group = new ButtonGroup();
+        JMenuItem simpleCalcsItem = new JRadioButtonMenuItem("Simple calculations");
+        simpleCalcsItem.setSelected(true);
+        simpleCalcsItem.setMnemonic(KeyEvent.VK_E);
+        simpleCalcsItem.setToolTipText("Calculate without width and length");
+        simpleCalcsItem.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    runway.setSimpleCalculations();
+                }
+            }
+        });
+        JMenuItem complexCalcsItem = new JRadioButtonMenuItem("Complex calculations");
+        complexCalcsItem.setMnemonic(KeyEvent.VK_P);
+        complexCalcsItem.setToolTipText("Calculate with width and lengt");
+        complexCalcsItem.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    runway.setComplexCalculations();
+                }
+            }
+        });
+
+        group.add(simpleCalcsItem);
+        group.add(complexCalcsItem);
+        calculations.add(simpleCalcsItem);
+        calculations.add(complexCalcsItem);
+
+        menubar.add(calculations);
+
         this.setJMenuBar(menubar);
 
         optionsPane = new JOptionPane();

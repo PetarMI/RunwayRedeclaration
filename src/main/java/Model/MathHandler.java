@@ -23,6 +23,7 @@ public class MathHandler
     private int aircraftBlastProtection;
     private Values recalculatedValuesStrip1;
     private Values recalculatedValuesStrip2;
+    private int calculations;
 
     public MathHandler(Runway runway) {
         this.runway = runway;
@@ -31,6 +32,7 @@ public class MathHandler
         this.obstacleWidthHalf = null;
         this.recalculatedValuesStrip1 = null;
         this.recalculatedValuesStrip2 = null;
+        this.calculations = 1;
     };
 
     //TODO for now return original values if there is no obstacle
@@ -38,8 +40,8 @@ public class MathHandler
                 int obstWidth, int blastProtection) {
 
         this.obstacleHeight = obstHeight;
-        this.obstacleLengthHalf = (int)Math.ceil(obstLength/2.0);
-        this.obstacleWidthHalf = (int)Math.ceil(obstWidth/2.0);
+        this.obstacleLengthHalf = (int)Math.ceil(obstLength/2.0) * calculations;
+        this.obstacleWidthHalf = (int)Math.ceil(obstWidth/2.0) * calculations;
 
         //decide if we have to recalculate the runway distances
         if ((runway.getObstacleDistanceFromCentreline() - obstacleWidthHalf) > CENTRELINE_THRESHOLD ||
@@ -135,4 +137,14 @@ public class MathHandler
     private int landTowards(int distance) {
         return (distance - obstacleLengthHalf - STRIPEND_THRESHOLD - RESA);
     }
+
+    public void setSimpleCalculations()
+    {
+        this.calculations = 0;
+    };
+
+    public void setComplexCalculations()
+    {
+        this.calculations = 1;
+    };
 }
