@@ -132,7 +132,6 @@ public class CalculusFrame extends JFrame{
 
         ButtonGroup group = new ButtonGroup();
         JMenuItem simpleCalcsItem = new JRadioButtonMenuItem("Simple calculations");
-        simpleCalcsItem.setSelected(true);
         simpleCalcsItem.setMnemonic(KeyEvent.VK_E);
         simpleCalcsItem.setToolTipText("Calculate without width and length");
         simpleCalcsItem.addItemListener(new ItemListener() {
@@ -155,8 +154,21 @@ public class CalculusFrame extends JFrame{
 
         group.add(simpleCalcsItem);
         group.add(complexCalcsItem);
+        complexCalcsItem.setSelected(true);
         calculations.add(simpleCalcsItem);
         calculations.add(complexCalcsItem);
+
+        //calculation breakdown
+        JMenuItem viewBreakdown = new JMenuItem("View breakdown");
+        viewBreakdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new BreakdownFrame(runway.getStrip1().viewCalculationBreakdown(),
+                        runway.getStrip2().viewCalculationBreakdown());
+            }
+        });
+        calculations.addSeparator();
+        calculations.add(viewBreakdown);
 
         menubar.add(calculations);
 

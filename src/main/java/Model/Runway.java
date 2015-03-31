@@ -88,12 +88,24 @@ public class Runway
     public void setSimpleCalculations()
     {
         this.mathHandler.setSimpleCalculations();
-    };
+    }
 
     public void setComplexCalculations()
     {
         this.mathHandler.setComplexCalculations();
-    };
+    }
+
+    public void setBreakdownCalculations(Integer strip, Calculations calcs)
+    {
+        if (strip == 1)
+        {
+            this.strip1.setCalculationBreakdown(calcs);
+        }
+        else
+        {
+            this.strip2.setCalculationBreakdown(calcs);
+        }
+    }
 
     @Override
     public String toString() {

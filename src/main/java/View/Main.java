@@ -22,12 +22,19 @@ public class Main
         Strip str2 = new Strip("27R", 27, "R", str2Vals, 0);
 
         Runway runway = new Runway("09L/27R", str1, str2);
-        runway.addObstacle(new Obstacle("b", 4, 12, 5, "b"), -50, 3464, 0, "");
+        runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0, "");
+        System.out.println(runway.getStrip1().viewCalculationBreakdown());
+        System.out.println(runway.getStrip2().viewCalculationBreakdown());
         runway.recalculateValues(300);
-        try {
-            PrintHelper.print(runway, "Heathrow", "");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(runway.getStrip1().getRecVal());
+        System.out.println(runway.getStrip2().getRecVal());
+        System.out.println(runway.getStrip1().viewCalculationBreakdown());
+        System.out.println(runway.getStrip2().viewCalculationBreakdown());
+        runway.addObstacle(new Obstacle("b", 1, 20, 1, "b"), 3546, 50, 0, "");
+        runway.recalculateValues(300);
+        System.out.println(runway.getStrip1().getRecVal());
+        System.out.println(runway.getStrip2().getRecVal());
+        System.out.println(runway.getStrip1().viewCalculationBreakdown());
+        System.out.println(runway.getStrip2().viewCalculationBreakdown());
     }
 }

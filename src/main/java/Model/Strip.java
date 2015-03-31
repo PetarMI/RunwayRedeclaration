@@ -7,6 +7,7 @@ public class Strip
     private Values origVal, recVal;
     private final int displacedThreshold;
     private String stripId;
+    private Calculations breakdown;
 
     public Strip(String stripId, int orientation, String position,Values origVal, int displacedThreshold) {
         this.stripId = stripId;
@@ -15,6 +16,7 @@ public class Strip
         this.origVal = origVal;
         this.recVal = origVal;
         this.displacedThreshold = displacedThreshold;
+        this.breakdown = null;
     }
 
     public int getOrientation(){
@@ -45,6 +47,21 @@ public class Strip
 
     public String getStripId() {
         return stripId;
+    }
+
+    public void setCalculationBreakdown(Calculations calc)
+    {
+        this.breakdown = calc;
+    }
+
+    public String viewCalculationBreakdown()
+    {
+        if (this.breakdown != null) {
+            return this.breakdown.toString();
+        }
+        else {
+            return "No calculations";
+        }
     }
 
     @Override
