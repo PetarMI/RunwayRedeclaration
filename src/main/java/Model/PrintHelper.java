@@ -1,8 +1,9 @@
 package Model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.*;
 import java.util.Formatter;
-import org.apache.commons.io.FilenameUtils;
 
 public final class PrintHelper
 {
@@ -150,7 +151,6 @@ public final class PrintHelper
         }
 
         File fileDir = new File("files/");
-        fileDir.mkdir();
         File[] files = fileDir.listFiles();
         while (checkFilenameExists(files, filename.toString()))
         {

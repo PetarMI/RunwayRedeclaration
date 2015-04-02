@@ -580,6 +580,12 @@
           </grid>
         </children>
       </grid>
+      <grid id="4f3c4" binding="notifPane" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="East"/>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
     </children>
   </grid>
   <buttonGroups>

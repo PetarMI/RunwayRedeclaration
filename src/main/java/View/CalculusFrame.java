@@ -1,14 +1,12 @@
 package View;
 
 import Exceptions.PositiveOnlyException;
-import Model.Obstacle;
-import Model.Runway;
-import Model.Values;
-import Model.XMLHelper;
-import Model.PrintHelper;
+import Model.*;
 import javafx.application.Platform;
+import org.controlsfx.control.NotificationPane;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -64,9 +62,11 @@ public class CalculusFrame extends JFrame{
     private JButton compassHeadingButton;
     private JButton str1SideOnButton;
     private JButton str2SideOnButton;
+    private JPanel notifPane;
     private JOptionPane optionsPane;
     private boolean testable;
     private ThreeDVisuals threeD;
+    private NotifBoard fxNotif;
 
     public CalculusFrame(Runway runway, String airport, boolean testable) {
         this.runway = runway;
@@ -82,6 +82,8 @@ public class CalculusFrame extends JFrame{
     private void doInitializations() {
         xmlHelper = new XMLHelper();
         threeD = new ThreeDVisuals();
+        fxNotif = new NotifBoard();
+        notifPane.add(fxNotif, BorderLayout.CENTER);
         //Creates the menubar
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
@@ -143,7 +145,7 @@ public class CalculusFrame extends JFrame{
         });
         JMenuItem complexCalcsItem = new JRadioButtonMenuItem("Complex calculations");
         complexCalcsItem.setMnemonic(KeyEvent.VK_P);
-        complexCalcsItem.setToolTipText("Calculate with width and lengt");
+        complexCalcsItem.setToolTipText("Calculate with width and length");
         complexCalcsItem.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -256,15 +258,20 @@ public class CalculusFrame extends JFrame{
                             centrelinePosComboBox.getSelectedItem().toString());
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
+
                     viewPane.remove(threeD);
                     threeD = new ThreeDVisuals();
-
                     viewPane.add(threeD);
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                             Platform.setImplicitExit(false);
+                            fxNotif.addNotif(new Notif(Notif.SYNC_TITLE, Notif.SYNC_IMAGE));
                             threeD.init(runway);
+                            NotificationPane notificationPane = new NotificationPane();
+                            notificationPane.getStyleClass().add(NotificationPane.STYLE_CLASS_DARK);
+                            notificationPane.setText("Do you want to save your password?");
+                            notificationPane.show();
                         }
                     });
                 }catch (NumberFormatException e1){

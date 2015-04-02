@@ -82,6 +82,7 @@ public class ThreeDVisuals extends JFXPanel {
 
 
     public void init (Runway runway){
+
         this.runway = runway;
         this.origVals1 = runway.getStrip1().getOrigVal();
         this.origVals2 = runway.getStrip2().getOrigVal();
@@ -424,6 +425,7 @@ public class ThreeDVisuals extends JFXPanel {
 //        primaryStage.setWidth(SCENE_WIDTH);
 //        primaryStage.setHeight(SCENE_HEIGHT);
 //        primaryStage.show();
+
     }
 
     private void setTransXforStrip1() {
