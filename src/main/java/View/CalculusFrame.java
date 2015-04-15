@@ -93,7 +93,7 @@ public class CalculusFrame extends JFrame{
         exitItem.setMnemonic(KeyEvent.VK_E);
         exitItem.setToolTipText("Exit application");
         exitItem.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
@@ -103,7 +103,7 @@ public class CalculusFrame extends JFrame{
         exportItem.setMnemonic(KeyEvent.VK_P);
         exportItem.setToolTipText("Export the calculation as a .txt");
         exportItem.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String filename = JOptionPane.showInputDialog(null,
                         "Enter a custom name to save the configuration",
@@ -163,7 +163,7 @@ public class CalculusFrame extends JFrame{
         //calculation breakdown
         JMenuItem viewBreakdown = new JMenuItem("View breakdown");
         viewBreakdown.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 new BreakdownFrame(runway.getStrip1().viewCalculationBreakdown(),
                         runway.getStrip2().viewCalculationBreakdown());
@@ -221,18 +221,18 @@ public class CalculusFrame extends JFrame{
 
     private void setListeners() {
         changeRunwayButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
-                new BeginFrameJavafx();
+                new BeginFrame();
                 CalculusFrame.this.dispose();
             }
         });
         newObstacleButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 final ObstacleFrame obstacleFrame = new ObstacleFrame(false);
                 obstacleFrame.addWindowListener(new WindowAdapter() {
-
+                    @Override
                     public void windowClosed(WindowEvent e) {
                         CalculusFrame.this.updateObstacleList();
                         CalculusFrame.this.obstaclesComboBox.setSelectedIndex(obstaclesComboBox.getItemCount()-1);
@@ -242,6 +242,7 @@ public class CalculusFrame extends JFrame{
         });
 
         calculateButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Obstacle obs = (Obstacle)obstaclesComboBox.getSelectedItem();
                 try {
@@ -262,7 +263,7 @@ public class CalculusFrame extends JFrame{
                     threeD = new ThreeDVisuals();
                     viewPane.add(threeD);
                     Platform.runLater(new Runnable() {
-
+                        @Override
                         public void run() {
                             Platform.setImplicitExit(false);
                             fxNotif.addNotif(new Notif(Notif.SYNC_TITLE, Notif.SYNC_IMAGE));
@@ -291,14 +292,14 @@ public class CalculusFrame extends JFrame{
         });
 
         topDownViewButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 threeD.setCompassOrientation(false);
             }
         });
 
         str1SideOnButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 threeD.setHorizontalRotation(ThreeDVisuals.PLAIN_ANGLE);
                 threeD.setVerticalRotation(ThreeDVisuals.SIDE_VIEW_ANGLE);
@@ -307,7 +308,7 @@ public class CalculusFrame extends JFrame{
         });
 
         str2SideOnButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 threeD.setHorizontalRotation(ThreeDVisuals.PLAIN_ANGLE);
                 threeD.setVerticalRotation(ThreeDVisuals.SIDE_SECOND_VIEW_ANGLE);
@@ -316,7 +317,7 @@ public class CalculusFrame extends JFrame{
         });
 
         compassHeadingButton.addActionListener(new ActionListener() {
-
+            @Override
             public void actionPerformed(ActionEvent e) {
                 threeD.setCompassOrientation(true);
             }

@@ -52,7 +52,6 @@ public class BeginFrame extends JFrame {
     //TODO: Manage the errors with our own exceptions?
     private void setListeners() {
         airportsBox.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
 
                 String selectedAirport = airportsBox.getSelectedItem().toString();
@@ -60,7 +59,6 @@ public class BeginFrame extends JFrame {
             }
         });
         okBtn.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 Runway runway = newAirport.getRunway((String) runwayBox.getSelectedItem());
                 String airport = (String) airportsBox.getSelectedItem();
