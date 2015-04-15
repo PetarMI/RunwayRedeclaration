@@ -51,7 +51,7 @@ public class ThreeDVisuals extends JFXPanel {
     private Text tora2Txt, toda2Txt, asda2Txt, lda2Txt;
     private Box tora3Box, toda3Box, asda3Box, lda3Box;
     private Text tora3Txt, toda3Txt, asda3Txt, lda3Txt;
-    private Box takeOffBox, landBox;
+    private Box takeOffBox1, landBox1, takeOffBox2, landBox2;
     private Text runwayId1Txt, runwayId2Txt;
     private Translate zoom;
     private Scene scene;
@@ -97,6 +97,9 @@ public class ThreeDVisuals extends JFXPanel {
 //    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
 //    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
 //    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+
 //    public static final Color[] THRESHOLD_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
 //    public static final Color[] CLEARWAY_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
 //    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1)};
@@ -105,10 +108,12 @@ public class ThreeDVisuals extends JFXPanel {
 //    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, new Color(252, 174, 145, 1), new Color(130, 215, 140, 1), new Color(254, 229, 217, 1)};
 //    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, new Color(251, 106, 74, 1), new Color(100, 170, 45, 1), new Color(252, 174, 145, 1)};
 
-    public static final Color[] FLOOR_COLOR = {Color.GRAY };
+    public static final Color[] FLOOR_COLOR = {Color.GRAY};
     public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN};
     public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD};
     public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE};
+    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND};
+    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET};
     public static final Color[] THRESHOLD_COLOR = {Color.BLACK};
     public static final Color[] CLEARWAY_COLOR = {Color.BLACK};
     public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE};
@@ -223,8 +228,10 @@ public class ThreeDVisuals extends JFXPanel {
         asda3Box = new Box(vals2.getAsda(), ARROW_BIG, ARROW_SMALL);
         lda3Box = new Box(vals2.getLda(), ARROW_BIG, ARROW_SMALL);
 
-        takeOffBox = new Box(runwayLength/3, 10, ARROW_SMALL);
-        landBox = new Box(runwayLength/3, 10, ARROW_SMALL);
+        takeOffBox1 = new Box(runwayLength/3, 10, ARROW_SMALL);
+        landBox1 = new Box(runwayLength/3, 10, ARROW_SMALL);
+        takeOffBox2 = new Box(runwayLength/3, 10, ARROW_SMALL);
+        landBox2 = new Box(runwayLength/3, 10, ARROW_SMALL);
 
         todaTxt = new Text("TODA: " + vals1.getToda());
         toraTxt = new Text("TORA: " + vals1.getTora());
@@ -272,37 +279,53 @@ public class ThreeDVisuals extends JFXPanel {
         stopway2.setMaterial(new PhongMaterial(STOPWAY_COLOR[colorType]));
         dt1.setMaterial(new PhongMaterial(THRESHOLD_COLOR[colorType]));
         dt2.setMaterial(new PhongMaterial(THRESHOLD_COLOR[colorType]));
-        takeOffBox.setMaterial(new PhongMaterial(SLOPE1_COLOR[colorType]));
-        landBox.setMaterial(new PhongMaterial(SLOPE2_COLOR[colorType]));
+        takeOffBox1.setMaterial(new PhongMaterial(SLOPE1_COLOR[colorType]));
+        landBox1.setMaterial(new PhongMaterial(SLOPE2_COLOR[colorType]));
+        takeOffBox2.setMaterial(new PhongMaterial(SLOPE3_COLOR[colorType]));
+        landBox2.setMaterial(new PhongMaterial(SLOPE4_COLOR[colorType]));
+
 
 
         obstacle.setTranslateY(- (obstHeight/2 + runwayHeight/2));
         obstacle.setTranslateX(obstPos);
 //
-        //so that the 2 slopes do not overlap
-        takeOffBox.setTranslateZ(TEXT_ADJUSTMENT);
-        landBox.setTranslateZ(-TEXT_ADJUSTMENT);
-        //so that the slopes are o the right place minding the obstacle
-        takeOffBox.setTranslateY(-Math.sin(Math.toRadians(SLOPE_ANGLE)) * takeOffBox.getWidth() / 2 - runwayHeight / 2);
-        landBox.setTranslateY(- Math.sin(Math.toRadians(SLOPE_ANGLE)) * landBox.getWidth() / 2 - runwayHeight / 2);
+        //so that the slopes do not overlap
+        takeOffBox1.setTranslateZ( 2 * TEXT_ADJUSTMENT);
+        landBox1.setTranslateZ(TEXT_ADJUSTMENT);
+        takeOffBox2.setTranslateZ( - 2 * TEXT_ADJUSTMENT);
+        landBox2.setTranslateZ( - TEXT_ADJUSTMENT);
+
+        //so that the slopes are o the right place minding the main plane
+        takeOffBox1.setTranslateY(-Math.sin(Math.toRadians(SLOPE_ANGLE)) * takeOffBox1.getWidth() / 2 - runwayHeight / 2);
+        landBox1.setTranslateY(- Math.sin(Math.toRadians(SLOPE_ANGLE)) * landBox1.getWidth() / 2 - runwayHeight / 2);
+        takeOffBox2.setTranslateY(-Math.sin(Math.toRadians(SLOPE_ANGLE)) * takeOffBox2.getWidth() / 2 - runwayHeight / 2);
+        landBox2.setTranslateY(- Math.sin(Math.toRadians(SLOPE_ANGLE)) * landBox2.getWidth() / 2 - runwayHeight / 2);
+
         //distance from the slope to the obstacle
         double slopeFromObst = obstHeight / (Math.tan(Math.toRadians(SLOPE_ANGLE)) * 2);
         slopeFromObst = Math.max(slopeFromObst, 240) + STRIPEND;
         if(runway.getStrip1().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_TOWARDS)){
-            takeOffBox.setTranslateX( obstPos + slopeFromObst );
-            takeOffBox.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+            takeOffBox1.setTranslateX(obstPos - slopeFromObst);
+            takeOffBox1.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
+            root.getChildren().add(takeOffBox1);
         }
-        else {
-            takeOffBox.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
-            takeOffBox.setTranslateX( obstPos - slopeFromObst);
+
+        if(runway.getStrip2().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_TOWARDS)){
+            takeOffBox2.setTranslateX( obstPos + slopeFromObst );
+            takeOffBox2.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+            root.getChildren().add(takeOffBox2);
         }
+
         if(runway.getStrip1().getRecVal().getLanding().equals(MathHandler.LAND_OVER)){
-            landBox.setTranslateX( obstPos + slopeFromObst);
-            landBox.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+            landBox1.setTranslateX( obstPos + slopeFromObst);
+            landBox1.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+            root.getChildren().add(landBox1);
         }
-        else{
-            landBox.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
-            landBox.setTranslateX( obstPos - slopeFromObst);
+
+        if(runway.getStrip2().getRecVal().getLanding().equals(MathHandler.LAND_OVER)){
+            landBox2.setTranslateX( obstPos - slopeFromObst);
+            landBox2.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
+            root.getChildren().add(landBox2);
         }
 
 
@@ -501,7 +524,6 @@ public class ThreeDVisuals extends JFXPanel {
         //add elems
         root.getChildren().add(floor);
         root.getChildren().add(obstacle);
-        root.getChildren().addAll(takeOffBox, landBox);
         root.getChildren().add(light);
         root.getChildren().addAll(clearway1, clearway2, stopway1, stopway2, dt1, dt2);
         root.getChildren().addAll(toraBox, toraTxt,todaBox, todaTxt, asdaBox, asdaTxt, ldaBox, ldaTxt);
