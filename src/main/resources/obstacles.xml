@@ -35,4 +35,11 @@
 <Height>12</Height>
 <Description/>
 </Obstacle>
+<Obstacle>
+<Name>23</Name>
+<Length>100</Length>
+<Width>100</Width>
+<Height>100</Height>
+<Description/>
+</Obstacle>
 </ObstacleList>
