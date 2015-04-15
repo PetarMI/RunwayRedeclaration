@@ -22,6 +22,7 @@ public class ThreeDVisuals extends JFXPanel {
     public static final int SCENE_HEIGHT = 300;
     public static final int LABEL_TRANS_MARGIN = 100;
     public static final int LDA_TRANS = 150;
+    public static final int STRIPEND = 60;
     public static final int TORA_TRANS = LDA_TRANS +LABEL_TRANS_MARGIN;
     public static final int ASDA_TRANS = TORA_TRANS + LABEL_TRANS_MARGIN;
     public static final int TODA_TRANS = ASDA_TRANS + LABEL_TRANS_MARGIN;
@@ -37,6 +38,9 @@ public class ThreeDVisuals extends JFXPanel {
     public static final int TEXT_ABOVE = -5;
     public static final int ARROW_SMALL = 1;
     public static final int ARROW_BIG = 50;
+    public static final double SLOPE_ANGLE = TRUE_ANGLE * SIZE_STRETCH;
+    public static final String MODEL_FILE_NAME = "/models/palm/palm_tree.obj";
+    private static final double MODEL_SCALE_FACTOR = 400;
 
     private Box floor, obstacle, slope, clearway1, clearway2, stopway1, stopway2, dt1, dt2;
     private Box toraBox, todaBox, asdaBox, ldaBox;
@@ -47,6 +51,7 @@ public class ThreeDVisuals extends JFXPanel {
     private Text tora2Txt, toda2Txt, asda2Txt, lda2Txt;
     private Box tora3Box, toda3Box, asda3Box, lda3Box;
     private Text tora3Txt, toda3Txt, asda3Txt, lda3Txt;
+    private Box takeOffBox, landBox;
     private Text runwayId1Txt, runwayId2Txt;
     private Translate zoom;
     private Scene scene;
@@ -55,7 +60,7 @@ public class ThreeDVisuals extends JFXPanel {
     private final Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
     private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
-    private final Rotate rotatePlain = new Rotate(0, Rotate.Z_AXIS);
+
     private int obstHeight = 15;
     private int obstWidth = 12;
     private int obstDepth = 12;
@@ -79,10 +84,48 @@ public class ThreeDVisuals extends JFXPanel {
     private Runway runway;
     private int orientationAngle;
     private int obstacleDistFromCentralLine;
+    private Group obstModel;
+    private int colorType;
 
 
-    public void init (Runway runway){
+    public static final int NORMAL_COLORS = 0;
+    public static final int PROTANOPIA_COLORS = 1;
+    public static final int DEUTERANOPIA_COLORS = 2;
+    public static final int TRITANOPIA_COLORS = 3;
 
+//    public static final Color[] FLOOR_COLOR = {Color.GRAY, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+//    public static final Color[] THRESHOLD_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
+//    public static final Color[] CLEARWAY_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
+//    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1)};
+//    public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE, new Color(106, 126, 189, 1), new Color(160, 95, 190, 1), new Color(107, 174, 214, 1)};
+//    public static final Color[] TEXT_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
+//    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, new Color(252, 174, 145, 1), new Color(130, 215, 140, 1), new Color(254, 229, 217, 1)};
+//    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, new Color(251, 106, 74, 1), new Color(100, 170, 45, 1), new Color(252, 174, 145, 1)};
+
+    public static final Color[] FLOOR_COLOR = {Color.GRAY };
+    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN};
+    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD};
+    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE};
+    public static final Color[] THRESHOLD_COLOR = {Color.BLACK};
+    public static final Color[] CLEARWAY_COLOR = {Color.BLACK};
+    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE};
+    public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE};
+    public static final String[] TEXT_COLOR = {"rgb(37,37,37)"};
+    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL};
+    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON};
+
+
+
+    public void init(Runway runway){
+        this.init(runway, NORMAL_COLORS);
+
+    }
+
+    public void init (Runway runway, int colorType){
+        this.colorType = colorType;
         this.runway = runway;
         this.origVals1 = runway.getStrip1().getOrigVal();
         this.origVals2 = runway.getStrip2().getOrigVal();
@@ -97,6 +140,24 @@ public class ThreeDVisuals extends JFXPanel {
         this.obstPos = runway.getPositionFromLeftDT() + dt1Pos;
         this.orientationAngle = runway.getCompassHeading();
         this.obstacleDistFromCentralLine = runway.getDistanceFromCentrelineFor3D();
+
+    //Code for importing a 3d model
+//        ObjModelImporter objImporter = new ObjModelImporter();
+//        try {
+//            URL modelUrl = this.getClass().getResource(MODEL_FILE_NAME);
+//            objImporter.read(modelUrl);
+//        }
+//        catch (ImportException e) {
+//            e.printStackTrace();
+//        }
+//        MeshView[] meshViews = objImporter.getImport();
+//        for (int i = 0; i < meshViews.length; i++) {
+//            meshViews[i].setScaleX(obstHeight);
+//            meshViews[i].setScaleY(obstHeight);
+//            meshViews[i].setScaleZ(obstHeight);
+//        }
+//        obstModel = new Group(meshViews);
+//        obstModel.setTranslateY(obstHeight/2);
         this.calculateClearWays();
         this.calculateStopWays();
         this.oldMethod();
@@ -162,11 +223,14 @@ public class ThreeDVisuals extends JFXPanel {
         asda3Box = new Box(vals2.getAsda(), ARROW_BIG, ARROW_SMALL);
         lda3Box = new Box(vals2.getLda(), ARROW_BIG, ARROW_SMALL);
 
+        takeOffBox = new Box(runwayLength/3, 10, ARROW_SMALL);
+        landBox = new Box(runwayLength/3, 10, ARROW_SMALL);
 
         todaTxt = new Text("TODA: " + vals1.getToda());
         toraTxt = new Text("TORA: " + vals1.getTora());
         asdaTxt = new Text("ASDA: " + vals1.getAsda());
         ldaTxt = new Text("LDA: " + vals1.getLda());
+
 
         toda1Txt = new Text("TODA: " + vals2.getToda());
         tora1Txt = new Text("TORA: " + vals2.getTora());
@@ -193,28 +257,56 @@ public class ThreeDVisuals extends JFXPanel {
         runwayId2Txt.getTransforms().addAll( rotateX, new Translate(runwayLength/2  +clearway1Width + 100, 0 ,0));
 
         Font myFont = new Font(FONT_SIZE);
-
+        String textStyle = "-fx-fill: " + TEXT_COLOR[colorType] + ";";
         obstacle.setTranslateZ(obstacleDistFromCentralLine);
 
+
+
         //Shape props
-        floor.setMaterial(new PhongMaterial(Color.GRAY));
-        obstacle.setMaterial(new PhongMaterial(Color.DARKCYAN));
-        slope.setMaterial(new PhongMaterial(Color.BISQUE));
-        clearway1.setMaterial(new PhongMaterial(Color.BLACK));
-        clearway2.setMaterial(new PhongMaterial(Color.BLACK));
-        stopway1.setMaterial(new PhongMaterial(Color.ANTIQUEWHITE));
-        stopway2.setMaterial(new PhongMaterial(Color.ANTIQUEWHITE));
-        dt1.setMaterial(new PhongMaterial(Color.BLACK));
-        dt2.setMaterial(new PhongMaterial(Color.BLACK));
+        floor.setMaterial(new PhongMaterial(FLOOR_COLOR[colorType]));
+        obstacle.setMaterial(new PhongMaterial(OBSTACLE_COLOR[colorType]));
+        slope.setMaterial(new PhongMaterial(SLOPE1_COLOR[colorType]));
+        clearway1.setMaterial(new PhongMaterial(CLEARWAY_COLOR[colorType]));
+        clearway2.setMaterial(new PhongMaterial(CLEARWAY_COLOR[colorType]));
+        stopway1.setMaterial(new PhongMaterial(STOPWAY_COLOR[colorType]));
+        stopway2.setMaterial(new PhongMaterial(STOPWAY_COLOR[colorType]));
+        dt1.setMaterial(new PhongMaterial(THRESHOLD_COLOR[colorType]));
+        dt2.setMaterial(new PhongMaterial(THRESHOLD_COLOR[colorType]));
+        takeOffBox.setMaterial(new PhongMaterial(SLOPE1_COLOR[colorType]));
+        landBox.setMaterial(new PhongMaterial(SLOPE2_COLOR[colorType]));
 
 
         obstacle.setTranslateY(- (obstHeight/2 + runwayHeight/2));
         obstacle.setTranslateX(obstPos);
+//
+        //so that the 2 slopes do not overlap
+        takeOffBox.setTranslateZ(TEXT_ADJUSTMENT);
+        landBox.setTranslateZ(-TEXT_ADJUSTMENT);
+        //so that the slopes are o the right place minding the obstacle
+        takeOffBox.setTranslateY(-Math.sin(Math.toRadians(SLOPE_ANGLE)) * takeOffBox.getWidth() / 2 - runwayHeight / 2);
+        landBox.setTranslateY(- Math.sin(Math.toRadians(SLOPE_ANGLE)) * landBox.getWidth() / 2 - runwayHeight / 2);
+        //distance from the slope to the obstacle
+        double slopeFromObst = obstHeight / (Math.tan(Math.toRadians(SLOPE_ANGLE)) * 2);
+        slopeFromObst = Math.max(slopeFromObst, 240) + STRIPEND;
+        if(runway.getStrip1().getRecVal().getTakeoff().equals(MathHandler.TAKEOFF_TOWARDS)){
+            takeOffBox.setTranslateX( obstPos + slopeFromObst );
+            takeOffBox.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+        }
+        else {
+            takeOffBox.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
+            takeOffBox.setTranslateX( obstPos - slopeFromObst);
+        }
+        if(runway.getStrip1().getRecVal().getLanding().equals(MathHandler.LAND_OVER)){
+            landBox.setTranslateX( obstPos + slopeFromObst);
+            landBox.getTransforms().add(new Rotate(SLOPE_ANGLE, Rotate.Z_AXIS));
+        }
+        else{
+            landBox.getTransforms().add(new Rotate(180 - SLOPE_ANGLE, Rotate.Z_AXIS));
+            landBox.setTranslateX( obstPos - slopeFromObst);
+        }
 
-        slope.getTransforms().add(rotatePlain);
-        slope.setTranslateY(-20);
 
-        clearway1.setTranslateX(runwayLength/2 + clearway1Width/2);
+        clearway1.setTranslateX(runwayLength / 2 + clearway1Width / 2);
         clearway2.setTranslateX(-(runwayLength / 2 + clearway2Width / 2));
 
         stopway1.setTranslateX(-(runwayLength/2 + stopway1Width/2));
@@ -225,86 +317,90 @@ public class ThreeDVisuals extends JFXPanel {
 
 
         //TOPDOWN
-        toraBox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        toraBox.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         toraTxt.setFont(myFont);
         toraTxt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        toraTxt.setStyle(textStyle);
 
-
-        todaBox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        todaBox.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         todaTxt.setFont(myFont);
         todaTxt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        todaTxt.setStyle(textStyle);
 
-
-        asdaBox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        asdaBox.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         asdaTxt.setFont(myFont);
         asdaTxt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        asdaTxt.setStyle(textStyle);
 
-
-        ldaBox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        ldaBox.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         ldaTxt.setFont(myFont);
         ldaTxt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
-
+        ldaTxt.setStyle(textStyle);
 
 
         //TOPDOWN (1)
-        tora1Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        tora1Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         tora1Txt.setFont(myFont);
         tora1Txt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        tora1Txt.setStyle(textStyle);
 
-        toda1Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        toda1Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         toda1Txt.setFont(myFont);
         toda1Txt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        toda1Txt.setStyle(textStyle);
 
-
-        asda1Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        asda1Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         asda1Txt.setFont(myFont);
         asda1Txt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
+        asda1Txt.setStyle(textStyle);
 
-
-        lda1Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        lda1Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         lda1Txt.setFont(myFont);
         lda1Txt.getTransforms().add(new Rotate(-90, Rotate.X_AXIS));
-
+        lda1Txt.setStyle(textStyle);
 
 
 
 
         //SIDE (2)
-        tora2Box.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        tora2Box.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         tora2Txt.setFont(myFont);
+        tora2Txt.setStyle(textStyle);
 
-
-        toda2Box.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        toda2Box.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         toda2Txt.setFont(myFont);
+        toda2Txt.setStyle(textStyle);
 
-
-        asda2Box.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        asda2Box.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         asda2Txt.setFont(myFont);
+        asda2Txt.setStyle(textStyle);
 
-        lda2Box.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
+        lda2Box.setMaterial(new PhongMaterial(STRIP1_COLOR[colorType]));
         lda2Txt.setFont(myFont);
+        lda2Txt.setStyle(textStyle);
 
 
 
         //SIDE (3)
-        tora3Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        tora3Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         tora3Txt.setFont(myFont);
         tora3Txt.getTransforms().add(new Rotate(180, Rotate.Y_AXIS));
+        tora3Txt.setStyle(textStyle);
 
-        toda3Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        toda3Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         toda3Txt.setFont(myFont);
         toda3Txt.getTransforms().add(new Rotate(180, Rotate.Y_AXIS));
+        toda3Txt.setStyle(textStyle);
 
-
-        asda3Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        asda3Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         asda3Txt.setFont(myFont);
         asda3Txt.getTransforms().add(new Rotate(180, Rotate.Y_AXIS));
+        asda3Txt.setStyle(textStyle);
 
-
-        lda3Box.setMaterial(new PhongMaterial(Color.LIGHTSALMON));
+        lda3Box.setMaterial(new PhongMaterial(STRIP2_COLOR[colorType]));
         lda3Txt.setFont(myFont);
         lda3Txt.getTransforms().add(new Rotate(180, Rotate.Y_AXIS));
-
+        lda3Txt.setStyle(textStyle);
 
         this.setTransXforStrip1();
         this.setTransXforStrip2();
@@ -388,8 +484,6 @@ public class ThreeDVisuals extends JFXPanel {
         lda3Box.setTranslateZ(-LABEL_MARGIN);
 
 
-        rotatePlain.setAngle(TRUE_ANGLE * SIZE_STRETCH);
-
 
         //Camera properties
         camera.setNearClip(0.1);
@@ -401,13 +495,13 @@ public class ThreeDVisuals extends JFXPanel {
         PointLight light = new PointLight(Color.LIGHTGRAY);
         light.setTranslateY(-300);
         //Scene props
-        scene.setFill(Color.SKYBLUE);
+        scene.setFill(BACKGROUND_COLOR[colorType]);
         scene.setCamera(camera);
 
         //add elems
         root.getChildren().add(floor);
         root.getChildren().add(obstacle);
-//        root.getChildren().add(slope);
+        root.getChildren().addAll(takeOffBox, landBox);
         root.getChildren().add(light);
         root.getChildren().addAll(clearway1, clearway2, stopway1, stopway2, dt1, dt2);
         root.getChildren().addAll(toraBox, toraTxt,todaBox, todaTxt, asdaBox, asdaTxt, ldaBox, ldaTxt);
@@ -557,7 +651,7 @@ public class ThreeDVisuals extends JFXPanel {
                     public void handle(ScrollEvent event) {
                         double zoomFactor = 1.1;
                         double deltaY = event.getDeltaY();
-                        if (deltaY < 0){
+                        if (deltaY > 0){
                             zoomFactor = 2.0 - zoomFactor;
                         }
                         zoom.setZ(zoom.getZ() * zoomFactor);

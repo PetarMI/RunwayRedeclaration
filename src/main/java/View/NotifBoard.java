@@ -27,7 +27,6 @@ public class NotifBoard extends JFXPanel {
         Label infoLabel = new Label("Click to pin/unpin");
         final HiddenSidesPane hsPane = new HiddenSidesPane();
         Scene scene = new Scene(hsPane);
-
         //styling
         scene.getStylesheets().add(this.getClass().getResource("/scrollbar.css").toExternalForm());
         content.setPadding(new Insets(5, 5, 5, 5));
