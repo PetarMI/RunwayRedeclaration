@@ -18,8 +18,7 @@ import java.util.List;
 //TODO: Manage the errors with our own exceptions?
 public class BeginFrameJavafx extends Application {
 
-    private ComboBox airportsBox;
-    private ComboBox runwayBox;
+    private ComboBox airportsBox, runwayBox;
     private Button okBtn;
     private Airport newAirport;
     private XMLHelper xmlHelper;
@@ -48,11 +47,11 @@ public class BeginFrameJavafx extends Application {
 
         airportsBox = new ComboBox();
         runwayBox = new ComboBox();
-        okBtn = new Button();
+        okBtn = new Button("Ok");
         airportsBox.setPrefSize(300, 35);
         runwayBox.setPrefSize(300, 35);
         okBtn.setPrefSize(60, 30);
-        okBtn.setText("Ok");
+
 
         this.xmlHelper = new XMLHelper();
         try {
@@ -60,7 +59,8 @@ public class BeginFrameJavafx extends Application {
             airportsBox.getItems().addAll(airportNames);        //adds all the airports to the ComboBox
             airportsBox.getSelectionModel().selectFirst();      //shows the default value as the first item.
             updateRunwayBox((String) airportsBox.getSelectionModel().getSelectedItem());
-            runwayBox.getSelectionModel().selectFirst();
+            System.out.println("Airport: " + airportsBox.getSelectionModel().getSelectedItem());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,11 +75,19 @@ public class BeginFrameJavafx extends Application {
                 new CalculusFrame(runway, airport, false);
             }
         });
+        airportsBox.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                String selectedAirport = airportsBox.getSelectionModel().getSelectedItem().toString();
+                updateRunwayBox(selectedAirport);
+            }
+        });
     }
     private void updateRunwayBox(String newAirportName) {
         //rebuild the selected file name so it can load the xml
         String fileName = newAirportName + ".xml";
         try {
+            runwayBox.getSelectionModel().clearSelection();
+            runwayBox.getItems().clear();
             newAirport = xmlHelper.readAirport(fileName);
             List<String> runways = newAirport.getRunwayIds();
             runwayBox.getItems().addAll(runways);
