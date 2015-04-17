@@ -18,6 +18,7 @@ import java.util.List;
 //TODO: Manage the errors with our own exceptions?
 public class BeginFrameJavafx extends Application {
 
+    private Stage stage;
     private ComboBox airportsBox, runwayBox;
     private Button okBtn;
     private Airport newAirport;
@@ -28,6 +29,7 @@ public class BeginFrameJavafx extends Application {
     }
 
     public void start(Stage primaryStage) {
+        stage = primaryStage;
         setup(primaryStage);
         setUpListeners();
 
@@ -36,10 +38,11 @@ public class BeginFrameJavafx extends Application {
         root.getChildren().add(runwayBox);
         root.setAlignment(Pos.CENTER);
         root.getChildren().add(okBtn);
-        primaryStage.setScene(new Scene(root, 300, 100));
-        primaryStage.setResizable(false);
-        primaryStage.sizeToScene();
-        primaryStage.show();
+        stage.setScene(new Scene(root, 300, 100));
+        stage.setResizable(false);
+        stage.sizeToScene();
+        stage.centerOnScreen();
+        stage.show();
     }
 
     private void setup(Stage primaryStage){
@@ -59,8 +62,8 @@ public class BeginFrameJavafx extends Application {
             airportsBox.getItems().addAll(airportNames);        //adds all the airports to the ComboBox
             airportsBox.getSelectionModel().selectFirst();      //shows the default value as the first item.
             updateRunwayBox((String) airportsBox.getSelectionModel().getSelectedItem());
+            runwayBox.getSelectionModel().selectFirst();
             System.out.println("Airport: " + airportsBox.getSelectionModel().getSelectedItem());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,13 +75,15 @@ public class BeginFrameJavafx extends Application {
             public void handle(ActionEvent event) {
                 Runway runway = newAirport.getRunway((String) runwayBox.getSelectionModel().getSelectedItem());
                 String airport = (String) airportsBox.getSelectionModel().getSelectedItem();
-                new CalculusFrame(runway, airport, false);
-            }
+                //new CalculusFrame(runway, airport, false);
+                new CalculusFrameJavafx(runway, airport, false).start(stage);
+                }
         });
         airportsBox.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 String selectedAirport = airportsBox.getSelectionModel().getSelectedItem().toString();
                 updateRunwayBox(selectedAirport);
+                runwayBox.getSelectionModel().selectFirst();
             }
         });
     }
