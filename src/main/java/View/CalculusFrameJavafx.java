@@ -7,24 +7,19 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
-import java.util.Arrays;
+import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class CalculusFrameJavafx extends Application {
 
@@ -41,13 +36,15 @@ public class CalculusFrameJavafx extends Application {
     private final String airport;
     private boolean testable;
     private Stage stage;
-    private Stage popUp;
-    private Button okBtn;
+
+    MenuBar menuBar;
+    Menu file, calculations;
 
     //Top LHS components
     private Button chgnRunway, addCustObs, compassOrient, calculate;
     private Button topDown, sideOnLeft, sideOnRight;
-    private ComboBox obstaclesBox, centrelineBox;
+    private ComboBox<Obstacle> obstaclesBox;
+    private ComboBox<String> centrelineBox;
     private TextField posFromLeft, posFromRight, BPV, centrelineDist;
     private Label obstacleLabel, posFromLeftL, posFromRightL, BPVL, centrelineDistL;
 
@@ -68,6 +65,7 @@ public class CalculusFrameJavafx extends Application {
 
         xmlHelper = new XMLHelper();
         threeD = new ThreeDVisuals();
+        menuBar();
         setupLHScomponents();
         setupStripValues();
         updateObstacleComboBox();
@@ -88,6 +86,7 @@ public class CalculusFrameJavafx extends Application {
         BorderPane root = new BorderPane();
         GridPane gridpane = new GridPane();
         root.setLeft(gridpane);
+        root.setTop(menuBar);
 
 
         //gridpane setup
@@ -182,11 +181,73 @@ public class CalculusFrameJavafx extends Application {
         stage.show();
     }
 
+
+    private void menuBar(){
+
+
+
+        //Export
+
+        MenuItem exportItem = new MenuItem("Export");
+        exportItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Optional<String> response = Dialogs.create()
+                        .title("Export Settings")
+                        .message("Export file to:")
+                        .showTextInput();
+
+                String filename = "";
+                if (response.isPresent()) {
+                    filename = response.get().toString();
+                    //remove this
+                    System.out.println(filename);
+                    try {
+                        PrintHelper.print(runway, airport, filename);
+                    } catch (FileNotFoundException exp) {
+                        Dialogs.create()
+                                .title("Error message")
+                                .message("Invalid file name.")
+                                .lightweight()
+                                .showWarning();
+                    } catch (IOException exc) {
+                        Dialogs.create()
+                                .title("Error message")
+                                .message("Could not create file.\nTryAgain")
+                                .lightweight()
+                                .showWarning();
+                    }
+                }
+            }
+        });
+
+        //Exit
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+
+
+
+
+        menuBar = new MenuBar();
+        file = new Menu("File");
+        calculations = new Menu("Calculations");
+        menuBar.getMenus().addAll(file, calculations);
+
+        file.getItems().addAll(exportItem, exitItem);
+        //calculations.getItems().addAll()
+    }
+
+
     private void setupLHScomponents() {
         //initialising all the components
         chgnRunway = new Button("Change Runway");
         obstacleLabel = new Label("Obstacle: ");
-        obstaclesBox = new ComboBox();
+        obstaclesBox = new ComboBox<Obstacle>();
        // obstaclesBox.setPromptText("Block: H:20, L:10, W:5");
         addCustObs = new Button("Add Custom Obstacle");
 
@@ -198,7 +259,7 @@ public class CalculusFrameJavafx extends Application {
         BPV = new TextField();
         centrelineDistL = new Label("Centreline distance:");
         centrelineDist = new TextField();
-        centrelineBox = new ComboBox();
+        centrelineBox = new ComboBox<String>();
         centrelineBox.getItems().add("Above");
         centrelineBox.getItems().add("Below");
         centrelineBox.getSelectionModel().selectFirst();
@@ -374,28 +435,6 @@ public class CalculusFrameJavafx extends Application {
         this.takeOff2.setText(recValues.getTakeoff());
     }
 
-    private void errorMessage(Label message){
-        popUp = new Stage();
-        popUp.setTitle("Error message");
-        VBox vbox = new VBox(20);
-        message.setFont((Font.font("",FontWeight.BOLD, 16)));
-        okBtn = new Button("Ok");
-
-        okBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popUp.close();
-            }
-        });
-        okBtn.setTranslateX(140);
-        vbox.getChildren().add(message);
-        vbox.getChildren().add(okBtn);
-        popUp.setScene(new Scene(vbox));
-        popUp.sizeToScene();
-        popUp.show();
-    }
-
-
     private void setListeners() {
         chgnRunway.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
@@ -425,11 +464,11 @@ public class CalculusFrameJavafx extends Application {
                     int posFromRightTemp = Integer.parseInt(posFromRight.getText());
                     int posFromLeftTemp = Integer.parseInt(posFromLeft.getText());
                     int centrelineDistTemp = Integer.parseInt(centrelineDist.getText());
-                    if (centrelineDistTemp < 0)
+                    int blastAllowance = Integer.parseInt(BPV.getText());
+                    if ((centrelineDistTemp < 0) || (blastAllowance < 0))
                     {
                         throw new PositiveOnlyException();
                     }
-                    int blastAllowance = Integer.parseInt(BPV.getText());
                     runway.addObstacle(obs, posFromLeftTemp, posFromRightTemp, centrelineDistTemp,
                             centrelineBox.getSelectionModel().getSelectedItem().toString());
                     runway.recalculateValues(blastAllowance);
@@ -446,18 +485,22 @@ public class CalculusFrameJavafx extends Application {
                     });
                 }catch (NumberFormatException e1){
                     if(!testable) {
-                        Action response = Dialogs.create()
+                        Dialogs.create()
                                 .title("Error message")
-                                .message("One or more of the inputs are incorrect.")
+                                .masthead("One or more of the inputed values are in the wrong format.")
+                                .message("- Position from Left and Right should be integers." +
+                                        "\n- Centreline distance and Blast protection value" +
+                                        "\n  should be positive integers.")
                                 .lightweight()
                                 .showWarning();
                     }
                 }
                 catch (PositiveOnlyException e1) {
                     if(!testable) {
-                        Action response = Dialogs.create()
+                        Dialogs.create()
                                 .title("Error message")
-                                .message("Distance from centreline must be greater than 0.")
+                                .masthead("Error with Centreline distance/Blast protection allowance.")
+                                .message("- Both values should be positive integers.")
                                 .lightweight()
                                 .showWarning();
                     }
