@@ -4,24 +4,26 @@ import Exceptions.PositiveOnlyException;
 import Model.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import org.controlsfx.control.NotificationPane;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 public class CalculusFrameJavafx extends Application {
@@ -39,6 +41,8 @@ public class CalculusFrameJavafx extends Application {
     private final String airport;
     private boolean testable;
     private Stage stage;
+    private Stage popUp;
+    private Button okBtn;
 
     //Top LHS components
     private Button chgnRunway, addCustObs, compassOrient, calculate;
@@ -370,6 +374,28 @@ public class CalculusFrameJavafx extends Application {
         this.takeOff2.setText(recValues.getTakeoff());
     }
 
+    private void errorMessage(Label message){
+        popUp = new Stage();
+        popUp.setTitle("Error message");
+        VBox vbox = new VBox(20);
+        message.setFont((Font.font("",FontWeight.BOLD, 16)));
+        okBtn = new Button("Ok");
+
+        okBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popUp.close();
+            }
+        });
+        okBtn.setTranslateX(140);
+        vbox.getChildren().add(message);
+        vbox.getChildren().add(okBtn);
+        popUp.setScene(new Scene(vbox));
+        popUp.sizeToScene();
+        popUp.show();
+    }
+
+
     private void setListeners() {
         chgnRunway.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
@@ -377,8 +403,19 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
-
+/*
         //obstacle frame
+        addCustObs.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                List<TextInputDialog>inputs = Arrays.asList(
+                        new TextInputDialog("Height"),
+                        new TextInputDialog("Width"),
+                        new TextInputDialog("Length")
+                );
+            }
+        });
+*/
 
 
         calculate.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
@@ -409,24 +446,22 @@ public class CalculusFrameJavafx extends Application {
                     });
                 }catch (NumberFormatException e1){
                     if(!testable) {
-                        Label message = new Label("One or more inputted values are not accepted.");
-                        stage.setScene(new Scene(message, 200, 200));
-                        stage.centerOnScreen();
-                        //optionsPane.showMessageDialog(CalculusFrame.this, "One or more inputted values are not accepted.");
-
+                        Action response = Dialogs.create()
+                                .title("Error message")
+                                .message("One or more of the inputs are incorrect.")
+                                .lightweight()
+                                .showWarning();
                     }
                 }
-                //TODO remove print stack trace
                 catch (PositiveOnlyException e1) {
                     if(!testable) {
-                        Label message = new Label("Distance from centreline must be greater than 0.");
-                        stage.setScene(new Scene(message, 200, 200));
-                        stage.centerOnScreen();
-                        //JOptionPane.showMessageDialog(CalculusFrame.this, "Distance from centreline must be greater than 0.");
-
+                        Action response = Dialogs.create()
+                                .title("Error message")
+                                .message("Distance from centreline must be greater than 0.")
+                                .lightweight()
+                                .showWarning();
                     }
                 }
-
             }
         });
 
