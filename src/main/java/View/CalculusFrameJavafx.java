@@ -4,6 +4,8 @@ import Exceptions.PositiveOnlyException;
 import Model.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,11 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialogs;
 
-import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -24,8 +25,8 @@ import java.util.Optional;
 public class CalculusFrameJavafx extends Application {
 
     //frame size
-    public static final int WIDTH = 1500;
-    public static final int HEIGHT = 800;
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 682;
 
     //model references
     private XMLHelper xmlHelper;
@@ -178,16 +179,14 @@ public class CalculusFrameJavafx extends Application {
         stage.setResizable(true);
         stage.sizeToScene();
         stage.centerOnScreen();
+        //stage.setResizable(false);
         stage.show();
     }
 
 
     private void menuBar(){
 
-
-
-        //Export
-
+        //Export item
         MenuItem exportItem = new MenuItem("Export");
         exportItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -199,7 +198,7 @@ public class CalculusFrameJavafx extends Application {
 
                 String filename = "";
                 if (response.isPresent()) {
-                    filename = response.get().toString();
+                    filename = response.get();
                     //remove this
                     System.out.println(filename);
                     try {
@@ -221,7 +220,7 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
-        //Exit
+        //Exit item
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -230,7 +229,63 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
+        //Calculations simple and complex
+        ToggleGroup toggleGroup = new ToggleGroup();
 
+        RadioMenuItem simpleCalcsItem = new RadioMenuItem("Simple Calculations \t(without width and length)");
+        simpleCalcsItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                runway.setSimpleCalculations();
+            }
+        });
+
+        RadioMenuItem setComplexCalculations = new RadioMenuItem("Complex Calculations \t(with width and length)");
+        setComplexCalculations.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                runway.setComplexCalculations();
+            }
+        });
+        simpleCalcsItem.setToggleGroup(toggleGroup);
+        setComplexCalculations.setToggleGroup(toggleGroup);
+        //selecting first toggle
+        toggleGroup.selectToggle(simpleCalcsItem);
+
+
+        //Creates a new Stage (window) to display the calculation breakdown
+        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
+        MenuItem viewBreakDown = new MenuItem("View breakdown");
+        viewBreakDown.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage breakdownStage = new Stage();
+                VBox breakdownVbox = new VBox(5);
+
+                String strip1Breakdown = runway.getStrip1().viewCalculationBreakdown();
+                String strip2Breakdown = runway.getStrip2().viewCalculationBreakdown();
+
+                TextArea str1Calcs = new TextArea();
+                str1Calcs.setEditable(false);
+                ScrollPane strip1CalculationsPane = new ScrollPane(str1Calcs);
+
+                TextArea str2Calcs = new TextArea();
+                str2Calcs.setEditable(false);
+                ScrollPane strip2CalculationsPane = new ScrollPane(str2Calcs);
+
+                str1Calcs.setText(strip1Breakdown);
+                str2Calcs.setText(strip2Breakdown);
+
+                breakdownVbox.getChildren().addAll(strip1CalculationsPane, strip2CalculationsPane);
+
+                breakdownStage.setTitle("Calculation Breakdown");
+                breakdownStage.setScene(new Scene(breakdownVbox));
+                breakdownStage.sizeToScene();
+                breakdownStage.centerOnScreen();
+                breakdownStage.setResizable(false);
+                breakdownStage.show();
+            }
+        });
 
 
         menuBar = new MenuBar();
@@ -239,7 +294,8 @@ public class CalculusFrameJavafx extends Application {
         menuBar.getMenus().addAll(file, calculations);
 
         file.getItems().addAll(exportItem, exitItem);
-        //calculations.getItems().addAll()
+        calculations.getItems().addAll(simpleCalcsItem, setComplexCalculations, separatorMenuItem, viewBreakDown);
+
     }
 
 
@@ -435,6 +491,7 @@ public class CalculusFrameJavafx extends Application {
         this.takeOff2.setText(recValues.getTakeoff());
     }
 
+
     private void setListeners() {
         chgnRunway.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
@@ -442,19 +499,18 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
-/*
+
         //obstacle frame
         addCustObs.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                List<TextInputDialog>inputs = Arrays.asList(
-                        new TextInputDialog("Height"),
-                        new TextInputDialog("Width"),
-                        new TextInputDialog("Length")
-                );
+                new ObstacleFrameJavafx(testable);
+                updateObstacleComboBox();
+                obstaclesBox.getSelectionModel().selectLast();
             }
         });
-*/
+
+
 
 
         calculate.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
@@ -470,7 +526,7 @@ public class CalculusFrameJavafx extends Application {
                         throw new PositiveOnlyException();
                     }
                     runway.addObstacle(obs, posFromLeftTemp, posFromRightTemp, centrelineDistTemp,
-                            centrelineBox.getSelectionModel().getSelectedItem().toString());
+                            centrelineBox.getSelectionModel().getSelectedItem());
                     runway.recalculateValues(blastAllowance);
                     updateRecValues();
 
@@ -539,136 +595,3 @@ public class CalculusFrameJavafx extends Application {
         });
     }
 }
-
-/*
-package View;
-
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
-public class CalculusFrameJavafx extends Application {
-
-    private Button chgnRunway, addCustObs, compassOrient, calculate;
-    private Button topDown, sideOnLeft, sideOnRight;
-    private ComboBox obstaclesBox, centrelineBox;
-    private TextField posFromLeft, posFromRight, BPV, centrelineDist;
-    private Label obstacleLabel,posFromLeftL, posFromRightL, BPVL, centrelineDistL;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public void start(Stage primaryStage) {
-        setup(primaryStage);
-
-        BorderPane root = new BorderPane();                   //main pane
-
-        GridPane gridpane = new GridPane();
-        HBox obstHbox1 = new HBox();
-        HBox centrelineHbox2 = new HBox();
-        HBox viewHbox3 = new HBox();
-
-        root.setLeft(gridpane);
-
-        //gridpane setup
-        gridpane.setPadding(new Insets(5, 5, 5, 5));
-        gridpane.setHgap(5);
-        gridpane.setVgap(7);
-
-        gridpane.add(chgnRunway, 1, 1);
-
-        gridpane.add(obstHbox1, 1, 2);
-        obstHbox1.setSpacing(10);
-        obstHbox1.getChildren().add(obstacleLabel);
-        obstHbox1.getChildren().add(obstaclesBox);
-
-        gridpane.add(addCustObs, 1, 3);
-        gridpane.add(posFromLeft, 1, 15);
-        gridpane.add(posFromRight, 1, 16);
-        gridpane.add(BPV, 1, 17);
-
-        gridpane.add(centrelineHbox2, 1, 18);
-        centrelineHbox2.setSpacing(10);
-        centrelineHbox2.getChildren().add(centrelineDist);
-        centrelineHbox2.getChildren().add(centrelineBox);
-
-        gridpane.add(calculate, 1, 19);
-        gridpane.add(topDown, 1, 20);
-
-        gridpane.add(viewHbox3, 1, 21);
-        viewHbox3.setSpacing(10);
-        viewHbox3.getChildren().add(sideOnLeft);
-        viewHbox3.getChildren().add(sideOnRight);
-
-        gridpane.add(compassOrient, 1,22);
-
-        //gridpane.setOpacity();
-
-
-
-        primaryStage.setScene(new Scene(root, 1500, 800));
-        primaryStage.setResizable(true);
-        primaryStage.sizeToScene();
-        primaryStage.show();
-    }
-
-    private void setup(Stage primaryStage) {
-        primaryStage.setTitle("PUT AIRPORT NAME HERE");
-
-        chgnRunway = new Button("Change Runway");
-        chgnRunway.setPrefWidth(200);
-
-        //Obstacle Hbox components
-        obstacleLabel = new Label("Obstacle: ");
-        obstacleLabel.setFont(new Font("Cambria", 14));
-        obstacleLabel.setTranslateY(7);
-        obstaclesBox = new ComboBox();
-        obstacleLabel.setPrefWidth(65);
-        obstaclesBox.setPrefWidth(125);
-
-        addCustObs = new Button("Add Custom Obstacle");
-        posFromLeft = new TextField("Position from left");
-        posFromRight = new TextField("Position from right");
-        BPV = new TextField("Blast Allowance");
-        addCustObs.setPrefWidth(200);
-        posFromLeft.setPrefWidth(200);
-        posFromRight.setPrefWidth(200);
-        BPV.setPrefWidth(200);
-
-        //Centreline Hbox components
-        centrelineDist = new TextField("Centreline distance");
-        centrelineBox = new ComboBox();
-        centrelineDist.setPrefWidth(125);
-        centrelineBox.setPrefWidth(65);
-
-
-        calculate = new Button("Calculate");
-        topDown = new Button("Top-Down View");
-        compassOrient = new Button("Compass Orientation");
-        calculate.setPrefWidth(200);
-        topDown.setPrefWidth(200);
-        compassOrient.setPrefWidth(200);
-
-        //View Hbox components
-        sideOnLeft = new Button("Side on Left");
-        sideOnRight= new Button("Side on Right");
-        sideOnLeft.setPrefWidth(95);
-        sideOnRight.setPrefWidth(95);
-
-
-
-
-    }
-}
-
- */
