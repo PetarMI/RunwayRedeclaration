@@ -1,9 +1,9 @@
 package View;
 
+import Exceptions.FieldEmptyException;
 import Exceptions.PositiveOnlyException;
 import Model.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -34,12 +34,14 @@ public class CalculusFrameJavafx extends Application {
     private ThreeDVisuals threeD;
     private NotifBoard fxNotif;
 
-    private final String airport;
+    private String airport;
     private boolean testable;
     private Stage stage;
+    private BorderPane root;
+    private GridPane gridpane;
 
-    MenuBar menuBar;
-    Menu file, calculations;
+    private MenuBar menuBar;
+    private Menu file, calculations;
 
     //Top LHS components
     private Button chgnRunway, addCustObs, compassOrient, calculate;
@@ -48,6 +50,7 @@ public class CalculusFrameJavafx extends Application {
     private ComboBox<String> centrelineBox;
     private TextField posFromLeft, posFromRight, BPV, centrelineDist;
     private Label obstacleLabel, posFromLeftL, posFromRightL, BPVL, centrelineDistL;
+
 
     //Value components
     private Label TORA1, TODA1, ASDA1, LDA1;
@@ -59,19 +62,29 @@ public class CalculusFrameJavafx extends Application {
     private Label oTora2, oToda2, oAsda2, oLda2;
     private Label recTora2, recToda2, recAsda2, recLda2;
 
+    //ObstacleFrameJavafx
+    private Stage obstacleStage;
+    private TextField nameT, heightT, widthT, lengthT;
+
+    private Label nameL, heightL, widthL, lengthL, descriptionL;
+    private TextArea descriptionT;
+    private Button add;
+
+    public CalculusFrameJavafx() {
+        updateObstacleComboBox();
+    }
+
     public CalculusFrameJavafx(Runway runway, String airport, Boolean testable) {
         this.runway = runway;
         this.airport = airport;
         this.testable = testable;
 
         xmlHelper = new XMLHelper();
-        threeD = new ThreeDVisuals();
         menuBar();
         setupLHScomponents();
         setupStripValues();
         updateObstacleComboBox();
         populateComponents();
-        //updateRecValues();
         setListeners();
     }
 
@@ -81,11 +94,11 @@ public class CalculusFrameJavafx extends Application {
 
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
-        stage.setTitle("Runway Redeclaration (" + airport +")");
+        stage.setTitle("Runway Redeclaration (" + airport + ")");
 
         //main pane
-        BorderPane root = new BorderPane();
-        GridPane gridpane = new GridPane();
+        root = new BorderPane();
+        gridpane = new GridPane();
         root.setLeft(gridpane);
         root.setTop(menuBar);
 
@@ -96,8 +109,8 @@ public class CalculusFrameJavafx extends Application {
         gridpane.setVgap(7);
 
         gridpane.add(chgnRunway, 1, 1);
-        gridpane.add(obstacleLabel, 1, 2);
         gridpane.add(obstaclesBox, 1, 3);
+        gridpane.add(obstacleLabel, 1, 2);
         gridpane.add(addCustObs, 1, 4);
 
         gridpane.add(posFromLeftL, 1, 5);
@@ -173,8 +186,6 @@ public class CalculusFrameJavafx extends Application {
         gridpane.add(land2, 1, 27);
         gridpane.add(takeOff2, 1, 27);
 
-
-        //gridpane.setOpacity();
         stage.setScene(new Scene(root, WIDTH, HEIGHT));
         stage.setResizable(true);
         stage.sizeToScene();
@@ -183,9 +194,7 @@ public class CalculusFrameJavafx extends Application {
         stage.show();
     }
 
-
-    private void menuBar(){
-
+    private void menuBar() {
         //Export item
         MenuItem exportItem = new MenuItem("Export");
         exportItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -295,16 +304,14 @@ public class CalculusFrameJavafx extends Application {
 
         file.getItems().addAll(exportItem, exitItem);
         calculations.getItems().addAll(simpleCalcsItem, setComplexCalculations, separatorMenuItem, viewBreakDown);
-
     }
-
 
     private void setupLHScomponents() {
         //initialising all the components
         chgnRunway = new Button("Change Runway");
         obstacleLabel = new Label("Obstacle: ");
         obstaclesBox = new ComboBox<Obstacle>();
-       // obstaclesBox.setPromptText("Block: H:20, L:10, W:5");
+        //obstaclesBox.setPromptText("Block: H:20, L:10, W:5");
         addCustObs = new Button("Add Custom Obstacle");
 
         posFromLeftL = new Label("Position from left:");
@@ -348,8 +355,8 @@ public class CalculusFrameJavafx extends Application {
         centrelineDist.setTranslateX(105);
         centrelineBox.setTranslateX(163);
         sideOnRight.setTranslateX(125);
-
     }
+
 
     private void setupStripValues() {
         //top row
@@ -442,20 +449,146 @@ public class CalculusFrameJavafx extends Application {
         takeOff2.setTranslateX(150);
     }
 
-    private void updateObstacleComboBox()
-    {
+
+
+
+    private void obstacleFrameJavafx() {
+        obstacleStage = new Stage();
+        obstacleStage.setTitle("Obstacle settings");
+
+        GridPane obstacleGridpane = new GridPane();
+        obstacleGridpane.setPadding(new javafx.geometry.Insets(5, 5, 5, 5));
+        obstacleGridpane.setHgap(5);
+        obstacleGridpane.setVgap(7);
+
+        //labels
+        nameL = new Label("Name:");
+        heightL = new Label("Height:");
+        widthL = new Label("Width:");
+        lengthL = new Label("Length:");
+        descriptionL = new Label("Description:");
+
+        //components
+        nameT = new TextField();
+        heightT = new TextField();
+        widthT = new TextField();
+        lengthT = new TextField();
+        descriptionT = new TextArea();
+        add = new Button("Add Obstacle");
+
+        obstacleGridpane.add(nameL, 1, 1);
+        obstacleGridpane.add(nameT, 1, 1);
+        obstacleGridpane.add(heightL, 1, 2);
+        obstacleGridpane.add(heightT, 1, 2);
+        obstacleGridpane.add(widthL, 1, 3);
+        obstacleGridpane.add(widthT, 1, 3);
+        obstacleGridpane.add(lengthL, 1, 4);
+        obstacleGridpane.add(lengthT, 1, 4);
+        obstacleGridpane.add(descriptionL, 1, 1);
+        obstacleGridpane.add(descriptionT, 1, 1, 1, 4);
+        obstacleGridpane.add(add, 1, 5);
+
+
+        nameT.setMaxWidth(150);
+        heightT.setMaxWidth(150);
+        widthT.setMaxWidth(150);
+        lengthT.setMaxWidth(150);
+        descriptionT.setMaxWidth(150);
+        descriptionT.setPrefHeight(90);
+        add.setPrefWidth(90);
+
+        nameT.setTranslateX(62);
+        heightT.setTranslateX(62);
+        widthT.setTranslateX(62);
+        lengthT.setTranslateX(62);
+        descriptionL.setTranslateX(240);
+        descriptionT.setTranslateX(330);
+        add.setTranslateX(62);
+        add.setTranslateY(30);
+
+
+        obstacleStage.setScene(new Scene(obstacleGridpane, 550, 200));
+        obstacleStage.setResizable(true);
+        obstacleStage.sizeToScene();
+        obstacleStage.centerOnScreen();
+        obstacleStage.setResizable(false);
+        obstacleStage.show();
+    }
+
+    //listeners for the  Custom Obstacle stage
+    private void obstacleFrameListeners() {
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    String name = nameT.getText();
+
+                    Integer height = Integer.parseInt(heightT.getText());
+                    int width = Integer.parseInt(widthT.getText());
+                    int length = Integer.parseInt(lengthT.getText());
+                    String description = descriptionT.getText();
+
+                    if (name.equals("")) {
+                        throw new FieldEmptyException();
+                    }
+                    if ((width <= 0) || (height <= 0) || (length <= 0)) {
+                        throw new PositiveOnlyException();
+                    }
+                    XMLHelper xmlHelper = new XMLHelper();
+                    xmlHelper.addObstacleXML(new Obstacle(name, width, height, length, description));
+
+                    //updates the new entry value to the combobox
+                    updateObstacleComboBox();
+                    obstaclesBox.getSelectionModel().selectLast();
+                    obstacleStage.close();
+                } catch (NumberFormatException e1) {
+                    if (!testable) {
+                        Dialogs.create()
+                                .title("Error message")
+                                .masthead("One or more of the inputed values are in the wrong format.")
+                                .message("Height, width and length must be a number.")
+                                .lightweight()
+                                .showWarning();
+                    }
+                } catch (FieldEmptyException e1) {
+                    if (!testable) {
+                        Dialogs.create()
+                                .title("Error message")
+                                .message("\"Name field cannot be empty.")
+                                .lightweight()
+                                .showWarning();
+                    }
+                } catch (PositiveOnlyException e1) {
+                    if (!testable) {
+                        Dialogs.create()
+                                .title("Error message")
+                                .masthead("One or more of the inputed values are in the wrong format.")
+                                .message("\"Height, width and length must be greater than 0.")
+                                .lightweight()
+                                .showWarning();
+                    }
+                }
+            }
+        });
+    }
+
+    private void updateObstacleComboBox() {
         List<Obstacle> obstacles = xmlHelper.readObstacles();
         this.obstaclesBox.getSelectionModel().clearSelection();
         this.obstaclesBox.getItems().clear();
-        for(Obstacle o : obstacles){
-            System.out.println(o);
+        for (Obstacle o : obstacles) {
             this.obstaclesBox.getItems().add(o);
         }
         this.obstaclesBox.getSelectionModel().selectFirst();
+        obstacleLabel.setText("Obstacle: " + this.obstaclesBox.getSelectionModel().getSelectedItem().getName()
+                + "  H: " + this.obstaclesBox.getSelectionModel().getSelectedItem().getHeight() + "m"
+                + "  L:" + this.obstaclesBox.getSelectionModel().getSelectedItem().getLength() + "m"
+                + "  W:" + this.obstaclesBox.getSelectionModel().getSelectedItem().getWidth()+"m");
+
     }
 
 
-    private void populateComponents(){
+    private void populateComponents() {
         Values origValues = runway.getStrip1().getOrigVal();
         this.oTora1.setText(String.valueOf(origValues.getTora()));
         this.oToda1.setText(String.valueOf(origValues.getToda()));
@@ -499,30 +632,38 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
+        this.obstaclesBox.valueProperty().addListener(new ChangeListener<Obstacle>() {
+            @Override
+            public void changed(ObservableValue<? extends Obstacle> observable, Obstacle oldValue, Obstacle newValue) {
+                if (obstaclesBox.getItems().isEmpty()) {
+                    obstacleLabel.setText("Obstacle: " + obstaclesBox.getSelectionModel().getSelectedItem().getName()
+                            + "  H: " + obstaclesBox.getSelectionModel().getSelectedItem().getHeight() + "m"
+                            + "  L:" + obstaclesBox.getSelectionModel().getSelectedItem().getLength() + "m"
+                            + "  W:" + obstaclesBox.getSelectionModel().getSelectedItem().getWidth() + "m");
+                    gridpane.getChildren().remove(obstacleLabel);
+                    gridpane.add(obstacleLabel, 1, 2);
+                }
+            }
+        });
 
         //obstacle frame
         addCustObs.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                new ObstacleFrameJavafx(testable);
-                updateObstacleComboBox();
-                obstaclesBox.getSelectionModel().selectLast();
+                obstacleFrameJavafx();
+                obstacleFrameListeners();
             }
         });
 
-
-
-
         calculate.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
-                Obstacle obs = (Obstacle)obstaclesBox.getSelectionModel().getSelectedItem();
+                Obstacle obs = (Obstacle) obstaclesBox.getSelectionModel().getSelectedItem();
                 try {
                     int posFromRightTemp = Integer.parseInt(posFromRight.getText());
                     int posFromLeftTemp = Integer.parseInt(posFromLeft.getText());
                     int centrelineDistTemp = Integer.parseInt(centrelineDist.getText());
                     int blastAllowance = Integer.parseInt(BPV.getText());
-                    if ((centrelineDistTemp < 0) || (blastAllowance < 0))
-                    {
+                    if ((centrelineDistTemp < 0) || (blastAllowance < 0)) {
                         throw new PositiveOnlyException();
                     }
                     runway.addObstacle(obs, posFromLeftTemp, posFromRightTemp, centrelineDistTemp,
@@ -531,16 +672,20 @@ public class CalculusFrameJavafx extends Application {
                     updateRecValues();
 
                     //viewPane.remove(threeD);
-                    //threeD = new ThreeDVisuals();
+                    threeD = new ThreeDVisuals(stage, root, gridpane, menuBar);
+                    threeD.init(runway);
                     //viewPane.add(threeD);
+                    //old fix to not let 3d disapear
+                    /*
                     Platform.runLater(new Runnable() {
                         public void run() {
                             Platform.setImplicitExit(false);
                             threeD.init(runway);
                         }
                     });
-                }catch (NumberFormatException e1){
-                    if(!testable) {
+                     */
+                } catch (NumberFormatException e1) {
+                    if (!testable) {
                         Dialogs.create()
                                 .title("Error message")
                                 .masthead("One or more of the inputed values are in the wrong format.")
@@ -550,9 +695,8 @@ public class CalculusFrameJavafx extends Application {
                                 .lightweight()
                                 .showWarning();
                     }
-                }
-                catch (PositiveOnlyException e1) {
-                    if(!testable) {
+                } catch (PositiveOnlyException e1) {
+                    if (!testable) {
                         Dialogs.create()
                                 .title("Error message")
                                 .masthead("Error with Centreline distance/Blast protection allowance.")
