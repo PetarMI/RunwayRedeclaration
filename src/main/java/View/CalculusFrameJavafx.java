@@ -574,7 +574,6 @@ public class CalculusFrameJavafx extends Application {
 
     private void updateObstacleComboBox() {
         List<Obstacle> obstacles = xmlHelper.readObstacles();
-        this.obstaclesBox.getSelectionModel().clearSelection();
         this.obstaclesBox.getItems().clear();
         for (Obstacle o : obstacles) {
             this.obstaclesBox.getItems().add(o);
@@ -635,7 +634,7 @@ public class CalculusFrameJavafx extends Application {
         this.obstaclesBox.valueProperty().addListener(new ChangeListener<Obstacle>() {
             @Override
             public void changed(ObservableValue<? extends Obstacle> observable, Obstacle oldValue, Obstacle newValue) {
-                if (obstaclesBox.getItems().isEmpty()) {
+                if (!obstaclesBox.getItems().isEmpty()) {
                     obstacleLabel.setText("Obstacle: " + obstaclesBox.getSelectionModel().getSelectedItem().getName()
                             + "  H: " + obstaclesBox.getSelectionModel().getSelectedItem().getHeight() + "m"
                             + "  L:" + obstaclesBox.getSelectionModel().getSelectedItem().getLength() + "m"
@@ -646,7 +645,6 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
-        //obstacle frame
         addCustObs.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
