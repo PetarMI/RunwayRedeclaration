@@ -2,8 +2,10 @@ package View;
 
 import Controller.Controller;
 import Model.*;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.IOException;
 
@@ -23,7 +25,7 @@ public class Main
 
         Runway runway = new Runway("09L/27R", str1, str2);
         runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0, "");
-        System.out.println(runway.getStrip1().viewCalculationBreakdown());
+        /*System.out.println(runway.getStrip1().viewCalculationBreakdown());
         System.out.println(runway.getStrip2().viewCalculationBreakdown());
         runway.recalculateValues(300);
         System.out.println(runway.getStrip1().getRecVal());
@@ -35,6 +37,17 @@ public class Main
         System.out.println(runway.getStrip1().getRecVal());
         System.out.println(runway.getStrip2().getRecVal());
         System.out.println(runway.getStrip1().viewCalculationBreakdown());
-        System.out.println(runway.getStrip2().viewCalculationBreakdown());
+        System.out.println(runway.getStrip2().viewCalculationBreakdown());*/
+
+        /*XMLHelper xmlHelper = new XMLHelper();
+        try {
+            xmlHelper.addRunway("Glasgow.xml", runway);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }*/
     }
 }

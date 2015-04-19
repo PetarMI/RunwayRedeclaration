@@ -97,6 +97,32 @@ public class XMLHelper {
         obstacle.appendChild(getElements(doc, OBSTACLE_DESCRIPTION, String.valueOf(description)));
         return obstacle;
     }
+
+    private Node makeStripElement (Document doc, Strip str)
+    {
+        Element strip = doc.createElement(STRIP);
+        strip.setAttribute(ID, str.getStripId());
+        strip.appendChild(getElements(doc, TORA, String.valueOf(str.getOrigVal().getTora())));
+        strip.appendChild(getElements(doc, ASDA, String.valueOf(str.getOrigVal().getAsda())));
+        strip.appendChild(getElements(doc, TODA, String.valueOf(str.getOrigVal().getToda())));
+        strip.appendChild(getElements(doc, LDA, String.valueOf(str.getOrigVal().getLda())));
+        strip.appendChild(getElements(doc, RUNWAY_THRESHOLD, String.valueOf(str.getDisplacedThreshold())));
+        strip.appendChild(getElements(doc, RUNWAY_ORIENTATION, String.valueOf(str.getOrientation())));
+        strip.appendChild(getElements(doc, RUNWAY_POSITION, String.valueOf(str.getPosition())));
+
+        return strip;
+    }
+
+
+    private Element makeRunwayElement (Document doc, Runway runway)
+    {
+        Element run = doc.createElement(RUNWAY);
+        run.setAttribute(ID, runway.getRunwayId());
+        run.appendChild(makeStripElement(doc, runway.getStrip1()));
+        run.appendChild(makeStripElement(doc, runway.getStrip2()));
+
+        return run;
+    }
     //
 //    // utility method to create text node
     private Node getElements(Document doc, String name, String value) {
@@ -104,7 +130,6 @@ public class XMLHelper {
         node.appendChild(doc.createTextNode(value));
         return node;
     }
-
     public List<Obstacle> readObstacles(){
         try {
             ArrayList<Obstacle> obsList = new ArrayList<Obstacle>();
@@ -192,6 +217,28 @@ public class XMLHelper {
             }
         }
         return new Airport(runways, airportName);
+    }
+
+    public void addRunway(String airport, Runway runway) throws ParserConfigurationException, IOException, SAXException
+    {
+        File file = new File(AIRPORTS_DIRECTORY + File.separator + airport);
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = db.parse(file);
+        doc.getDocumentElement().normalize();
+        doc.getFirstChild().appendChild(makeRunwayElement(doc, runway));
+
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult myFile = new StreamResult(new FileOutputStream(file));
+            transformer.transform(source, myFile);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private Strip getStrip(Node stripNode){
