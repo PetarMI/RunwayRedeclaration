@@ -93,22 +93,22 @@ public class ThreeDVisuals extends JFXPanel {
     public static final int DEUTERANOPIA_COLORS = 2;
     public static final int TRITANOPIA_COLORS = 3;
 
-//    public static final Color[] FLOOR_COLOR = {Color.GRAY, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
-//    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
-//    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
-//    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
-//    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
-//    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET, new Color(204, 204, 204, 1), new Color(204, 204, 204, 1), new Color(204, 204, 204, 1)};
+    public static final Color[] FLOOR_COLOR = {Color.GRAY, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
 
-//    public static final Color[] THRESHOLD_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
-//    public static final Color[] CLEARWAY_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
-//    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1),  new Color( 0, 0, 0, 1)};
-//    public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE, new Color(106, 126, 189, 1), new Color(160, 95, 190, 1), new Color(107, 174, 214, 1)};
-//    public static final Color[] TEXT_COLOR = {Color.BLACK, new Color(37, 37, 37, 1), new Color(37, 37, 37, 1), new Color(37, 37, 37, 1)};
-//    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, new Color(252, 174, 145, 1), new Color(130, 215, 140, 1), new Color(254, 229, 217, 1)};
-//    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, new Color(251, 106, 74, 1), new Color(100, 170, 45, 1), new Color(252, 174, 145, 1)};
+    public static final Color[] THRESHOLD_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1),Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final Color[] CLEARWAY_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, Color.rgb(0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1)};
+    public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE, Color.rgb(106, 126, 189, 1), Color.rgb(160, 95, 190, 1), Color.rgb(107, 174, 214, 1)};
+    public static final Color[] TEXT_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, Color.rgb(252, 174, 145, 1), Color.rgb(130, 215, 140, 1), Color.rgb(254, 229, 217, 1)};
+    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, Color.rgb(251, 106, 74, 1), Color.rgb(100, 170, 45, 1), Color.rgb(252, 174, 145, 1)};
 
-    public static final Color[] FLOOR_COLOR = {Color.GRAY};
+    /*public static final Color[] FLOOR_COLOR = {Color.GRAY};
     public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN};
     public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD};
     public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE};
@@ -120,7 +120,7 @@ public class ThreeDVisuals extends JFXPanel {
     public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE};
     public static final String[] TEXT_COLOR = {"rgb(37,37,37)"};
     public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL};
-    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON};
+    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON};*/
 
 
 

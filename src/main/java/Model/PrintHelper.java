@@ -151,6 +151,7 @@ public final class PrintHelper
         }
 
         File fileDir = new File("files/");
+        fileDir.mkdir();
         File[] files = fileDir.listFiles();
         while (checkFilenameExists(files, filename.toString()))
         {
