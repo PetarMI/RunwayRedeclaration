@@ -84,7 +84,12 @@ public class CalculusFrameJavafx extends Application {
         this.testable = testable;
 
         xmlHelper = new XMLHelper();
-
+        menuBar();
+        setupLHScomponents();
+        setupStripValues();
+        updateObstacleComboBox();
+        populateComponents();
+        setListeners();
     }
 
     public static void main(String[] args) {
@@ -100,18 +105,13 @@ public class CalculusFrameJavafx extends Application {
         root = new BorderPane();
         gridpane = new GridPane();
         hsPane = new HiddenSidesPane();
-        fxNotif = new NotifBoard();
         root.setLeft(gridpane);
         root.setTop(menuBar);
         hsPane.setContent(root);
         hsPane.setRight(fxNotif);
 
-        menuBar();
-        setupLHScomponents();
-        setupStripValues();
-        updateObstacleComboBox();
-        populateComponents();
-        setListeners();
+
+
 
         //gridpane setup
         gridpane.setPadding(new Insets(5, 5, 5, 5));
@@ -342,6 +342,9 @@ public class CalculusFrameJavafx extends Application {
         sideOnLeft = new Button("Side on Left");
         sideOnRight = new Button("Side on Right");
         compassOrient = new Button("Compass Orientation");
+
+        fxNotif = new NotifBoard();
+
 
         //widths of all the components
         chgnRunway.setPrefWidth(240);

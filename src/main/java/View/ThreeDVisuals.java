@@ -104,7 +104,7 @@ public class ThreeDVisuals extends JFXPanel {
     public static final Color[] CLEARWAY_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
     public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, Color.rgb(0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1)};
     public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE, Color.rgb(106, 126, 189, 1), Color.rgb(160, 95, 190, 1), Color.rgb(107, 174, 214, 1)};
-    public static final Color[] TEXT_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final String[] TEXT_COLOR = {"rgb(0,0,0)", "rgb(37, 37, 37)", "rgb(37, 37, 370)", "rgb(37, 37, 37)"};
     public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, Color.rgb(252, 174, 145, 1), Color.rgb(130, 215, 140, 1), Color.rgb(254, 229, 217, 1)};
     public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, Color.rgb(251, 106, 74, 1), Color.rgb(100, 170, 45, 1), Color.rgb(252, 174, 145, 1)};
 
