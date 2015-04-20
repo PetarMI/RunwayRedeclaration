@@ -80,7 +80,7 @@ public class CalculusFrame extends JFrame{
     //TODO: restrict input to Integer (or throw errors?)
     private void doInitializations() {
         xmlHelper = new XMLHelper();
-        threeD = new ThreeDVisuals();
+//        threeD = new ThreeDVisuals();
         fxNotif = new NotifBoard();
 //        notifPane.add(fxNotif, BorderLayout.CENTER);
         //Creates the menubar
@@ -258,9 +258,9 @@ public class CalculusFrame extends JFrame{
                     runway.recalculateValues(blastAllowance);
                     CalculusFrame.this.updateRecValues();
 
-                    viewPane.remove(threeD);
-                    threeD = new ThreeDVisuals();
-                    viewPane.add(threeD);
+//                    viewPane.remove(threeD);
+//                    threeD = new ThreeDVisuals();
+//                    viewPane.add(threeD);
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {

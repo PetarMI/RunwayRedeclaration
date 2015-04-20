@@ -697,6 +697,7 @@ public class CalculusFrameJavafx extends Application {
                     //viewPane.remove(threeD);
                     threeD = new ThreeDVisuals();
                     threeD.init(runway);
+                    root.setCenter(threeD);
                     //viewPane.add(threeD);
                     //old fix to not let 3d disapear
                     /*

@@ -3,7 +3,6 @@ package View;
 import Model.MathHandler;
 import Model.Runway;
 import Model.Values;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
@@ -16,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-public class ThreeDVisuals extends JFXPanel {
+public class ThreeDVisuals extends SubScene {
 
     public static final int SCENE_WIDTH = 400;
     public static final int SCENE_HEIGHT = 300;
@@ -55,7 +54,7 @@ public class ThreeDVisuals extends JFXPanel {
     private Text runwayId1Txt, runwayId2Txt;
     private Translate zoom;
     private Scene scene;
-    private Group root;
+    private static Group root ;
     private PerspectiveCamera camera;
     private final Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
     private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
@@ -108,21 +107,9 @@ public class ThreeDVisuals extends JFXPanel {
     public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, Color.rgb(252, 174, 145, 1), Color.rgb(130, 215, 140, 1), Color.rgb(254, 229, 217, 1)};
     public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, Color.rgb(251, 106, 74, 1), Color.rgb(100, 170, 45, 1), Color.rgb(252, 174, 145, 1)};
 
-    /*public static final Color[] FLOOR_COLOR = {Color.GRAY};
-    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN};
-    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD};
-    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE};
-    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND};
-    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET};
-    public static final Color[] THRESHOLD_COLOR = {Color.BLACK};
-    public static final Color[] CLEARWAY_COLOR = {Color.BLACK};
-    public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE};
-    public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE};
-    public static final String[] TEXT_COLOR = {"rgb(37,37,37)"};
-    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL};
-    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON};*/
-
-
+    public ThreeDVisuals() {
+        super(root = new Group(),ThreeDVisuals.SCENE_WIDTH, ThreeDVisuals.SCENE_HEIGHT, true, SceneAntialiasing.BALANCED);
+    }
 
     public void init(Runway runway){
         this.init(runway, NORMAL_COLORS);
@@ -193,8 +180,8 @@ public class ThreeDVisuals extends JFXPanel {
 
     private void oldMethod() {
 
-        root = new Group();
-        scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, true, SceneAntialiasing.BALANCED);
+//        root = new Group();
+//        scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, true, SceneAntialiasing.BALANCED);
         camera = new PerspectiveCamera(true);
         floor = new Box(runwayLength, runwayHeight, runwayDepth);
         obstacle = new Box(obstWidth, obstHeight, obstDepth);
@@ -518,8 +505,8 @@ public class ThreeDVisuals extends JFXPanel {
         PointLight light = new PointLight(Color.LIGHTGRAY);
         light.setTranslateY(-300);
         //Scene props
-        scene.setFill(BACKGROUND_COLOR[colorType]);
-        scene.setCamera(camera);
+        this.setFill(BACKGROUND_COLOR[colorType]);
+        this.setCamera(camera);
 
         //add elems
         root.getChildren().add(floor);
@@ -537,7 +524,7 @@ public class ThreeDVisuals extends JFXPanel {
 
         //Stage props
 //        primaryStage.setTitle("Visualization");
-        this.setScene(scene);
+//        this.setScene(scene);
 //        primaryStage.setWidth(SCENE_WIDTH);
 //        primaryStage.setHeight(SCENE_HEIGHT);
 //        primaryStage.show();
@@ -667,13 +654,13 @@ public class ThreeDVisuals extends JFXPanel {
     }
 
     private void setListeners(){
-        scene.setOnScroll(
+        this.setOnScroll(
                 new EventHandler<ScrollEvent>() {
                     @Override
                     public void handle(ScrollEvent event) {
                         double zoomFactor = 1.1;
                         double deltaY = event.getDeltaY();
-                        if (deltaY > 0){
+                        if (deltaY > 0) {
                             zoomFactor = 2.0 - zoomFactor;
                         }
                         zoom.setZ(zoom.getZ() * zoomFactor);
@@ -683,14 +670,14 @@ public class ThreeDVisuals extends JFXPanel {
                 });
 
 
-        scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 mouseOldX = event.getX();
                 mouseOldY = event.getY();
             }
         });
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        this.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 mousePosX = event.getSceneX();
