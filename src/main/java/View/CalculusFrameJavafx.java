@@ -9,12 +9,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.dialog.Dialogs;
 
 import java.io.FileNotFoundException;
@@ -39,6 +42,7 @@ public class CalculusFrameJavafx extends Application {
     private Stage stage;
     private BorderPane root;
     private GridPane gridpane;
+    private HiddenSidesPane hsPane;
 
     private MenuBar menuBar;
     private Menu file, calculations;
@@ -80,12 +84,7 @@ public class CalculusFrameJavafx extends Application {
         this.testable = testable;
 
         xmlHelper = new XMLHelper();
-        menuBar();
-        setupLHScomponents();
-        setupStripValues();
-        updateObstacleComboBox();
-        populateComponents();
-        setListeners();
+
     }
 
     public static void main(String[] args) {
@@ -93,15 +92,26 @@ public class CalculusFrameJavafx extends Application {
     }
 
     public void start(Stage primaryStage) {
+
         this.stage = primaryStage;
         stage.setTitle("Runway Redeclaration (" + airport + ")");
 
         //main pane
         root = new BorderPane();
         gridpane = new GridPane();
+        hsPane = new HiddenSidesPane();
+        fxNotif = new NotifBoard();
         root.setLeft(gridpane);
         root.setTop(menuBar);
+        hsPane.setContent(root);
+        hsPane.setRight(fxNotif);
 
+        menuBar();
+        setupLHScomponents();
+        setupStripValues();
+        updateObstacleComboBox();
+        populateComponents();
+        setListeners();
 
         //gridpane setup
         gridpane.setPadding(new Insets(5, 5, 5, 5));
@@ -186,7 +196,7 @@ public class CalculusFrameJavafx extends Application {
         gridpane.add(land2, 1, 27);
         gridpane.add(takeOff2, 1, 27);
 
-        stage.setScene(new Scene(root, WIDTH, HEIGHT));
+        stage.setScene(new Scene(hsPane, WIDTH, HEIGHT));
         stage.setResizable(true);
         stage.sizeToScene();
         stage.centerOnScreen();
@@ -625,6 +635,18 @@ public class CalculusFrameJavafx extends Application {
 
 
     private void setListeners() {
+        if(fxNotif == null)
+            System.out.println("bolock");
+        fxNotif.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(hsPane.getPinnedSide() != null) {
+                    hsPane.setPinnedSide(null);
+                }
+                else hsPane.setPinnedSide(Side.RIGHT);
+            }
+        });
+
         chgnRunway.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
                 new BeginFrameJavafx().start(stage);
@@ -670,7 +692,7 @@ public class CalculusFrameJavafx extends Application {
                     updateRecValues();
 
                     //viewPane.remove(threeD);
-                    threeD = new ThreeDVisuals(stage, root, gridpane, menuBar);
+                    threeD = new ThreeDVisuals();
                     threeD.init(runway);
                     //viewPane.add(threeD);
                     //old fix to not let 3d disapear

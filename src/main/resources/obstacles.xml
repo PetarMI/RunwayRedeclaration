@@ -42,4 +42,11 @@
 <Height>100</Height>
 <Description/>
 </Obstacle>
+<Obstacle>
+<Name>sada</Name>
+<Length>23</Length>
+<Width>32</Width>
+<Height>25</Height>
+<Description/>
+</Obstacle>
 </ObstacleList>

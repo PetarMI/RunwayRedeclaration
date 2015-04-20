@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import org.controlsfx.control.NotificationPane;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -83,7 +82,7 @@ public class CalculusFrame extends JFrame{
         xmlHelper = new XMLHelper();
         threeD = new ThreeDVisuals();
         fxNotif = new NotifBoard();
-        notifPane.add(fxNotif, BorderLayout.CENTER);
+//        notifPane.add(fxNotif, BorderLayout.CENTER);
         //Creates the menubar
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
