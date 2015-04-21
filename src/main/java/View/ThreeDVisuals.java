@@ -92,20 +92,20 @@ public class ThreeDVisuals extends SubScene {
     public static final int DEUTERANOPIA_COLORS = 2;
     public static final int TRITANOPIA_COLORS = 3;
 
-    public static final Color[] FLOOR_COLOR = {Color.GRAY, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
-    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
-    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
-    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
-    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
-    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET, Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1), Color.rgb(204, 204, 204, 1)};
+    public static final Color[] FLOOR_COLOR = {Color.GRAY, Color.rgb(150, 150, 150, 1), Color.rgb(150, 150, 150, 1), Color.rgb(150, 150, 150, 1)};
+    public static final Color[] OBSTACLE_COLOR = {Color.DARKCYAN, Color.rgb(204, 204, 0, 1), Color.rgb(204, 204, 0, 1), Color.rgb(165, 15, 21, 1)};
+    public static final Color[] SLOPE1_COLOR = {Color.DARKGOLDENROD, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final Color[] SLOPE2_COLOR = {Color.DARKORANGE, Color.rgb(255, 255, 255, 1), Color.rgb(255, 255, 255, 1), Color.rgb(255, 255, 255, 1)};
+    public static final Color[] SLOPE3_COLOR = {Color.BLANCHEDALMOND, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
+    public static final Color[] SLOPE4_COLOR = {Color.BLUEVIOLET, Color.rgb(255, 255, 255, 1), Color.rgb(255, 255, 255, 1), Color.rgb(255, 255, 255, 1)};
 
     public static final Color[] THRESHOLD_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1),Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
     public static final Color[] CLEARWAY_COLOR = {Color.BLACK, Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1), Color.rgb(37, 37, 37, 1)};
     public static final Color[] STOPWAY_COLOR = {Color.ANTIQUEWHITE, Color.rgb(0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1),  Color.rgb( 0, 0, 0, 1)};
     public static final Color[] BACKGROUND_COLOR = {Color.SKYBLUE, Color.rgb(106, 126, 189, 1), Color.rgb(160, 95, 190, 1), Color.rgb(107, 174, 214, 1)};
     public static final String[] TEXT_COLOR = {"rgb(0,0,0)", "rgb(37, 37, 37)", "rgb(37, 37, 370)", "rgb(37, 37, 37)"};
-    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, Color.rgb(252, 174, 145, 1), Color.rgb(130, 215, 140, 1), Color.rgb(254, 229, 217, 1)};
-    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, Color.rgb(251, 106, 74, 1), Color.rgb(100, 170, 45, 1), Color.rgb(252, 174, 145, 1)};
+    public static final Color[] STRIP1_COLOR = {Color.LIGHTCORAL, Color.rgb(252, 174, 145, 1), Color.rgb(130, 215, 140, 1), Color.rgb(252, 174, 145, 1)};
+    public static final Color[] STRIP2_COLOR = {Color.LIGHTSALMON, Color.rgb(251, 106, 74, 1), Color.rgb(100, 170, 45, 1), Color.rgb(225, 0, 125, 1)};
 
     public ThreeDVisuals() {
         super(root = new Group(),ThreeDVisuals.SCENE_WIDTH, ThreeDVisuals.SCENE_HEIGHT, true, SceneAntialiasing.BALANCED);
@@ -682,8 +682,8 @@ public class ThreeDVisuals extends SubScene {
             public void handle(MouseEvent event) {
                 mousePosX = event.getSceneX();
                 mousePosY = event.getSceneY();
-                rotateX.setAngle(rotateX.getAngle()-(mousePosY - mouseOldY));
-                rotateY.setAngle(rotateY.getAngle()+(mousePosX - mouseOldX));
+                rotateX.setAngle(rotateX.getAngle() - (mousePosY - mouseOldY));
+                rotateY.setAngle(rotateY.getAngle() + (mousePosX - mouseOldX));
                 mouseOldX = mousePosX;
                 mouseOldY = mousePosY;
             }
