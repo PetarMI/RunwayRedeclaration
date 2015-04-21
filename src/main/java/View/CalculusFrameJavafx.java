@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.dialog.Dialogs;
@@ -28,8 +29,8 @@ import java.util.Optional;
 public class CalculusFrameJavafx extends Application {
 
     //frame size
-    private static final int WIDTH = 1200;
-    private static final int HEIGHT = 682;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 682;
 
     //model references
     private XMLHelper xmlHelper;
@@ -61,6 +62,7 @@ public class CalculusFrameJavafx extends Application {
     private Label TORA2, TODA2, ASDA2, LDA2;
     private Label strip1, strip2, originalValues1, originalValues2, recValues1, recValues2;
     private Label instructions1, instructions2, land1, land2, takeOff1, takeOff2;
+    private Circle land1Color, land2Color, takeOff1Color, takeOff2Color;
     private Label oTora1, oToda1, oAsda1, oLda1;
     private Label recTora1, recToda1, recAsda1, recLda1;
     private Label oTora2, oToda2, oAsda2, oLda2;
@@ -73,6 +75,9 @@ public class CalculusFrameJavafx extends Application {
     private Label nameL, heightL, widthL, lengthL, descriptionL;
     private TextArea descriptionT;
     private Button add;
+
+    private int colorScheme = 0;
+    private double colorCircleRadius = 5;
 
     public CalculusFrameJavafx() {
         updateObstacleComboBox();
@@ -166,7 +171,9 @@ public class CalculusFrameJavafx extends Application {
         //4th row
         gridpane.add(instructions1, 1, 20);
         gridpane.add(land1, 1, 20);
+        gridpane.add(land1Color, 1, 20);
         gridpane.add(takeOff1, 1, 20);
+        gridpane.add(takeOff1Color, 1, 20);
 
         //5th row
         gridpane.add(TORA2, 1, 23);
@@ -194,7 +201,9 @@ public class CalculusFrameJavafx extends Application {
         //8th row
         gridpane.add(instructions2, 1, 27);
         gridpane.add(land2, 1, 27);
+        gridpane.add(land2Color, 1, 27);
         gridpane.add(takeOff2, 1, 27);
+        gridpane.add(takeOff2Color, 1, 27);
 
         stage.setScene(new Scene(hsPane, WIDTH, HEIGHT));
         stage.setResizable(true);
@@ -406,7 +415,9 @@ public class CalculusFrameJavafx extends Application {
         recLda1 = new Label();
 
         land1 = new Label();
+        land1Color = new Circle(colorCircleRadius, ThreeDVisuals.SLOPE2_COLOR[colorScheme]);
         takeOff1 = new Label();
+        takeOff1Color = new Circle(colorCircleRadius, ThreeDVisuals.SLOPE1_COLOR[colorScheme]);
 
         oTora2 = new Label();
         oToda2 = new Label();
@@ -419,7 +430,10 @@ public class CalculusFrameJavafx extends Application {
         recLda2 = new Label();
 
         land2 = new Label();
+        land2Color = new Circle(colorCircleRadius, ThreeDVisuals.SLOPE4_COLOR[colorScheme]);
         takeOff2 = new Label();
+        takeOff2Color = new Circle(colorCircleRadius, ThreeDVisuals.SLOPE3_COLOR[colorScheme]);
+
 
         //indenting TORA,TODA,ASDA,LDA
         TORA1.setTranslateX(75);
@@ -457,9 +471,20 @@ public class CalculusFrameJavafx extends Application {
 
         //indenting instructions
         land1.setTranslateX(75);
+        land1Color.setTranslateX(135);
         takeOff1.setTranslateX(150);
+        takeOff1Color.setTranslateX(230);
         land2.setTranslateX(75);
+        land2Color.setTranslateX(135);
         takeOff2.setTranslateX(150);
+        takeOff2Color.setTranslateX(230);
+
+
+        land1Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
+        land2Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
+        takeOff1Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
+        takeOff2Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
+
     }
 
 
@@ -695,7 +720,7 @@ public class CalculusFrameJavafx extends Application {
                     updateRecValues();
 
                     //viewPane.remove(threeD);
-                    threeD = new ThreeDVisuals();
+                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
                     threeD.init(runway);
                     root.setCenter(threeD);
                     //viewPane.add(threeD);
