@@ -23,6 +23,7 @@ import org.controlsfx.dialog.Dialogs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class CalculusFrameJavafx extends Application {
 
     //model references
     private XMLHelper xmlHelper;
+    private PrintHelper printHelper;
     private Runway runway;
     private ThreeDVisuals threeD;
     private NotifBoard fxNotif;
@@ -89,6 +91,11 @@ public class CalculusFrameJavafx extends Application {
         this.testable = testable;
 
         xmlHelper = new XMLHelper();
+        try {
+            printHelper = new PrintHelper();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         menuBar();
         setupLHScomponents();
         setupStripValues();
@@ -225,24 +232,50 @@ public class CalculusFrameJavafx extends Application {
                         .showTextInput();
 
                 String filename = "";
-                if (response.isPresent()) {
+                if (response.isPresent())
+                {
                     filename = response.get();
                     //remove this
                     System.out.println(filename);
-                    try {
-                        PrintHelper.print(runway, airport, filename);
-                    } catch (FileNotFoundException exp) {
+                    try
+                    {
+                        printHelper.print(runway, airport, filename);
+                    }
+                    catch (FileNotFoundException exp) {
                         Dialogs.create()
                                 .title("Error message")
                                 .message("Invalid file name.")
                                 .lightweight()
                                 .showWarning();
-                    } catch (IOException exc) {
+                    }
+                    catch (IOException exc)
+                    {
                         Dialogs.create()
                                 .title("Error message")
                                 .message("Could not create file.\nTryAgain")
                                 .lightweight()
                                 .showWarning();
+                    }
+                    catch (NullPointerException npe)
+                    {
+                        Dialogs.create()
+                                .title("Error message")
+                                .message("Export failed.\nLet us fix some stuff for you and try again.")
+                                .lightweight()
+                                .showWarning();
+                        try
+                        {
+                            printHelper = new PrintHelper();
+                        }
+                        catch (UnsupportedEncodingException uee)
+                        {
+                            Dialogs.create()
+                                    .title("Error message")
+                                    .message("Unable to fix problem.\nPlease close program and move jar to another location\n" +
+                                            "if you want to export configuration.")
+                                    .lightweight()
+                                    .showWarning();
+                        }
                     }
                 }
             }

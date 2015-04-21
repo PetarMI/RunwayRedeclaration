@@ -110,7 +110,7 @@ public class CalculusFrame extends JFrame{
                         JOptionPane.QUESTION_MESSAGE);
                 try
                 {
-                    PrintHelper.print(runway, airport, filename);
+                    new PrintHelper().print(runway, airport, filename);
                 }
                 catch (FileNotFoundException exp)
                 {

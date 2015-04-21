@@ -7,7 +7,9 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created 17.02.2015
@@ -15,7 +17,7 @@ import java.io.IOException;
  */
 public class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         Values str1Vals = new Values(3902, 3902, 3902, 3595);
         Strip str1 = new Strip("09L", 9, "L", str1Vals, 306);
@@ -25,6 +27,10 @@ public class Main
 
         Runway runway = new Runway("09L/27R", str1, str2);
         runway.addObstacle(new Obstacle("b", 1, 12, 1, "b"), -50, 3646, 0, "");
+
+        PrintHelper ph = new PrintHelper();
+        ph.print(runway, "Aa", "asd");
+        ph.print(runway, "Aa", "asd");
         /*System.out.println(runway.getStrip1().viewCalculationBreakdown());
         System.out.println(runway.getStrip2().viewCalculationBreakdown());
         runway.recalculateValues(300);
