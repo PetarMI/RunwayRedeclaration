@@ -13,10 +13,17 @@ public class Notif extends HBox {
     public static final String SYNC_IMAGE = "file:src/main/resources/assets/sync_icon.png";
     public static final String PRINT_IMAGE = "file:src/main/resources/assets/print_icon.png";
     public static final String RUNWAY_IMAGE = "file:src/main/resources/assets/runway_icon.png";
+    public static final String BREAKDOWN_IMAGE = "file:src/main/resources/assets/breakdown_icon.png";
+    public static final String COLORSCHEME_IMAGE = "file:src/main/resources/assets/colorscheme_icon.png";
+    public static final String NEWOBSTACLE_IMAGE = "file:src/main/resources/assets/newobstacle_icon.png";
+    public static final String OBSTACLE_IMAGE = "file:src/main/resources/assets/obstacle_icon.png";
     public static final String SYNC_TITLE = "Recalculated Values";
     public static final String PRINT_TITLE = "Printed Results";
-    public static final String BREAKDOWN_TITLE = "Displayed Breakdown\nof Calculations";
+    public static final String BREAKDOWN_TITLE = "Breakdown View";
     public static final String RUNWAY_TITLE ="Changed Runway";
+    public static final String COLORSCHEME_TITLE ="Color Scheme";
+    public static final String NEWOBSTACLE_TITLE = "Added Obstacle";
+    public static final String OBSTACLE_TITLE = "Changed Obstacle";
 
 
     //when calling this constructor, please provide the title and imageUrl only by using

@@ -23,7 +23,6 @@ import org.controlsfx.dialog.Dialogs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +34,6 @@ public class CalculusFrameJavafx extends Application {
 
     //model references
     private XMLHelper xmlHelper;
-    private PrintHelper printHelper;
     private Runway runway;
     private ThreeDVisuals threeD;
     private NotifBoard fxNotif;
@@ -85,17 +83,12 @@ public class CalculusFrameJavafx extends Application {
         updateObstacleComboBox();
     }
 
-    public CalculusFrameJavafx(Runway runway, String airport, Boolean testable) {
+    public CalculusFrameJavafx(Runway runway, String airport, NotifBoard fxNotif, Boolean testable) {
         this.runway = runway;
         this.airport = airport;
         this.testable = testable;
-
+        this.fxNotif = fxNotif;
         xmlHelper = new XMLHelper();
-        try {
-            printHelper = new PrintHelper();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
         menuBar();
         setupLHScomponents();
         setupStripValues();
@@ -235,11 +228,10 @@ public class CalculusFrameJavafx extends Application {
                 if (response.isPresent())
                 {
                     filename = response.get();
-                    //remove this
-                    System.out.println(filename);
                     try
                     {
-                        printHelper.print(runway, airport, filename);
+                        PrintHelper.print(runway, airport, filename);
+                        fxNotif.addNotif(new Notif(Notif.PRINT_TITLE, Notif.PRINT_IMAGE));
                     }
                     catch (FileNotFoundException exp) {
                         Dialogs.create()
@@ -248,34 +240,12 @@ public class CalculusFrameJavafx extends Application {
                                 .lightweight()
                                 .showWarning();
                     }
-                    catch (IOException exc)
-                    {
+                    catch (IOException exc) {
                         Dialogs.create()
                                 .title("Error message")
                                 .message("Could not create file.\nTryAgain")
                                 .lightweight()
                                 .showWarning();
-                    }
-                    catch (NullPointerException npe)
-                    {
-                        Dialogs.create()
-                                .title("Error message")
-                                .message("Export failed.\nLet us fix some stuff for you and try again.")
-                                .lightweight()
-                                .showWarning();
-//                        try
-//                        {
-//                            printHelper = new PrintHelper();
-//                        }
-//                        catch (UnsupportedEncodingException uee)
-//                        {
-//                            Dialogs.create()
-//                                    .title("Error message")
-//                                    .message("Unable to fix problem.\nPlease close program and move jar to another location\n" +
-//                                            "if you want to export configuration.")
-//                                    .lightweight()
-//                                    .showWarning();
-//                        }
                     }
                 }
             }
@@ -345,6 +315,7 @@ public class CalculusFrameJavafx extends Application {
                 breakdownStage.centerOnScreen();
                 breakdownStage.setResizable(false);
                 breakdownStage.show();
+                fxNotif.addNotif(new Notif(Notif.BREAKDOWN_TITLE, Notif.BREAKDOWN_IMAGE, "for " + runway.getObstacle().getName()));
             }
         });
 
@@ -359,10 +330,13 @@ public class CalculusFrameJavafx extends Application {
             public void handle(ActionEvent event) {
                 colorScheme = threeD.NORMAL_COLORS;
                 changeColorScheme();
-                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
-                threeD.init(runway, threeD.NORMAL_COLORS);
+                fxNotif.addNotif(new Notif(Notif.COLORSCHEME_TITLE, Notif.COLORSCHEME_IMAGE, "Normal Colors"));
+                try {
+                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                    threeD.init(runway, threeD.NORMAL_COLORS);
 
-                root.setCenter(threeD);
+                    root.setCenter(threeD);
+                }catch(Exception e){};
             }
         });
 
@@ -372,10 +346,12 @@ public class CalculusFrameJavafx extends Application {
             public void handle(ActionEvent event) {
                 colorScheme = threeD.PROTANOPIA_COLORS;
                 changeColorScheme();
-                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
-                threeD.init(runway, threeD.PROTANOPIA_COLORS);
-
-                root.setCenter(threeD);
+                fxNotif.addNotif(new Notif(Notif.COLORSCHEME_TITLE, Notif.COLORSCHEME_IMAGE, "Protanopia"));
+                try {
+                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                    threeD.init(runway, threeD.PROTANOPIA_COLORS);
+                    root.setCenter(threeD);
+                }catch (Exception e){};
             }
         });
 
@@ -385,10 +361,12 @@ public class CalculusFrameJavafx extends Application {
             public void handle(ActionEvent event) {
                 colorScheme = threeD.DEUTERANOPIA_COLORS;
                 changeColorScheme();
-                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
-                threeD.init(runway, threeD.DEUTERANOPIA_COLORS);
-
-                root.setCenter(threeD);
+                fxNotif.addNotif(new Notif(Notif.COLORSCHEME_TITLE, Notif.COLORSCHEME_IMAGE, "Deuteranopia"));
+                try {
+                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                    threeD.init(runway, threeD.DEUTERANOPIA_COLORS);
+                    root.setCenter(threeD);
+                }catch (Exception e){};
             }
         });
 
@@ -398,10 +376,12 @@ public class CalculusFrameJavafx extends Application {
             public void handle(ActionEvent event) {
                 colorScheme = threeD.TRITANOPIA_COLORS;
                 changeColorScheme();
-                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
-                threeD.init(runway, threeD.TRITANOPIA_COLORS);
-
-                root.setCenter(threeD);
+                fxNotif.addNotif(new Notif(Notif.COLORSCHEME_TITLE, Notif.COLORSCHEME_IMAGE, "Tritanopia"));
+                try {
+                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                    threeD.init(runway, threeD.TRITANOPIA_COLORS);
+                    root.setCenter(threeD);
+                }catch (Exception e){};
             }
         });
 
@@ -456,8 +436,6 @@ public class CalculusFrameJavafx extends Application {
         sideOnLeft = new Button("Side on Left");
         sideOnRight = new Button("Side on Right");
         compassOrient = new Button("Compass Orientation");
-
-        fxNotif = new NotifBoard();
 
 
         //widths of all the components
@@ -681,6 +659,7 @@ public class CalculusFrameJavafx extends Application {
                     //updates the new entry value to the combobox
                     updateObstacleComboBox();
                     obstaclesBox.getSelectionModel().selectLast();
+                    fxNotif.addNotif(new Notif(Notif.NEWOBSTACLE_TITLE, Notif.NEWOBSTACLE_IMAGE, name));
                     obstacleStage.close();
                 } catch (NumberFormatException e1) {
                     if (!testable) {
@@ -780,7 +759,7 @@ public class CalculusFrameJavafx extends Application {
 
         chgnRunway.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             public void handle(javafx.event.ActionEvent event) {
-                new BeginFrameJavafx().start(stage);
+                new BeginFrameJavafx(fxNotif).start(stage);
             }
         });
 
@@ -794,6 +773,7 @@ public class CalculusFrameJavafx extends Application {
                             + "  W:" + obstaclesBox.getSelectionModel().getSelectedItem().getWidth() + "m");
                     gridpane.getChildren().remove(obstacleLabel);
                     gridpane.add(obstacleLabel, 1, 2);
+//                    fxNotif.addNotif(new Notif(Notif.OBSTACLE_TITLE, Notif.OBSTACLE_IMAGE,obstaclesBox.getSelectionModel().getSelectedItem().getName() ));
                 }
             }
         });
@@ -824,18 +804,9 @@ public class CalculusFrameJavafx extends Application {
 
                     //viewPane.remove(threeD);
                     threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
-                    threeD.init(runway);
+                    threeD.init(runway, colorScheme);
                     root.setCenter(threeD);
-                    //viewPane.add(threeD);
-                    //old fix to not let 3d disapear
-                    /*
-                    Platform.runLater(new Runnable() {
-                        public void run() {
-                            Platform.setImplicitExit(false);
-                            threeD.init(runway);
-                        }
-                    });
-                     */
+                    fxNotif.addNotif(new Notif(Notif.SYNC_TITLE, Notif.SYNC_IMAGE));
                 } catch (NumberFormatException e1) {
                     if (!testable) {
                         Dialogs.create()
