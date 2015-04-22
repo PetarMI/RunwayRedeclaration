@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.dialog.Dialogs;
 
@@ -115,6 +116,11 @@ public class CalculusFrameJavafx extends Application {
 
         this.stage = primaryStage;
         stage.setTitle("Runway Redeclaration (" + airport + ")");
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
 
         //main pane
         root = new BorderPane();
@@ -729,7 +735,7 @@ public class CalculusFrameJavafx extends Application {
         obstacleLabel.setText("Obstacle: " + this.obstaclesBox.getSelectionModel().getSelectedItem().getName()
                 + "  H: " + this.obstaclesBox.getSelectionModel().getSelectedItem().getHeight() + "m"
                 + "  L:" + this.obstaclesBox.getSelectionModel().getSelectedItem().getLength() + "m"
-                + "  W:" + this.obstaclesBox.getSelectionModel().getSelectedItem().getWidth()+"m");
+                + "  W:" + this.obstaclesBox.getSelectionModel().getSelectedItem().getWidth() + "m");
 
     }
 
@@ -777,10 +783,9 @@ public class CalculusFrameJavafx extends Application {
         fxNotif.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(hsPane.getPinnedSide() != null) {
+                if (hsPane.getPinnedSide() != null) {
                     hsPane.setPinnedSide(null);
-                }
-                else hsPane.setPinnedSide(Side.RIGHT);
+                } else hsPane.setPinnedSide(Side.RIGHT);
             }
         });
 
