@@ -12,6 +12,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,6 +29,8 @@ import javafx.stage.Stage;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.dialog.Dialogs;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -224,7 +234,6 @@ public class CalculusFrameJavafx extends Application {
         //Export item
         MenuItem exportItem = new MenuItem("Export");
         exportItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
             public void handle(ActionEvent event) {
                 Optional<String> response = Dialogs.create()
                         .title("Export Settings")
@@ -348,13 +357,31 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
+        MenuItem helpItem = new MenuItem("Help");
+        helpItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try{
+                    File helpPDF = new File("src/main/resources/help.pdf");
+                    Desktop.getDesktop().open(helpPDF);
+                } catch (IOException ex) {
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("No file found to open pdf")
+                            .message("Please install a program that can view pdfs.")
+                            .lightweight()
+                            .showWarning();
+                }
+            }
+        });
+
 
         menuBar = new MenuBar();
         file = new Menu("File");
         calculations = new Menu("Calculations");
         menuBar.getMenus().addAll(file, calculations);
 
-        file.getItems().addAll(exportItem, exitItem);
+        file.getItems().addAll(exportItem, helpItem, exitItem);
         calculations.getItems().addAll(simpleCalcsItem, setComplexCalculations, separatorMenuItem, viewBreakDown);
     }
 
