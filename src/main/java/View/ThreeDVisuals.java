@@ -112,7 +112,7 @@ public class ThreeDVisuals extends SubScene {
     }
 
     public void init(Runway runway){
-        this.init(runway, NORMAL_COLORS);
+        this.init(runway, TRITANOPIA_COLORS);
 
     }
 

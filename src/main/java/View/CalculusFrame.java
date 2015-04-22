@@ -108,18 +108,18 @@ public class CalculusFrame extends JFrame{
                         "Enter a custom name to save the configuration",
                         "Export Configuration",
                         JOptionPane.QUESTION_MESSAGE);
-                try
-                {
-                    new PrintHelper().print(runway, airport, filename);
-                }
-                catch (FileNotFoundException exp)
-                {
-                    JOptionPane.showMessageDialog(CalculusFrame.this, "Invalid file name.");
-                }
-                catch (IOException exc)
-                {
-                    JOptionPane.showMessageDialog(CalculusFrame.this, "Could not create file.\nTryAgain");
-                }
+//                try
+//                {
+//                    //PrintHelper.print(runway, airport, filename);
+//                }
+//                catch (FileNotFoundException exp)
+//                {
+//                    JOptionPane.showMessageDialog(CalculusFrame.this, "Invalid file name.");
+//                }
+//                catch (IOException exc)
+//                {
+//                    JOptionPane.showMessageDialog(CalculusFrame.this, "Could not create file.\nTryAgain");
+//                }
             }
         });
 

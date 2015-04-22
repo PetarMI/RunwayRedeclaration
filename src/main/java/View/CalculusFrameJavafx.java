@@ -48,7 +48,7 @@ public class CalculusFrameJavafx extends Application {
     private HiddenSidesPane hsPane;
 
     private MenuBar menuBar;
-    private Menu file, calculations;
+    private Menu file, calculations, colorSchemeMenu;
 
     //Top LHS components
     private Button chgnRunway, addCustObs, compassOrient, calculate;
@@ -263,19 +263,19 @@ public class CalculusFrameJavafx extends Application {
                                 .message("Export failed.\nLet us fix some stuff for you and try again.")
                                 .lightweight()
                                 .showWarning();
-                        try
-                        {
-                            printHelper = new PrintHelper();
-                        }
-                        catch (UnsupportedEncodingException uee)
-                        {
-                            Dialogs.create()
-                                    .title("Error message")
-                                    .message("Unable to fix problem.\nPlease close program and move jar to another location\n" +
-                                            "if you want to export configuration.")
-                                    .lightweight()
-                                    .showWarning();
-                        }
+//                        try
+//                        {
+//                            printHelper = new PrintHelper();
+//                        }
+//                        catch (UnsupportedEncodingException uee)
+//                        {
+//                            Dialogs.create()
+//                                    .title("Error message")
+//                                    .message("Unable to fix problem.\nPlease close program and move jar to another location\n" +
+//                                            "if you want to export configuration.")
+//                                    .lightweight()
+//                                    .showWarning();
+//                        }
                     }
                 }
             }
@@ -349,15 +349,87 @@ public class CalculusFrameJavafx extends Application {
         });
 
 
+
+        //Color scheme selection
+        ToggleGroup toggleColorSchemeGroup = new ToggleGroup();
+
+        RadioMenuItem color1 = new RadioMenuItem("Default Colors");
+        color1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorScheme = threeD.NORMAL_COLORS;
+                changeColorScheme();
+                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                threeD.init(runway, threeD.NORMAL_COLORS);
+
+                root.setCenter(threeD);
+            }
+        });
+
+        RadioMenuItem color2 = new RadioMenuItem("Protaniopia Colors");
+        color2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorScheme = threeD.PROTANOPIA_COLORS;
+                changeColorScheme();
+                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                threeD.init(runway, threeD.PROTANOPIA_COLORS);
+
+                root.setCenter(threeD);
+            }
+        });
+
+        RadioMenuItem color3 = new RadioMenuItem("Deuteranipia Colors");
+        color3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorScheme = threeD.DEUTERANOPIA_COLORS;
+                changeColorScheme();
+                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                threeD.init(runway, threeD.DEUTERANOPIA_COLORS);
+
+                root.setCenter(threeD);
+            }
+        });
+
+        RadioMenuItem color4 = new RadioMenuItem("Tritanipia Colors");
+        color4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorScheme = threeD.TRITANOPIA_COLORS;
+                changeColorScheme();
+                threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                threeD.init(runway, threeD.TRITANOPIA_COLORS);
+
+                root.setCenter(threeD);
+            }
+        });
+
+
+        color1.setToggleGroup(toggleColorSchemeGroup);
+        color2.setToggleGroup(toggleColorSchemeGroup);
+        color3.setToggleGroup(toggleColorSchemeGroup);
+        color4.setToggleGroup(toggleColorSchemeGroup);
+        //selecting first toggle
+        toggleColorSchemeGroup.selectToggle(color1);
+
         menuBar = new MenuBar();
         file = new Menu("File");
         calculations = new Menu("Calculations");
-        menuBar.getMenus().addAll(file, calculations);
+        colorSchemeMenu = new Menu("Color Scheme");
+        menuBar.getMenus().addAll(file, calculations, colorSchemeMenu);
 
         file.getItems().addAll(exportItem, exitItem);
         calculations.getItems().addAll(simpleCalcsItem, setComplexCalculations, separatorMenuItem, viewBreakDown);
+        colorSchemeMenu.getItems().addAll(color1,color2,color3,color4);
     }
 
+    private void changeColorScheme(){
+        land1Color.setFill(ThreeDVisuals.SLOPE2_COLOR[colorScheme]);
+        land2Color.setFill(ThreeDVisuals.SLOPE4_COLOR[colorScheme]);
+        takeOff1Color.setFill(ThreeDVisuals.SLOPE1_COLOR[colorScheme]);
+        takeOff2Color.setFill(ThreeDVisuals.SLOPE3_COLOR[colorScheme]);
+    }
     private void setupLHScomponents() {
         //initialising all the components
         chgnRunway = new Button("Change Runway");
@@ -389,27 +461,27 @@ public class CalculusFrameJavafx extends Application {
 
 
         //widths of all the components
-        chgnRunway.setPrefWidth(240);
-        obstaclesBox.setPrefWidth(240);
-        addCustObs.setPrefWidth(240);
-        posFromLeft.setMaxWidth(135);
-        posFromRight.setMaxWidth(135);
-        BPV.setMaxWidth(135);
+        chgnRunway.setPrefWidth(260);
+        obstaclesBox.setPrefWidth(260);
+        addCustObs.setPrefWidth(260);
+        posFromLeft.setMaxWidth(150);
+        posFromRight.setMaxWidth(150);
+        BPV.setMaxWidth(150);
         centrelineDist.setMaxWidth(51);
-        centrelineBox.setPrefWidth(77);
-        calculate.setPrefWidth(240);
-        topDown.setPrefWidth(240);
-        compassOrient.setPrefWidth(240);
-        sideOnLeft.setPrefWidth(115);
-        sideOnRight.setPrefWidth(115);
+        centrelineBox.setPrefWidth(97);
+        calculate.setPrefWidth(260);
+        topDown.setPrefWidth(260);
+        compassOrient.setPrefWidth(260);
+        sideOnLeft.setPrefWidth(125);
+        sideOnRight.setPrefWidth(130);
 
         //indenting
-        posFromLeft.setTranslateX(105);
-        posFromRight.setTranslateX(105);
-        BPV.setTranslateX(105);
-        centrelineDist.setTranslateX(105);
+        posFromLeft.setTranslateX(110);
+        posFromRight.setTranslateX(110);
+        BPV.setTranslateX(110);
+        centrelineDist.setTranslateX(110);
         centrelineBox.setTranslateX(163);
-        sideOnRight.setTranslateX(125);
+        sideOnRight.setTranslateX(130);
     }
 
 
@@ -504,20 +576,18 @@ public class CalculusFrameJavafx extends Application {
 
         //indenting instructions
         land1.setTranslateX(75);
-        land1Color.setTranslateX(135);
-        takeOff1.setTranslateX(150);
-        takeOff1Color.setTranslateX(230);
+        land1Color.setTranslateX(150);
+        takeOff1.setTranslateX(165);
+        takeOff1Color.setTranslateX(255);
         land2.setTranslateX(75);
-        land2Color.setTranslateX(135);
-        takeOff2.setTranslateX(150);
-        takeOff2Color.setTranslateX(230);
-
+        land2Color.setTranslateX(150);
+        takeOff2.setTranslateX(165);
+        takeOff2Color.setTranslateX(255);
 
         land1Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
         land2Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
         takeOff1Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
         takeOff2Color.setStyle("-fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.5 ), 1, 1, 1, 1.5 );");
-
     }
 
 
