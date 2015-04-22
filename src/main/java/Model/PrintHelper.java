@@ -3,37 +3,31 @@ package Model;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
-import java.net.URLDecoder;
 import java.util.Formatter;
 
 public final class PrintHelper
 {
-    private String airportName;
-    private Runway runway;
-    private Obstacle obstacle;
-    private StringBuilder sb = new StringBuilder();
-    private Formatter formatter = new Formatter(sb);
-    private BufferedWriter bw;
-    private int duplicateFile;
-    private final String dirPath;
+    private static String airportName;
+    private static Runway runway;
+    private static Obstacle obstacle;
+    private static StringBuilder sb = new StringBuilder();
+    private static Formatter formatter = new Formatter(sb);
+    private static BufferedWriter bw;
+    private static int duplicateFile;
 
-    public PrintHelper() throws UnsupportedEncodingException
-    {
-        this.dirPath = this.getDirectoryPath();
-    }
+    private PrintHelper() {}
 
-    public void print(Runway r, String airport, String filename) throws IOException, FileNotFoundException
+    public static void print(Runway r, String airport, String filename) throws IOException, FileNotFoundException
     {
         runway = r;
         obstacle = runway.getObstacle();
         airportName = airport;
         duplicateFile = 0;
         Values strVals = runway.getStrip1().getOrigVal();
-        //file
-        this.makeDirectory();
-        String assignedFilename = getFileName(filename);
-        File file = new File(this.dirPath, assignedFilename);
-        //start writing
+        //TODO: The printhelper runs to this line and does not carry on
+        //Maybe the folder/file needs to be created first?
+        String str = getFileName(filename);
+        File file = new File("files/", getFileName(filename));
         bw = new BufferedWriter(new FileWriter(file));
         //Airport
         formatter.format("%-10s %-10s", "Airport", airportName);
@@ -127,9 +121,10 @@ public final class PrintHelper
         bw.newLine();
         bw.newLine();
         bw.close();
+        //TODO: Confirmation message on completion?
     }
 
-    public String getFileName(String file)
+    public static String getFileName(String file)
     {
         StringBuilder filename;
         if (file.equals(""))
@@ -155,7 +150,8 @@ public final class PrintHelper
             filename = new StringBuilder(file);
         }
 
-        File fileDir = new File(dirPath);
+        File fileDir = new File("files/");
+        fileDir.mkdir();
         File[] files = fileDir.listFiles();
         while (checkFilenameExists(files, filename.toString()))
         {
@@ -185,21 +181,6 @@ public final class PrintHelper
             }
         }
         return false;
-    }
-
-    private String getDirectoryPath() throws UnsupportedEncodingException
-    {
-        String path = PrintHelper.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        String decodedPath = URLDecoder.decode(path, "UTF-8");
-        String folderPath = decodedPath + File.separator + "files" + File.separator;
-
-        return folderPath;
-    }
-
-    private boolean makeDirectory()
-    {
-        File dir = new File(this.dirPath);
-        return dir.mkdir();
     }
 
     //TODO handle invalid character expression PERSONALLY

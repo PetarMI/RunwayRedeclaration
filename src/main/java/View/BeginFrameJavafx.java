@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.util.List;
 
 
@@ -23,6 +24,15 @@ public class BeginFrameJavafx extends Application {
     private Button okBtn;
     private Airport newAirport;
     private XMLHelper xmlHelper;
+    private NotifBoard fxNotif;
+
+    public BeginFrameJavafx(NotifBoard fxNotif) {
+        this.fxNotif = fxNotif;
+    }
+
+    public BeginFrameJavafx() {
+        this.fxNotif = new NotifBoard();
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -38,7 +48,9 @@ public class BeginFrameJavafx extends Application {
         root.getChildren().add(runwayBox);
         root.setAlignment(Pos.CENTER);
         root.getChildren().add(okBtn);
-        stage.setScene(new Scene(root, 300, 100));
+
+        Scene myScene = new Scene(root, 300, 100);
+        stage.setScene(myScene);
         stage.setResizable(false);
         stage.sizeToScene();
         stage.centerOnScreen();
@@ -76,7 +88,8 @@ public class BeginFrameJavafx extends Application {
                 Runway runway = newAirport.getRunway((String) runwayBox.getSelectionModel().getSelectedItem());
                 String airport = (String) airportsBox.getSelectionModel().getSelectedItem();
                 //new CalculusFrame(runway, airport, false);
-                new CalculusFrameJavafx(runway, airport, false).start(stage);
+                fxNotif.addNotif(new Notif(Notif.RUNWAY_TITLE, Notif.RUNWAY_IMAGE, runway.getRunwayId() + " at " + airport));
+                new CalculusFrameJavafx(runway, airport, fxNotif, false).start(stage);
                 }
         });
         airportsBox.setOnAction(new EventHandler<ActionEvent>() {
