@@ -1,6 +1,7 @@
 package View;
 
 import Exceptions.PositiveOnlyException;
+import Exceptions.RunwayDiffException;
 import Exceptions.RunwayIDFormatException;
 import Model.*;
 import javafx.application.Application;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 //TODO: Manage the errors with our own exceptions?
@@ -245,6 +248,8 @@ public class BeginFrameJavafx extends Application {
                 try{
 
                     String runwayidTemp1 = runwayid1.getText();
+                    String orientation1;
+                    String position1 = "";
                     int TORA1 = Integer.parseInt(tora1.getText());
                     int TODA1 = Integer.parseInt(toda1.getText());
                     int ASDA1 = Integer.parseInt(asda1.getText());
@@ -252,25 +257,42 @@ public class BeginFrameJavafx extends Application {
                     int threshold1 = Integer.parseInt(displacedThreshold1.getText());
 
                     String runwayidTemp2 = runwayid2.getText();
+                    String orientation2;
+                    String position2 = "";
                     int TORA2 = Integer.parseInt(tora2.getText());
                     int TODA2 = Integer.parseInt(toda2.getText());
                     int ASDA2 = Integer.parseInt(asda2.getText());
                     int LDA2 = Integer.parseInt(lda2.getText());
                     int threshold2 = Integer.parseInt(displacedThreshold2.getText());
 
-                    if (runwayidTemp1.length() == 2)
-                    {
 
-                    }else if (runwayidTemp1.length() == 3){
+                    String runwayidPattern = "[0-9][0-9][LRC]?";
+
+                    Pattern patternString = Pattern.compile(runwayidPattern);
+                    Matcher matcher1 = patternString.matcher(runwayidTemp1);
+                    Matcher matcher2 = patternString.matcher(runwayidTemp2);
+                    Boolean matches1 = matcher1.matches();
+                    Boolean matches2 = matcher2.matches();
+
+                    if (runwayidTemp1.length() == 2 & matches1)
+                    {
+                        orientation1 = runwayidTemp1.substring(0,2);
+
+                    }else if (runwayidTemp1.length() == 3 & matches1){
+                        orientation1 = runwayidTemp1.substring(0,2);
+                        position1 = runwayidTemp1.substring(2,3);
 
                     }else{
                         throw new RunwayIDFormatException();
                     }
 
-                    if (runwayidTemp2.length() == 2)
+                    if (runwayidTemp2.length() == 2 & matches2)
                     {
+                        orientation2 = runwayidTemp2.substring(0,2);
 
-                    }else if (runwayidTemp2.length() == 3){
+                    }else if (runwayidTemp2.length() == 3 & matches2){
+                        orientation2 = runwayidTemp2.substring(0,2);
+                        position2 = runwayidTemp2.substring(2,3);
 
                     }else{
                         throw new RunwayIDFormatException();
@@ -283,18 +305,22 @@ public class BeginFrameJavafx extends Application {
                         throw new PositiveOnlyException();
                     }
 
+                    if (Integer.parseInt(orientation1) + 18 != Integer.parseInt(orientation2)){
+                        throw new RunwayDiffException();
+                    }
+
                     Values values1 = new Values(TORA1, TODA1, ASDA1, LDA1);
                     Values values2 = new Values(TORA2, TODA2, ASDA2, LDA2);
 
                     Strip strip1 = new Strip(runwayidTemp1,
-                            Integer.parseInt(runwayidTemp1.substring(0,2)),
-                            runwayidTemp1.substring(2,3),
+                            Integer.parseInt(orientation1),
+                            position1,
                             values1,
                             threshold1);
 
                     Strip strip2 = new Strip(runwayidTemp2,
-                            Integer.parseInt(runwayidTemp2.substring(0,2)),
-                            runwayidTemp2.substring(2,3),
+                            Integer.parseInt(orientation2),
+                            position2,
                             values2,
                             threshold2);
 
@@ -311,8 +337,7 @@ public class BeginFrameJavafx extends Application {
                             .masthead("One or more of the inputed values are in the wrong format.")
                             .message("Follow the below guidelines" +
                                     "\n- Runway designator should be two numbers followed by a letter ('09L')." +
-                                    "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers" +
-                                    "\n- Specify the Airport name.")
+                                    "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers")
                             .showWarning();
 
                 } catch (PositiveOnlyException e2) {
@@ -321,8 +346,7 @@ public class BeginFrameJavafx extends Application {
                             .masthead("One or more of the inputed values are in the wrong format.")
                             .message("Follow the below guidelines" +
                                     "\n- Runway designator should be two numbers followed by a letter ('09L')." +
-                                    "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers" +
-                                    "\n- Specify the Airport name.")
+                                    "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers")
                             .showWarning();
 
                 } catch(RunwayIDFormatException e3){
@@ -333,14 +357,21 @@ public class BeginFrameJavafx extends Application {
                                     "\n- Format should be 2 integers followed by an optional character")
                             .showWarning();
 
-                } catch (IOException e4){
+                } catch (RunwayDiffException e4){
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Difference between runway designators incorrect.")
+                            .message("Difference should be 18. (e.g. 09 and 27)")
+                            .showWarning();
+
+                } catch (IOException e5){
                     Dialogs.create()
                             .title("Error message")
                             .masthead("Error Occured.")
                             .message("Make sure airport xml in the airports folder!")
                             .showError();
                 }
-                catch(Exception e5)
+                catch(Exception e6)
                 {
                     Dialogs.create()
                             .title("Error message")
