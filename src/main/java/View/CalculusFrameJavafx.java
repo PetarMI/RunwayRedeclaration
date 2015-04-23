@@ -487,6 +487,7 @@ public class CalculusFrameJavafx extends Application {
         sideOnRight.setPrefWidth(130);
 
         //indenting
+        obstacleLabel.setMaxWidth(260);
         posFromLeft.setTranslateX(110);
         posFromRight.setTranslateX(110);
         BPV.setTranslateX(110);
@@ -838,6 +839,7 @@ public class CalculusFrameJavafx extends Application {
                     threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
                     threeD.init(runway, colorScheme);
                     root.setCenter(threeD);
+                    fxNotif.addNotif(new Notif(Notif.SYNC_TITLE, Notif.SYNC_IMAGE));
                     fxNotif.addNotif(new Notif(Notif.SYNC_TITLE, Notif.SYNC_IMAGE));
                 } catch (NumberFormatException e1) {
                     if (!testable) {
