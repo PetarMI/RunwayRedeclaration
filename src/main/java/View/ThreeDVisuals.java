@@ -66,7 +66,7 @@ public class ThreeDVisuals extends SubScene {
     private int runwayDepth = 150;
     private int runwayHeight = 50;
     private int obstPos;
-
+    boolean move3d = false;
     private int runwayLength = 1500;
     private double mousePosX;
     private double mousePosY;
@@ -673,14 +673,24 @@ public class ThreeDVisuals extends SubScene {
             public void handle(MouseEvent event) {
                 mouseOldX = event.getX();
                 mouseOldY = event.getY();
+                move3d = false;
             }
         });
         this.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mousePosX = event.getSceneX();
-                mousePosY = event.getSceneY();
-                rotateX.setAngle(rotateX.getAngle()-(mousePosY - mouseOldY));
+                if(!move3d){
+                    mousePosX = mouseOldX = event.getX();
+                    mousePosY = mouseOldY = event.getY();
+                    move3d = true;
+                }
+                else {
+                    mousePosX = event.getX();
+                    mousePosY = event.getY();
+                }
+                System.out.println("X: " + (mousePosY - mouseOldY));
+                System.out.println("Y: " + (mousePosX - mouseOldX));
+                rotateX.setAngle(rotateX.getAngle() - (mousePosY - mouseOldY));
                 rotateY.setAngle(rotateY.getAngle()+(mousePosX - mouseOldX));
                 mouseOldX = mousePosX;
                 mouseOldY = mousePosY;
