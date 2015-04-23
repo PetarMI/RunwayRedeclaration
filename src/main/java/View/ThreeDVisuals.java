@@ -688,8 +688,6 @@ public class ThreeDVisuals extends SubScene {
                     mousePosX = event.getX();
                     mousePosY = event.getY();
                 }
-                System.out.println("X: " + (mousePosY - mouseOldY));
-                System.out.println("Y: " + (mousePosX - mouseOldX));
                 rotateX.setAngle(rotateX.getAngle() - (mousePosY - mouseOldY));
                 rotateY.setAngle(rotateY.getAngle()+(mousePosX - mouseOldX));
                 mouseOldX = mousePosX;

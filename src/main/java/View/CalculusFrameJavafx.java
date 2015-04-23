@@ -28,11 +28,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.controlsfx.control.HiddenSidesPane;
-import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialogs;
 
 import java.awt.*;
-import java.awt.Dialog;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,8 +40,8 @@ import java.util.Optional;
 public class CalculusFrameJavafx extends Application {
 
     //frame size
-    public static final int WIDTH = 1200;
-    public static final int HEIGHT = 682;
+    public static final double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    public static final double HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 10;
 
     //model references
     private XMLHelper xmlHelper;
@@ -59,7 +57,7 @@ public class CalculusFrameJavafx extends Application {
     private HiddenSidesPane hsPane;
 
     private MenuBar menuBar;
-    private Menu file, calculations, colorSchemeMenu;
+    private Menu file, calculations, colorSchemeMenu, appMenu;
 
     //Top LHS components
     private Button chgnRunway, addCustObs, compassOrient, calculate;
@@ -88,7 +86,6 @@ public class CalculusFrameJavafx extends Application {
     private Label nameL, heightL, widthL, lengthL, descriptionL;
     private TextArea descriptionT;
     private Button add;
-
     private int colorScheme = 0;
     private double colorCircleRadius = 5;
 
@@ -228,6 +225,7 @@ public class CalculusFrameJavafx extends Application {
         stage.sizeToScene();
         stage.centerOnScreen();
         stage.setResizable(false);
+        stage.setFullScreen(true);
         stage.show();
     }
 
@@ -364,6 +362,15 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
+        final MenuItem fullscreenItem = new MenuItem("Toggle Fullscreen");
+        fullscreenItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try{
+                    stage.setFullScreen(!stage.isFullScreen());
+                }catch(Exception e){};
+            }
+        });
 
 
         //Color scheme selection
@@ -423,7 +430,7 @@ public class CalculusFrameJavafx extends Application {
                 changeColorScheme();
                 fxNotif.addNotif(new Notif(Notif.COLORSCHEME_TITLE, Notif.COLORSCHEME_IMAGE, "Tritanopia"));
                 try {
-                    threeD = new ThreeDVisuals(WIDTH - gridpane.getWidth(), gridpane.getHeight());
+                    threeD = new ThreeDVisuals( WIDTH - gridpane.getWidth(), gridpane.getHeight());
                     threeD.init(runway, threeD.TRITANOPIA_COLORS);
                     root.setCenter(threeD);
                 }catch (Exception e){};
@@ -440,11 +447,14 @@ public class CalculusFrameJavafx extends Application {
 
         menuBar = new MenuBar();
         file = new Menu("File");
+        appMenu = new Menu("Application");
         calculations = new Menu("Calculations");
         colorSchemeMenu = new Menu("Color Scheme");
         menuBar.getMenus().addAll(file, calculations, colorSchemeMenu);
 
-        file.getItems().addAll(exportItem, helpItem, exitItem);
+        menuBar.getMenus().addAll(appMenu, file, calculations, colorSchemeMenu);
+        appMenu.getItems().addAll(fullscreenItem, exitItem);
+        file.getItems().addAll(exportItem, helpItem);
         calculations.getItems().addAll(simpleCalcsItem, setComplexCalculations, separatorMenuItem, viewBreakDown);
         colorSchemeMenu.getItems().addAll(color1,color2,color3,color4);
     }

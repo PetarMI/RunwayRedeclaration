@@ -19,8 +19,10 @@ public class NotifBoard extends ScrollPane {
     public NotifBoard(){
         content = new VBox();
 
-        Label infoLabel = new Label("Click to pin/unpin");
+        Label infoLabel = new Label("   NOTIFICATIONS PANEL\n\tClick to pin/unpin");
         //styling
+        infoLabel.setStyle("-fx-text-alignment: center;" +
+                "-fx-graphic-hpos: center;");
         this.getStylesheets().add(this.getClass().getResource("/scrollbar.css").toExternalForm());
         content.setPadding(new Insets(5, 5, 5, 5));
         content.setFillWidth(true);
@@ -42,8 +44,7 @@ public class NotifBoard extends ScrollPane {
         infoLabel.setStyle("-fx-font-style: italic;" +
                 "-fx-font-weight: bolder;");
 
-        content.getChildren().addAll(infoLabel, new Notif(Notif.PRINT_TITLE, Notif.PRINT_IMAGE),
-                new Notif(Notif.RUNWAY_TITLE, Notif.RUNWAY_IMAGE, "to Heathrow 09L/27R"));
+        content.getChildren().addAll(infoLabel);
         this.setContent(content);
     }
 
