@@ -221,7 +221,7 @@ public class XMLHelper {
 
     public void addRunway(String airport, Runway runway) throws ParserConfigurationException, IOException, SAXException
     {
-        File file = new File(AIRPORTS_DIRECTORY + File.separator + airport);
+        File file = new File(AIRPORTS_DIRECTORY + File.separator + airport + ".xml");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(file);
