@@ -39,9 +39,9 @@ public class Main
         System.out.println(runway.getStrip1().viewCalculationBreakdown());
         System.out.println(runway.getStrip2().viewCalculationBreakdown());*/
 
-        /*XMLHelper xmlHelper = new XMLHelper();
-        try {
-            xmlHelper.addRunway("Glasgow.xml", runway);
+        XMLHelper xmlHelper = new XMLHelper();
+        /*try {
+            xmlHelper.addRunway("Glasgow", runway);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -49,5 +49,15 @@ public class Main
         } catch (SAXException e) {
             e.printStackTrace();
         }*/
+        /*try {
+            xmlHelper.removeRunway("Glasgow", runway.getRunwayId());
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }*/
+        System.out.println("Metin".substring(4, 9));
     }
 }

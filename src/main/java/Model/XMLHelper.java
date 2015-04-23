@@ -39,7 +39,7 @@ public class XMLHelper {
     public final static String RUNWAY = "Runway";
     public final static String ID = "id";
     public final static String TORA = "TORA";
-    public final static String ASDA ="ASDA";
+    public final static String ASDA = "ASDA";
     public final static String TODA = "TODA";
     public final static String LDA = "LDA";
     public final static String RUNWAY_ORIENTATION = "Orientation";
@@ -49,11 +49,11 @@ public class XMLHelper {
     public XMLHelper() {
     }
 
-    public static void main (String []args){
+    public static void main(String[] args) {
         new XMLHelper();
     }
 
-    public boolean addObstacleXML(Obstacle obs){
+    public boolean addObstacleXML(Obstacle obs) {
         List<Obstacle> obstacles = this.readObstacles();
         obstacles.add(obs);
         return createObstacleXML(obstacles);
@@ -70,7 +70,7 @@ public class XMLHelper {
             Element mainRootElement = doc.createElement(OBSTACLE_LIST);
             doc.appendChild(mainRootElement);
 
-            for(Obstacle o : obs){
+            for (Obstacle o : obs) {
                 mainRootElement.appendChild(getObstacle(doc, o.getName(), o.getWidth(), o.getHeight(), o.getLength(), o.getDescription()));
             }
 
@@ -98,8 +98,7 @@ public class XMLHelper {
         return obstacle;
     }
 
-    private Node makeStripElement (Document doc, Strip str)
-    {
+    private Node makeStripElement(Document doc, Strip str) {
         Element strip = doc.createElement(STRIP);
         strip.setAttribute(ID, str.getStripId());
         strip.appendChild(getElements(doc, TORA, String.valueOf(str.getOrigVal().getTora())));
@@ -114,8 +113,7 @@ public class XMLHelper {
     }
 
 
-    private Element makeRunwayElement (Document doc, Runway runway)
-    {
+    private Element makeRunwayElement(Document doc, Runway runway) {
         Element run = doc.createElement(RUNWAY);
         run.setAttribute(ID, runway.getRunwayId());
         run.appendChild(makeStripElement(doc, runway.getStrip1()));
@@ -123,6 +121,7 @@ public class XMLHelper {
 
         return run;
     }
+
     //
 //    // utility method to create text node
     private Node getElements(Document doc, String name, String value) {
@@ -130,11 +129,12 @@ public class XMLHelper {
         node.appendChild(doc.createTextNode(value));
         return node;
     }
-    public List<Obstacle> readObstacles(){
+
+    public List<Obstacle> readObstacles() {
         try {
             ArrayList<Obstacle> obsList = new ArrayList<Obstacle>();
             File file = new File(OBSTACLE_FILE_NAME);
-            if(!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
                 this.createObstacleXML(new ArrayList<Obstacle>());
                 return new ArrayList<Obstacle>();
@@ -153,9 +153,9 @@ public class XMLHelper {
 
                     Element element = (Element) currentNode;
                     String obsName = element.getElementsByTagName(OBSTACLE_NAME).item(0).getTextContent();
-                    int obsWidth =  Integer.valueOf(element.getElementsByTagName(OBSTACLE_WIDTH).item(0).getTextContent());
+                    int obsWidth = Integer.valueOf(element.getElementsByTagName(OBSTACLE_WIDTH).item(0).getTextContent());
                     int obsHeight = Integer.valueOf(element.getElementsByTagName(OBSTACLE_HEIGHT).item(0).getTextContent());
-                    int obsLength =  Integer.valueOf(element.getElementsByTagName(OBSTACLE_LENGTH).item(0).getTextContent());
+                    int obsLength = Integer.valueOf(element.getElementsByTagName(OBSTACLE_LENGTH).item(0).getTextContent());
                     String obsDescr = element.getElementsByTagName(OBSTACLE_DESCRIPTION).item(0).getTextContent();
                     obsList.add(new Obstacle(obsName, obsWidth, obsHeight, obsLength, obsDescr));
                 }
@@ -172,21 +172,21 @@ public class XMLHelper {
         ArrayList<String> airportsNames = new ArrayList<String>();
         File airportDirectory = new File(AIRPORTS_DIRECTORY);
 
-        if(airportDirectory.exists() && airportDirectory.isDirectory()){
+        if (airportDirectory.exists() && airportDirectory.isDirectory()) {
 
             //select only files that finish in .xml
             File[] xmlFiles = airportDirectory.listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String filename) {
                     return filename.endsWith(".xml");
-                }});
+                }
+            });
 
-            for(File f : xmlFiles){
+            for (File f : xmlFiles) {
                 airportsNames.add(f.getName().split(".xml")[0]);
             }
 
             return airportsNames;
-        }
-        else {
+        } else {
             airportDirectory.mkdirs();
             return null;
         }
@@ -234,9 +234,39 @@ public class XMLHelper {
             DOMSource source = new DOMSource(doc);
             StreamResult myFile = new StreamResult(new FileOutputStream(file));
             transformer.transform(source, myFile);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e)
+    }
+
+    public void removeRunway(String airport, String runwayID) throws ParserConfigurationException, IOException, SAXException
+    {
+        File file = new File(AIRPORTS_DIRECTORY + File.separator + airport + ".xml");
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = db.parse(file);
+        doc.getDocumentElement().normalize();
+
+        Node airportNode = doc.getElementsByTagName(AIRPORT).item(0);
+        NodeList runwayList = ((Element)airportNode).getElementsByTagName(RUNWAY);
+
+        for (int i = 0; i < runwayList.getLength(); i++)
         {
+            Node node = runwayList.item(i);
+            if (node.getAttributes().getNamedItem(ID).getNodeValue().equals(runwayID))
+            {
+                node.getParentNode().removeChild(node);
+                break;
+            }
+        }
+
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult myFile = new StreamResult(new FileOutputStream(file));
+            transformer.transform(source, myFile);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
