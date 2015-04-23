@@ -196,7 +196,6 @@ public class XMLHelper {
 
         File file = new File(AIRPORTS_DIRECTORY + File.separator + fileName);
         ArrayList<Runway> runways = new ArrayList<Runway>();
-        System.out.println(fileName);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(file);

@@ -129,6 +129,7 @@ public class CalculusFrameJavafx extends Application {
         root.setTop(menuBar);
         hsPane.setContent(root);
         hsPane.setRight(fxNotif);
+        hsPane.setTriggerDistance(200);
 
 
 
@@ -450,7 +451,6 @@ public class CalculusFrameJavafx extends Application {
         appMenu = new Menu("Application");
         calculations = new Menu("Calculations");
         colorSchemeMenu = new Menu("Color Scheme");
-        menuBar.getMenus().addAll(file, calculations, colorSchemeMenu);
 
         menuBar.getMenus().addAll(appMenu, file, calculations, colorSchemeMenu);
         appMenu.getItems().addAll(fullscreenItem, exitItem);

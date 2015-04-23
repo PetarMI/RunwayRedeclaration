@@ -17,8 +17,6 @@ import javafx.scene.transform.Translate;
 
 public class ThreeDVisuals extends SubScene {
 
-    public static final int SCENE_WIDTH = 2000;
-    public static final int SCENE_HEIGHT = 3000;
     public static final int LABEL_TRANS_MARGIN = 100;
     public static final int LDA_TRANS = 150;
     public static final int STRIPEND = 60;

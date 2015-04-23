@@ -7,7 +7,6 @@ import Model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,14 +20,11 @@ import javafx.stage.Stage;
 import org.controlsfx.dialog.Dialogs;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-//TODO: Manage the errors with our own exceptions?
 public class BeginFrameJavafx extends Application {
 
     //frame size
@@ -42,7 +38,7 @@ public class BeginFrameJavafx extends Application {
     private Stage stage, runwayStage;
     private GridPane runwayGridPane;
     private ComboBox airportsBox, runwayBox;
-    private Button okBtn, addRunway;
+    private Button okBtn, addRunway, removeRunway;
     private Boolean twoStrips = false;
 
     //table for inputting a new runway
@@ -70,9 +66,9 @@ public class BeginFrameJavafx extends Application {
         setUpListeners();
 
         VBox root = new VBox(5);
-        HBox hbox = new HBox();
+        HBox hbox = new HBox(5);
 
-        hbox.getChildren().addAll(okBtn, addRunway);
+        hbox.getChildren().addAll(okBtn, addRunway, removeRunway);
         root.getChildren().add(airportsBox);
         root.getChildren().add(runwayBox);
         root.setAlignment(Pos.CENTER);
@@ -93,12 +89,17 @@ public class BeginFrameJavafx extends Application {
         runwayBox = new ComboBox();
         okBtn = new Button("Ok");
         addRunway = new Button("Add New Runway");
+        removeRunway = new Button("Remove Runway");
 
         airportsBox.setPrefSize(300, 35);
         runwayBox.setPrefSize(300, 35);
         okBtn.setPrefSize(60, 35);
-        addRunway.setPrefSize(110, 35);
-        addRunway.setTranslateX(130);
+        //addRunway.setPrefSize(80, 35);
+        addRunway.setTranslateX(20);
+        addRunway.setTranslateY(7);
+        //removeRunway.setPrefSize(110, 35);
+        removeRunway.setTranslateX(20);
+        removeRunway.setTranslateY(7);
 
 
 
@@ -109,7 +110,6 @@ public class BeginFrameJavafx extends Application {
             airportsBox.getSelectionModel().selectFirst();      //shows the default value as the first item.
             updateRunwayBox((String) airportsBox.getSelectionModel().getSelectedItem());
             runwayBox.getSelectionModel().selectFirst();
-            System.out.println("Airport: " + airportsBox.getSelectionModel().getSelectedItem());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,6 +219,34 @@ public class BeginFrameJavafx extends Application {
                 String selectedAirport = airportsBox.getSelectionModel().getSelectedItem().toString();
                 updateRunwayBox(selectedAirport);
                 runwayBox.getSelectionModel().selectFirst();
+            }
+        });
+
+        removeRunway.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                try {
+                    if (runwayBox.getSelectionModel().isEmpty()){
+                        return;
+                    }
+                    xmlHelper.removeRunway(airportsBox.getSelectionModel().getSelectedItem().toString(), runwayBox.getSelectionModel().getSelectedItem().toString());
+                    updateRunwayBox(airportsBox.getSelectionModel().getSelectedItem().toString());
+                } catch (IOException e5){
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Error Occured.")
+                            .message("Make sure airport xml in the airports folder!")
+                            .showError();
+                }
+                catch(Exception e6)
+                {
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Error Occured.")
+                            .message("Something went terribly wrong, please contact developers!")
+                            .showError();
+                }
             }
         });
     }
