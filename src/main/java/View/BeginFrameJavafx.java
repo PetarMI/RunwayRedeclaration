@@ -1,5 +1,7 @@
 package View;
 
+import Exceptions.PositiveOnlyException;
+import Exceptions.RunwayIDFormatException;
 import Model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.Dialogs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -255,6 +258,31 @@ public class BeginFrameJavafx extends Application {
                     int LDA2 = Integer.parseInt(lda2.getText());
                     int threshold2 = Integer.parseInt(displacedThreshold2.getText());
 
+                    if (runwayidTemp1.length() == 2)
+                    {
+
+                    }else if (runwayidTemp1.length() == 3){
+
+                    }else{
+                        throw new RunwayIDFormatException();
+                    }
+
+                    if (runwayidTemp2.length() == 2)
+                    {
+
+                    }else if (runwayidTemp2.length() == 3){
+
+                    }else{
+                        throw new RunwayIDFormatException();
+                    }
+
+                    if ((TORA1 < 0) || (TODA1 < 0 || ASDA1 < 0 || LDA1 < 0 || threshold1 < 0)) {
+                        throw new PositiveOnlyException();
+                    }
+                    if ((TORA2 < 0) || (TODA2 < 0 || ASDA2 < 0 || LDA2 < 0 || threshold2 < 0)) {
+                        throw new PositiveOnlyException();
+                    }
+
                     Values values1 = new Values(TORA1, TODA1, ASDA1, LDA1);
                     Values values2 = new Values(TORA2, TODA2, ASDA2, LDA2);
 
@@ -286,10 +314,39 @@ public class BeginFrameJavafx extends Application {
                                     "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers" +
                                     "\n- Specify the Airport name.")
                             .showWarning();
+
+                } catch (PositiveOnlyException e2) {
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("One or more of the inputed values are in the wrong format.")
+                            .message("Follow the below guidelines" +
+                                    "\n- Runway designator should be two numbers followed by a letter ('09L')." +
+                                    "\n- TORA, TODA, ASDA, LDA & Displaced Threshold should be positive integers" +
+                                    "\n- Specify the Airport name.")
+                            .showWarning();
+
+                } catch(RunwayIDFormatException e3){
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Runway Designator format is incorrect.")
+                            .message("Follow the below guidelines" +
+                                    "\n- Format should be 2 integers followed by an optional character")
+                            .showWarning();
+
+                } catch (IOException e4){
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Error Occured.")
+                            .message("Make sure airport xml in the airports folder!")
+                            .showError();
                 }
-                catch(Exception e)
+                catch(Exception e5)
                 {
-                    e.printStackTrace();
+                    Dialogs.create()
+                            .title("Error message")
+                            .masthead("Error Occured.")
+                            .message("Something went terribly wrong, please contact developers!")
+                            .showError();
                 }
             }
         });
