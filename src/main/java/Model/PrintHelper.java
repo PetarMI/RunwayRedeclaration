@@ -24,8 +24,6 @@ public final class PrintHelper
         airportName = airport;
         duplicateFile = 0;
         Values strVals = runway.getStrip1().getOrigVal();
-        //TODO: The printhelper runs to this line and does not carry on
-        //Maybe the folder/file needs to be created first?
         String str = getFileName(filename);
         File file = new File("files/", getFileName(filename));
         bw = new BufferedWriter(new FileWriter(file));
