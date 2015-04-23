@@ -28,9 +28,11 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.controlsfx.control.HiddenSidesPane;
+import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialogs;
 
 import java.awt.*;
+import java.awt.Dialog;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -225,7 +227,7 @@ public class CalculusFrameJavafx extends Application {
         stage.setResizable(true);
         stage.sizeToScene();
         stage.centerOnScreen();
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -271,7 +273,17 @@ public class CalculusFrameJavafx extends Application {
         exitItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.exit(0);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Warning Exit");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to exit?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    System.exit(0);
+                }if (result.get() == ButtonType.CANCEL){
+                    alert.close();
+                }
             }
         });
 
