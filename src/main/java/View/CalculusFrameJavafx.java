@@ -698,9 +698,9 @@ public class CalculusFrameJavafx extends Application {
                 try {
                     String name = nameT.getText();
 
-                    Integer height = Integer.parseInt(heightT.getText());
-                    int width = Integer.parseInt(widthT.getText());
-                    int length = Integer.parseInt(lengthT.getText());
+                    Integer height = Integer.parseInt(heightT.getText().trim());
+                    int width = Integer.parseInt(widthT.getText().trim());
+                    int length = Integer.parseInt(lengthT.getText().trim());
                     String description = descriptionT.getText();
 
                     if (name.equals("")) {

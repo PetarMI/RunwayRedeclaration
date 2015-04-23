@@ -7,6 +7,7 @@ import Model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -67,6 +68,8 @@ public class BeginFrameJavafx extends Application {
 
         VBox root = new VBox(5);
         HBox hbox = new HBox(5);
+        root.setPadding(new Insets(5,5,5,5));
+        hbox.setPadding(new Insets(5,5,5,5));
 
         hbox.getChildren().addAll(okBtn, addRunway, removeRunway);
         root.getChildren().add(airportsBox);
@@ -94,13 +97,8 @@ public class BeginFrameJavafx extends Application {
         airportsBox.setPrefSize(300, 35);
         runwayBox.setPrefSize(300, 35);
         okBtn.setPrefSize(60, 35);
-        //addRunway.setPrefSize(80, 35);
-        addRunway.setTranslateX(20);
-        addRunway.setTranslateY(7);
-        //removeRunway.setPrefSize(110, 35);
-        removeRunway.setTranslateX(20);
-        removeRunway.setTranslateY(7);
-
+        addRunway.setPrefSize(120, 35);
+        removeRunway.setPrefSize(120, 35);
 
 
         this.xmlHelper = new XMLHelper();
@@ -278,20 +276,20 @@ public class BeginFrameJavafx extends Application {
                     String runwayidTemp1 = runwayid1.getText();
                     String orientation1;
                     String position1 = "";
-                    int TORA1 = Integer.parseInt(tora1.getText());
-                    int TODA1 = Integer.parseInt(toda1.getText());
-                    int ASDA1 = Integer.parseInt(asda1.getText());
-                    int LDA1 = Integer.parseInt(lda1.getText());
-                    int threshold1 = Integer.parseInt(displacedThreshold1.getText());
+                    int TORA1 = Integer.parseInt(tora1.getText().trim());
+                    int TODA1 = Integer.parseInt(toda1.getText().trim());
+                    int ASDA1 = Integer.parseInt(asda1.getText().trim());
+                    int LDA1 = Integer.parseInt(lda1.getText().trim());
+                    int threshold1 = Integer.parseInt(displacedThreshold1.getText().trim());
 
                     String runwayidTemp2 = runwayid2.getText();
                     String orientation2;
                     String position2 = "";
-                    int TORA2 = Integer.parseInt(tora2.getText());
-                    int TODA2 = Integer.parseInt(toda2.getText());
-                    int ASDA2 = Integer.parseInt(asda2.getText());
-                    int LDA2 = Integer.parseInt(lda2.getText());
-                    int threshold2 = Integer.parseInt(displacedThreshold2.getText());
+                    int TORA2 = Integer.parseInt(tora2.getText().trim());
+                    int TODA2 = Integer.parseInt(toda2.getText().trim());
+                    int ASDA2 = Integer.parseInt(asda2.getText().trim());
+                    int LDA2 = Integer.parseInt(lda2.getText().trim());
+                    int threshold2 = Integer.parseInt(displacedThreshold2.getText().trim());
 
 
                     String runwayidPattern = "[0-9][0-9][LRC]?";
