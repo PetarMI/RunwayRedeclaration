@@ -403,7 +403,7 @@ public class CalculusFrameJavafx extends Application {
             }
         });
 
-        RadioMenuItem color4 = new RadioMenuItem("Tritanipia Colors");
+        RadioMenuItem color4 = new RadioMenuItem("Tritanopia Colors");
         color4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
