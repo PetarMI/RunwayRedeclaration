@@ -64,6 +64,7 @@ public class BeginFrameJavafx extends Application {
 
     public void start(Stage primaryStage) {
         stage = primaryStage;
+        runwayStage = new Stage();
         setup(primaryStage);
         setUpListeners();
 
@@ -116,7 +117,6 @@ public class BeginFrameJavafx extends Application {
 
 
     private void obstacleFrameJavafx(Integer numOfStrips) {
-        runwayStage = new Stage();
         runwayStage.setTitle("Runway settings");
         runwayGridPane = new GridPane();
 
@@ -245,7 +245,9 @@ public class BeginFrameJavafx extends Application {
                 String airport = (String) airportsBox.getSelectionModel().getSelectedItem();
                 fxNotif.addNotif(new Notif(Notif.RUNWAY_TITLE, Notif.RUNWAY_IMAGE, runway.getRunwayId() + " at " + airport));
                 new CalculusFrameJavafx(runway, airport, fxNotif, false).start(stage);
-                runwayStage.close();
+                if(runwayStage.isShowing()){
+                    runwayStage.close();
+                }
             }
         });
 
